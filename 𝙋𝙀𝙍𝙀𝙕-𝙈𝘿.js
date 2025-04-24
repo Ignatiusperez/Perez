@@ -711,6 +711,41 @@ let options = []
 
 	  }
 		break;
+case "pair": case "rent": {
+if (!q) return await reply("Please provide valid Whatsapp number  Example- pair 2541142XXX");
+
+	try {	
+const numbers = q.split(',') .map((v) => v.replace(/[^0-9]/g, '')) 
+            .filter((v) => v.length > 5 && v.length < 20); 
+
+   if (numbers.length === 0) {
+            return m.reply("Invalid number❌️ Please use the  correct format!");
+        }
+
+for (const number of numbers) {
+            const whatsappID = number + '@s.whatsapp.net';
+    const result = await client.onWhatsApp(whatsappID); 
+
+            if (!result[0]?.exists) {
+                return m.reply(`That number is not registered on WhatsApp❗️`);
+	    }
+	
+m.reply("Wait a moment for the code")
+	
+        let { data } = await axios(`https://perez-md-pairing.onrender.com/code?number=${number}`);
+        let code = data.code;
+		
+const Code = ` ${code}`
+await sleep(5000);
+	
+ await m.reply(Code);
+	}
+    } catch (error) {
+        console.error(error);
+        await reply("An error occurred. Please try again later.");
+    }
+};
+break;		      
 case 'play':{
 const axios = require('axios');
 const yts = require("yt-search");
