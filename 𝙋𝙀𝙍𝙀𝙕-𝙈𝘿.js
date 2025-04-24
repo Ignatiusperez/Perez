@@ -827,6 +827,22 @@ const path = require("path");
   }
 }
 	break; 
+
+		      case "epl": case "epl-table": {
+		      
+try {
+        const data = await fetchJson('https://api.dreaded.site/api/standings/PL');
+        const standings = data.data;
+
+        const message = ` 𝗖𝘂𝗿𝗿𝗲𝗻𝘁 𝗘𝗽𝗹 𝗧𝗮𝗯𝗹𝗲 𝗦𝘁𝗮𝗻𝗱𝗶𝗻𝗴𝘀:-\n\n${standings}`;
+
+        await m.reply(message);
+    } catch (error) {
+        m.reply('Something went wrong. Unable to fetch 𝗘𝗽𝗹 standings.');
+    }
+
+ }
+	break;
 	      case 'snow': {
 		      var mumaker = require("mumaker");
 		     if (!text || text == "") {
