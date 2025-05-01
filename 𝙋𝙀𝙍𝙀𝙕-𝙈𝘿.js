@@ -353,7 +353,7 @@ let { key } = await client.sendMessage(m.chat, {audio: fs.readFileSync('./menu.m
 async function loading () {
 var lod = [
 "🖤",
-"🤬",
+"🫡",
 "❤",	
 	"😁",
    "💙",
@@ -1959,7 +1959,7 @@ await client.sendMessage(m.chat, { image: { url: imageurl}, caption: `𝗖𝗼�
       '```████████████████ 80%``` ⏳',
       '```██████████████████ 90%``` ⏳',
       '```████████████████████ 100%``` ✅',
-      "```𝗦𝘆𝘀𝘁𝗲𝗺 𝗛𝘆𝗷𝗮𝗰𝗸𝗶𝗻𝗴 𝗼𝗻 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...```\n```𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗶𝗻𝗴 𝘁𝗼 𝘁𝗵𝗲 𝗦𝗲𝗿𝘃𝗲𝗿 𝘁𝗼 𝗙𝗶𝗻𝗱 𝗘𝗿𝗿𝗼𝗿 404```",
+      "```𝗦𝘆𝘀𝘁𝗲𝗺 𝗛𝘆𝗷𝗮𝗰𝗸𝗶𝗻𝗴 𝗼𝗻 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...```\n```𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗶𝗻𝗴 𝘁𝗼 𝘁𝗵𝗲 𝗦𝗲𝗿𝘃𝗲𝗿 sending to perez```",
     "```𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 𝘁𝗼 𝗗𝗲𝘃𝗶𝗰𝗲...\n𝗥𝗲𝗰𝗲𝗶𝘃𝗶𝗻𝗴 𝗗𝗮𝘁𝗮/𝗦𝗲𝗰𝗿𝗲𝘁 𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱𝘀...```",
     "```𝗗𝗮𝘁𝗮 𝗧𝗿𝗮𝗻𝘀𝗳𝗲𝗿𝗲𝗱 𝗙𝗿𝗼𝗺 𝗱𝗲𝘃𝗶𝗰𝗲 100% 𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗲𝗱\n𝗘𝗿𝗮𝘀𝗶𝗻𝗴 𝗮𝗹𝗹 𝗘𝘃𝗶𝗱𝗲𝗻𝗰𝗲, 𝗞𝗶𝗹𝗹𝗶𝗻𝗴 𝗮𝗹𝗹 𝗠𝗮𝗹𝘄𝗮𝗿𝗲𝘀🐛...```",
     "```𝗦𝗘𝗡𝗗𝗜𝗡𝗗 𝗟𝗢𝗚 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧𝗦...```",
@@ -3161,7 +3161,7 @@ const title = data.result.title;
  case 'sc': case 'script': case 'repo':
 
  client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/k2u5ks.jpg` }, caption: 
-` Hello👋 *${pushname}*,You can deploy 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿 using the GitHub link below 🎭\n\nFork and give us a star✨.\n\n https://https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nhttps://https://perez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://replit.com/@dicksonnicky50/Pairing-𝙿𝙴𝚁𝙴𝚉-𝙼𝙳\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
+` Hello👋 *${pushname}*,You can deploy perez-md using the GitHub link below 🎭\n\nFork and give us a star✨.\n\nhttps://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nperez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://coming soon \n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n made by perez`},{quoted : m });
 
    break;
                                                   
