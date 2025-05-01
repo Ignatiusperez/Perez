@@ -3161,7 +3161,7 @@ const title = data.result.title;
  case 'sc': case 'script': case 'repo':
 
  client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/k2u5ks.jpg` }, caption: 
-` Hello👋 *${pushname}*,You can deploy perez-md using the GitHub link below 🎭\n\nFork and give us a star✨.\n\nhttps://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nperez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://coming soon \n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n made by perez`},{quoted : m });
+` Hello👋 *${pushname}*,You can deploy perez-md using the GitHub link below 🎭\n\nFork and give us a star✨.\n\nhttps://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nhttps://perez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://coming soon \n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n made by perez`},{quoted : m });
 
    break;
                                                   
