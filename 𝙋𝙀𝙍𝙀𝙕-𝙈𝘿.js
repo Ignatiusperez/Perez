@@ -1636,6 +1636,7 @@ try {
   }
 }   
 break;
+		      
 case 'cast': {
     if (!Owner) throw NotOwner;
       if (!m.isGroup) throw group;
