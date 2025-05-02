@@ -932,7 +932,7 @@ case 'save': {
       }
 
       // Confirm in original chat
-      await m.reply("✅ Status saved to your DM!");
+      await m.reply("perez send it dm....!");
 
     } catch (error) {
       console.error("Save error:", error);
