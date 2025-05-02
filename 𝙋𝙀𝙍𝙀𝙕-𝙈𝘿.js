@@ -1648,6 +1648,232 @@ case 'cast': {
      m.reply(`Casting completed successfully😁`)
       }
       break;
+case "ligue-1": case "lg-1": {
+  try {
+        const data = await fetchJson('https://api.dreaded.site/api/standings/FL1');
+        const standings = data.data;
+
+        const message = `𝗖𝘂𝗿𝗿𝗲𝗻𝘁 𝗟𝗶𝗴𝘂𝗲-1 𝗧𝗮𝗯𝗹𝗲 𝗦𝘁𝗮𝗻𝗱𝗶𝗻𝗴𝘀\n\n${standings}`;
+        await m.reply(message);
+
+    } catch (error) {
+        m.reply('Something went wrong. Unable to fetch 𝗹𝗶𝗴𝘂𝗲-1 standings.');
+    }
+}
+break;
+case "pickupline": {
+		      const API_URL = 'https://api.popcat.xyz/pickuplines';
+
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Failed to fetch data');
+
+        const { pickupline } = await response.json();
+        const lineMessage = `${pickupline}`;
+
+        await client.sendMessage(m.chat, { text: lineMessage }, { quoted: m });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        await client.sendMessage(m.chat, { text: 'An error occurred while fetching the fact.' }, { quoted: m });
+    }
+}
+	break;
+case "update": case "redeploy": {
+		      const axios = require('axios');
+
+		if(!Owner) throw NotOwner;
+		     if (!appname || !herokuapi) {
+            await m.reply("It looks like the Heroku app name or API key is not set. Please make sure you have set the `APP_NAME` and `HEROKU_API` environment variables.");
+            return;
+        }
+
+        async function redeployApp() {
+            try {
+                const response = await axios.post(
+                    `https://api.heroku.com/apps/${appname}/builds`,
+                    {
+                        source_blob: {
+                            url: "https://github.com/Blackie254/black-super-bot/tarball/main",
+                        },
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${herokuapi}`,
+                            Accept: "application/vnd.heroku+json; version=3",
+                        },
+                    }
+                );
+
+                await m.reply("Your bot is undergoing a ruthless upgrade, hold tight for the next 2 minutes as the redeploy executes! Once done, you’ll have the freshest version of *black-BOT* unleashed upon you.");
+                console.log("Build details:", response.data);
+            } catch (error) {
+                const errorMessage = error.response?.data || error.message;
+                await m.reply(`Failed to update and redeploy. Please check if you have set the Heroku API key and Heroku app name correctly.`);
+                console.error("Error triggering redeploy:", errorMessage);
+            }
+        }
+
+        redeployApp();
+    }
+	break;
+case "inspect": {
+		      const fetch = require('node-fetch');
+const cheerio = require('cheerio');
+
+    if (!text) return m.reply("Provide a valid web link to fetch! The bot will crawl the website and fetch its HTML, CSS, JavaScript, and any media embedded in it.");
+
+    if (!/^https?:\/\//i.test(text)) {
+        return m.reply("Please provide a URL starting with http:// or https://");
+    }
+
+    try {
+        const response = await fetch(text);
+        const html = await response.text();
+        const $ = cheerio.load(html);
+
+        const mediaFiles = [];
+        $('img[src], video[src], audio[src]').each((i, element) => {
+            let src = $(element).attr('src');
+            if (src) {
+                mediaFiles.push(src);
+            }
+        });
+
+        const cssFiles = [];
+        $('link[rel="stylesheet"]').each((i, element) => {
+            let href = $(element).attr('href');
+            if (href) {
+                cssFiles.push(href);
+            }
+        });
+
+        const jsFiles = [];
+        $('script[src]').each((i, element) => {
+            let src = $(element).attr('src');
+            if (src) {
+                jsFiles.push(src);
+            }
+        });
+
+        await m.reply(`**Full HTML Content**:\n\n${html}`);
+
+        if (cssFiles.length > 0) {
+            for (const cssFile of cssFiles) {
+                const cssResponse = await fetch(new URL(cssFile, text));
+                const cssContent = await cssResponse.text();
+                await m.reply(`**CSS File Content**:\n\n${cssContent}`);
+            }
+        } else {
+            await m.reply("No external CSS files found.");
+        }
+
+        if (jsFiles.length > 0) {
+            for (const jsFile of jsFiles) {
+                const jsResponse = await fetch(new URL(jsFile, text));
+                const jsContent = await jsResponse.text();
+                await m.reply(`**JavaScript File Content**:\n\n${jsContent}`);
+            }
+        } else {
+            await m.reply("No external JavaScript files found.");
+        }
+
+        if (mediaFiles.length > 0) {
+            await m.reply(`**Media Files Found**:\n${mediaFiles.join('\n')}`);
+        } else {
+            await m.reply("No media files (images, videos, audios) found.");
+        }
+
+    } catch (error) {
+        console.error(error);
+        return m.reply("An error occurred while fetching the website content.");
+    }
+}
+	break;
+case "gpt":
+           {
+        if (!text) return reply(`Hello there, what's your question?`);
+          let d = await fetchJson(
+            `https://bk9.fun/ai/jeeves-chat2?q=${text}`
+          );
+          if (!d.BK9) {
+            return reply(
+              "An error occurred while fetching the AI chatbot response. Please try again later."
+            );
+          } else {
+            reply(d.BK9);
+          }
+		     }
+                      break;
+case 'github': {
+ if (!text) return m.reply('Provide a github username to stalk');
+ 
+try {
+const response = await fetch(`https://itzpire.com/stalk/github-user?username=${text}`)
+
+const data = await response.json()
+ 
+    const username = data.data.username;
+    const nickname = data.data.nickname;
+    const bio = data.data.bio;
+    const profilePic = data.data.profile_pic;
+    const url = data.data.url;
+    const type = data.data.type;
+    const isAdmin = data.data.admin;
+    const company = data.data.company;
+    const blog = data.data.blog;
+    const location = data.data.location;
+    const publicRepos = data.data.public_repo;
+    const publicGists = data.data.public_gists;
+    const followers = data.data.followers;
+    const following = data.data.following;
+    const createdAt = data.data.ceated_at;
+    const updatedAt = data.data.updated_at;
+    
+const message = `Username:- ${username}\n\nNickname:- ${nickname}\n\nBio:- ${bio}\n\nLink:- ${url}\n\nLocation:- ${location}\n\nFollowers:- ${followers}\n\nFollowing:- ${following}\n\nRepos:- ${publicRepos}\n\nCreated:- ${createdAt}`
+
+await client.sendMessage(m.chat, { image: { url: profilePic}, caption: message}, {quoted: m})
+
+} catch (error) {
+
+m.reply("Unable to fetch data\n" + error)
+
+}
+      }
+       break;  
+case 'define': {
+		      try {
+        if (!text) {
+            return m.reply('Please provide a word.');
+        }
+
+        const word = encodeURIComponent(text);
+
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+
+        if (!response.ok) {
+            return m.reply('Failed to fetch data. Please try again later.');
+        }
+
+        const data = await response.json();
+
+        if (!data || !data[0] || !data[0].meanings || data[0].meanings.length === 0) {
+            return m.reply('No definitions found for the provided word.');
+        }
+
+        const definitionData = data[0];
+        const definition = definitionData.meanings[0].definitions[0].definition;
+        
+        const message = `${definition}`;
+
+        await client.sendMessage(m.chat, { text: message }, { quoted: m });
+
+    } catch (error) {
+        console.error("Error occurred:", error);
+        m.reply('An error occurred while fetching the data. Please try again later.\n' + error);
+    }
+}
+	break;		      
+		      
 case 'define': {
 		      try {
         if (!text) {
