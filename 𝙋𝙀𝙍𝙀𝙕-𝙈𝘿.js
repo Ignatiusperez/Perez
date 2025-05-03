@@ -3100,7 +3100,7 @@ case "update": case "redeploy": {
                     }
                 );
 
-                await m.reply("Your bot is undergoing a ruthless upgrade, hold tight for the next 2 minutes as the redeploy executes! Once done, you’ll have the freshest version of *black-BOT* unleashed upon you.");
+                await m.reply("Your bot is undergoing a ruthless upgrade, hold tight for the next 2 minutes as the redeploy executes! Once done, you’ll have the freshest version of *PEREZ-BOT* unleashed upon you.");
                 console.log("Build details:", response.data);
             } catch (error) {
                 const errorMessage = error.response?.data || error.message;
@@ -3176,6 +3176,63 @@ const title = data.result.title;
   
  }
         break;
+	case "pinterest": case "pin":
+	      {      
+	if (!text) return reply('𝗣𝗿𝗼𝘃𝗶𝗱𝗲 𝗮 𝘃𝗮𝗹𝗶𝗱 𝗽𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁 𝗹𝗶𝗻𝗸 !');
+		      
+if (!text.includes("pin.it")) {
+        return m.reply("That is not a pinterest link.");
+    }	
+await client.sendMessage(m.chat, {
+      react: { text: '🔄', key: m.key }
+    });
+ 
+try {
+        const pinterestUrl = text;
+        const response = await axios.get(`https://bk9.fun/download/pinterest?url=${encodeURIComponent(pinterestUrl)}`);
+
+        if (!response.data.status) {
+            return reply('Unable to fetch pinterest data.');
+        }
+
+        const media = response.data.BK9;
+        const capp = `𝑫𝑶𝑾𝑵𝑳𝑶𝑨𝑫𝑬𝑫 𝑩𝒀 𝐁𝐋𝐀𝐂𝐊𝐌𝐀𝐂𝐇𝐀𝐍𝐓 𝐁𝐎𝐓`;
+
+if (media.length > 0) {
+            const videoUrl = media.find(item => item.url.includes('.mp4'))?.url;
+            const imageUrl = media.find(item => item.url.includes('.jpg'))?.url;
+
+if (videoUrl) {
+                await client.sendMessage(m.chat, { video: { url: videoUrl }, caption: capp }, { quoted: m });
+            } else 
+if (imageUrl) {
+                await client.sendMessage(m.chat, { image: { url: imageUrl }, caption: capp }, { quoted: m });
+            } else {
+                reply('No Video found!');
+            }
+        } else {
+            reply('No Image found.');
+        }
+    } catch (e) {
+        console.error(e);
+        await client.sendMessage(m.chat, { react: { text: '☠️', key: mek.key } });
+        reply('An error occurred while processing your request.');
+    }
+}
+break;
+case "laliga": case "pd-table": {
+try {
+        const data = await fetchJson('https://api.dreaded.site/api/standings/PD');
+        const standings = data.data;
+
+        const message = `𝗖𝘂𝗿𝗿𝗲𝗻𝘁 𝗟𝗮𝗹𝗶𝗴𝗮 𝗧𝗮𝗯𝗹𝗲 𝗦𝘁𝗮𝗻𝗱𝗶𝗻𝗴𝘀:-\n\n${standings}`;
+        await m.reply(message);
+
+    } catch (error) {
+        m.reply('Something went wrong. Unable to fetch 𝗟𝗮𝗹𝗶𝗴𝗮 standings.');
+  }
+}   
+break;		      
           case "disp-1": { 
                  if (!m.isGroup) throw group; 
                  if (!isBotAdmin) throw botAdmin; 
