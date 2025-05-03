@@ -4185,7 +4185,23 @@ try {
     }
 
  }
-	break;		      
+	break;
+case "mail": {
+	const  { TempMail } = require("tempmail.lol");
+
+const tempmail = new TempMail();
+
+      const inbox = await tempmail.createInbox();
+      const emailMessage = `${inbox.address}`;
+
+await m.reply(emailMessage);
+
+const mas = await client.sendMessage(m.chat, { text: `${inbox.token}` });
+      
+await client.sendMessage(m.chat, { text: `Quoted text is your token. To fetch messages in your email use <.inbox your-token>`}, { quoted: mas});
+
+      }
+       break;		      
  case "gemini": {
 
     try {
