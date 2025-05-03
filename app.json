@@ -110,6 +110,11 @@
       "description": "Input sticker data for packname",
       "required": false
 },
+    "MODE": {
+      "description": "Input PRIVATE if you don't want other people to use your bot",
+      "value": "PUBLIC",
+      "required": true
+    },
  "GPT_INBOX": {
       "description": "Input TRUE if you want bot to autoreply inbox messages using openai API.",
       "required": false
