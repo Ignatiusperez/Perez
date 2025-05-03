@@ -36,12 +36,7 @@
     "NOT_OWNER_MSG": {
       "description": "Put a message that the bot will send if a parameter that requires only owner user is violated. Example: Owner only",
       "required": true
-    },
-    AUTOLIKE_STATUS": {
-      "description": "input TRUE if you want bot to autolike status updates. This will only work if autostatus view is TRUE",
-      "value": "TRUE",
-      "required": false
-    }
+    }.
     
     
     "BOT_ADMIN_MSG": {
