@@ -24,6 +24,11 @@
       "required": false
 
     },
+     "MODE": {
+      "description": "Input PRIVATE if you don't want other people to use your bot",
+      "value": "PUBLIC",
+      "required": true
+    },
     "DEV": {
       "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114520835,27748379216  ",
       "required": true
