@@ -2821,6 +2821,30 @@ if (users == "254108098259@s.whatsapp.net") return m.reply("It's an Owner Number
 
 }
   break;
+case "anime": case "random-anime": {
+	const axios = require("axios");
+
+  const link = "https://api.jikan.moe/v4/random/anime";
+
+  try {
+    const response = await axios.get(link);
+    const data = response.data.data;
+
+    const title = data.title;
+    const synopsis = data.synopsis;
+    const imageUrl = data.images.jpg.image_url;
+    const episodes = data.episodes;
+    const status = data.status;
+
+    const message = `📺 Title: ${title}\n🎬 Épisodes: ${episodes}\n📡 Status: ${status}\n📝 Synopsis: ${synopsis}\n🔗 URL: ${data.url}`;
+
+    await client.sendMessage(m.chat, { image: { url: imageUrl }, caption: message }, { quoted: m });
+  } catch (error) {
+    
+   m.reply('𝗢𝗼𝗽𝘀 𝗘𝗿𝗿𝗼𝗿!');
+  }
+	}
+	 break;		      
 	      case "instagram": case "igdl": case "ig": {
 		      
 const { igdl } = require("ruhend-scraper");
