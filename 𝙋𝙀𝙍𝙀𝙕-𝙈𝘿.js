@@ -1729,6 +1729,21 @@ m.reply("I am unable to analyze images at the moment\n" + e)
   }
 }
 	 break;
+	case "gpt":
+           {
+        if (!text) return reply(`Hello there, what's your question?`);
+          let d = await fetchJson(
+            `https://bk9.fun/ai/jeeves-chat2?q=${text}`
+          );
+          if (!d.BK9) {
+            return reply(
+              "An error occurred while fetching the AI chatbot response. Please try again later."
+            );
+          } else {
+            reply(d.BK9);
+          }
+		     }
+                      break;	      
 
 		case 'define': {
 		      try {
