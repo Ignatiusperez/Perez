@@ -3032,6 +3032,86 @@ caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝙋𝙀𝙍𝙀𝙕
     }
 }
 break;
+case 'save': {
+  const textL = m.text.toLowerCase();
+  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
+
+  // Check if user quoted a status
+  if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
+    return m.reply("❌ You must reply to a status to save it");
+  }
+
+  if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
+    try {
+      // Send to user's DM instead of group chat
+      const userDM = m.sender; // Get user's personal chat ID
+
+      if (quotedMessage.imageMessage) {
+        let imageCaption = quotedMessage.imageMessage.caption || "Saved from status";
+        let imageBuffer = await client.downloadMediaMessage(m.quoted);
+        await client.sendMessage(userDM, { 
+          image: imageBuffer, 
+          caption: imageCaption 
+        });
+      }
+
+      if (quotedMessage.videoMessage) {
+        let videoCaption = quotedMessage.videoMessage.caption || "Saved from status";
+        let videoBuffer = await client.downloadMediaMessage(m.quoted);
+        await client.sendMessage(userDM, { 
+          video: videoBuffer, 
+          caption: videoCaption 
+        });
+      }
+
+      // Confirm in original chat
+      await m.reply("delivered dm");
+
+    } catch (error) {
+      console.error("Save error:", error);
+      await m.reply("❌ Failed perez-md!.");
+    }
+  }
+}
+break;	
+case "update": case "redeploy": {
+		      const axios = require('axios');
+
+		if(!Owner) throw NotOwner;
+		     if (!appname || !herokuapi) {
+            await m.reply("It looks like the Heroku app name or API key is not set. Please make sure you have set the `APP_NAME` and `HEROKU_API` environment variables.");
+            return;
+        }
+
+        async function redeployApp() {
+            try {
+                const response = await axios.post(
+                    `https://api.heroku.com/apps/${appname}/builds`,
+                    {
+                        source_blob: {
+                            url: "https://github.com/Ignatiusperez/Perez/",
+                        },
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${herokuapi}`,
+                            Accept: "application/vnd.heroku+json; version=3",
+                        },
+                    }
+                );
+
+                await m.reply("Your bot is undergoing a ruthless upgrade, hold tight for the next 2 minutes as the redeploy executes! Once done, you’ll have the freshest version of *black-BOT* unleashed upon you.");
+                console.log("Build details:", response.data);
+            } catch (error) {
+                const errorMessage = error.response?.data || error.message;
+                await m.reply(`Failed to update and redeploy. Please check if you have set the Heroku API key and Heroku app name correctly.`);
+                console.error("Error triggering redeploy:", errorMessage);
+            }
+        }
+
+        redeployApp();
+    }
+	break;		      
 	      case "song": {
 		      const yts = require("yt-search");
 
