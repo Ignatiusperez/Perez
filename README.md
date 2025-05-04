@@ -47,7 +47,10 @@ Linking/Pairing:
   <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
 </p>    
 
-
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
 ###  𝗗𝗘𝗣𝗟𝗢𝗬 𝗢𝗡 𝗛𝗘𝗥𝗢𝗞𝗨:
 <!-- Glowing Footer -->
 <p align="center">
@@ -55,6 +58,7 @@ Linking/Pairing:
 </p>
 
  ***[![Tap to deploy on heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/Ignatiusperez/Perez&template=https://github.com/Ignatiusperez/Perez.git)***
+* - Copy The Session ID for it Will be needed during deployment*
  
 <!-- Glowing Footer -->
 <p align="center">
@@ -74,7 +78,13 @@ Linking/Pairing:
  
 <div align="center">
 
-
+### DISCLAIMER 🛡 
+- Copying or modying this script is not
+allowed! For we shall not offer any help if any error occur!
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
 
 
 ## License
