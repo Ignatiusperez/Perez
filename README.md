@@ -39,6 +39,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
   <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
 </p>
 Linking/Pairing:
+
 ## ` Pair onrender`
 
 [𝗛𝗘𝗥𝗘](https://perez-md-pairing.onrender.com)
