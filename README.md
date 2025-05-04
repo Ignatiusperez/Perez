@@ -44,7 +44,10 @@ Linking/Pairing:
 
  ***[![Tap to deploy on heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/Ignatiusperez/Perez&template=https://github.com/Ignatiusperez/Perez.git)***
  
- 
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p> 
 
     
 
