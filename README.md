@@ -34,7 +34,10 @@ This is a highly customisable simple whatsapp bot with group management features
 Our AI features use random APIs to run, so sometimes they may be down.
 
 # SET-UP
-
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
 Linking/Pairing:
 ## ` Pair onrender`
 [𝗛𝗘𝗥𝗘](https://perez-md-pairing.onrender.com)
@@ -46,7 +49,10 @@ Linking/Pairing:
 
 
 ###  𝗗𝗘𝗣𝗟𝗢𝗬 𝗢𝗡 𝗛𝗘𝗥𝗢𝗞𝗨:
-
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
 
  ***[![Tap to deploy on heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/Ignatiusperez/Perez&template=https://github.com/Ignatiusperez/Perez.git)***
  
@@ -60,7 +66,10 @@ Linking/Pairing:
 - Fill in the required variables into your hosting site for bot to work.
  </h2>
      
-
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
     
  
 <div align="center">
