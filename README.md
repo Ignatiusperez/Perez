@@ -24,7 +24,10 @@
 
 
 ***This bot is created with the help of NodeJS and uses [Baileys](https://github.com/whiskeysockets/Baileys)***
-
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
 ## FEATURES
 This is a highly customisable simple whatsapp bot with group management features and few media commands and chatgpt courtesy of Gemini.
 
@@ -36,7 +39,10 @@ Linking/Pairing:
 ## ` Pair onrender`
 [𝗛𝗘𝗥𝗘](https://perez-md-pairing.onrender.com)
             
-    
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>    
 
 
 ###  𝗗𝗘𝗣𝗟𝗢𝗬 𝗢𝗡 𝗛𝗘𝗥𝗢𝗞𝗨:
