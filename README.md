@@ -104,4 +104,7 @@ allowed! For we shall not offer any help if any error occur!
 [MIT License](https://github.com/perez-BOT/blob/main/LICENSE)
 
 𝐂𝐨𝐩𝐲𝐫𝐢𝐠𝐡𝐭 (𝐜) 𝟐𝟎𝟐𝟓 𝐑𝐏𝐄𝐑𝐄𝐙-𝐁𝐎𝐓
-
+<!-- Glowing Footer -->
+<p align="center">
+  <img src="https://i.imgur.com/dBaSKWF.gif" height="40" width="100%">
+</p>
