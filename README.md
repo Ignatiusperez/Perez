@@ -40,11 +40,11 @@ Our AI features use random APIs to run, so sometimes they may be down.
 </p>
 Linking/Pairing:
 
-## ` Pair onrender`
+## 1.` Pair onrender`
 
 [𝗛𝗘𝗥𝗘](https://perez-md-pairing.onrender.com)
 
-## 1.` Pair onrender`
+## 2.` Pair onrender`
 
 [𝗛𝗘𝗥𝗘](https://perez-2.onrender.com)
             
