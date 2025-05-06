@@ -43,6 +43,10 @@ Linking/Pairing:
 ## ` Pair onrender`
 
 [𝗛𝗘𝗥𝗘](https://perez-md-pairing.onrender.com)
+
+## ` Pair onrender`
+
+[𝗛𝗘𝗥𝗘](https://perez-2.onrender.com)
             
 <!-- Glowing Footer -->
 <p align="center">
