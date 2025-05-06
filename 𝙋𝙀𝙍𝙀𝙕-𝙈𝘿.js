@@ -689,6 +689,48 @@ client.sendMessage(m.chat, {
 }
           // Group Commands
 break;
+if (!msg || msg === null || typeof msg === 'undefined') {
+            console.log('Message not found - Key:', key, 'Chat:', key.remoteJid);
+            return;
+        }
+
+        // Get chat info (group name or user name) for the notification
+        let chatName = key.remoteJid.includes('@g.us') ? (await zk.groupMetadata(key.remoteJid)).subject : key.remoteJid.split('@')[0];
+
+        // Get timestamp of the deleted message
+        let timestamp = msg.messageTimestamp ? new Date(msg.messageTimestamp * 1000).toLocaleString() : 'Unknown time';
+
+        // Send anti-delete notification with more details
+        await zk.sendMessage(
+            idBot,
+            {
+                image: { url: './media/deleted-message.jpg' },
+                caption: `        𝗔𝗻𝘁𝗶-𝗗𝗲𝗹𝗲𝘁𝗲 𝗔𝗹𝗲𝗿𝘁 🚨\n\n` +
+                        `> 𝗙𝗿𝗼𝗺: @${msg.key.participant.split('@')[0]}\n` +
+                        `> 𝗖𝗵𝗮𝘁: ${chatName}\n` +
+                        `> D𝗲𝗹𝗲𝘁𝗲𝗱 𝗔𝘁: ${timestamp}\n\n` +
+                        `𝗛𝗲𝗿𝗲’𝘀 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝘁𝗲𝗱 𝗺𝗲𝘀𝘀𝗮𝗴𝗲 𝗯𝗲𝗹𝗼𝘄! 👇`,
+                mentions: [msg.key.participant],
+            }
+        ).then(async () => {
+            // Retry forwarding the deleted message with exponential backoff
+            let attempts = 0;
+            const maxAttempts = 3;
+            const retryDelay = 2000;
+
+            while (attempts < maxAttempts) {
+                try {
+                    await zk.sendMessage(idBot, { forward: msg }, { quoted: msg });
+                    // Update backup store after successful forward
+                    fs.writeFileSync(backupSt, JSON.stringify(jsonData, null, 2));
+                    break;
+                } catch (retryError) {
+                    attempts++;
+                    console.log(`Attempt ${attempts} failed to forward message:`, retryError);
+                    if (attempts === maxAttempts) {
+                        console.log('Max retry attempts reached');
+                        await zk.sendMessage(idBot, { text: `𝗖𝗼𝘂𝗹𝗱𝗻’𝘁 𝗳𝗼𝗿𝘄𝗮𝗿𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝘁𝗲𝗱 𝗺𝗲𝘀𝘀𝗮𝗴𝗲 𝗮𝗳𝘁𝗲𝗿 ${maxAttempts} 𝗮𝘁𝘁𝗲𝗺𝗽𝘁𝘀. 𝗘𝗿𝗿𝗼𝗿: ${retryError.message}` });
+                        break;		      
 
 
 case "advice":
