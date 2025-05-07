@@ -132,79 +132,124 @@ const runtime = function (seconds) {
  const timestamp = speed(); 
    const dreadedspeed = speed() - timestamp 
 
-	  //antidelete function
-const baseDir = 'message_data';
-if (!fs.existsSync(baseDir)) {
-  fs.mkdirSync(baseDir);
-}
+/************************ anti-delete-message */
 
-function loadChatData(remoteJid, messageId) {
-  const chatFilePath = path.join(baseDir, remoteJid, `${messageId}.json`);
-  try {
-    const data = fs.readFileSync(chatFilePath, 'utf8');
-    return JSON.parse(data) || [];
-  } catch (error) {
-    return [];
-  }
-}
+if (ms.message.protocolMessage && ms.message.protocolMessage.type === 0 && (conf.ADM).toLocaleLowerCase() === 'yes') {
 
-function saveChatData(remoteJid, messageId, chatData) {
-  const chatDir = path.join(baseDir, remoteJid);
-
-  if (!fs.existsSync(chatDir)) {
-    fs.mkdirSync(chatDir, { recursive: true });
-  }
-
-  const chatFilePath = path.join(chatDir, `${messageId}.json`);
-
-  try {
-    fs.writeFileSync(chatFilePath, JSON.stringify(chatData, null, 2));
-  } catch (error) {
-    console.error('Error saving chat data:', error);
-  }
-}
-
-function handleIncomingMessage(message) {
-  const remoteJid = message.key.remoteJid;
-  const messageId = message.key.id;
-
-  const chatData = loadChatData(remoteJid, messageId);
-  chatData.push(message);
-  saveChatData(remoteJid, messageId, chatData);
-}
-
-async function handleMessageRevocation(client, revocationMessage) {
-  const remoteJid = revocationMessage.key.remoteJid;
-  const messageId = revocationMessage.message.protocolMessage.key.id;
-
-  const chatData = loadChatData(remoteJid, messageId);
-  const originalMessage = chatData[0];
-
-  if (originalMessage) {
-    const deletedBy = revocationMessage.participant || revocationMessage.key.participant || revocationMessage.key.remoteJid;
-    const sentBy = originalMessage.key.participant || originalMessage.key.remoteJid;
-
-    const deletedByFormatted = `@${deletedBy.split('@')[0]}`;
-    const sentByFormatted = `@${sentBy.split('@')[0]}`;
-
-if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
-
-    let notificationText = `░ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 ░\n\n` +
-      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
-
-    if (originalMessage.message?.conversation) {
-      // Text message
-      const messageText = originalMessage.message.conversation;
-      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
-    } else if (originalMessage.message?.extendedTextMessage) {
-      // Extended text message (quoted messages)
-      const messageText = originalMessage.message.extendedTextMessage.text;
-      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
+    if (ms.key.fromMe || ms.message.protocolMessage.key.fromMe) {
+        console.log('Delete message about me');
+        return;
     }
-  }
- }
+
+    console.log(`Message `);
+    let key = ms.message.protocolMessage.key;
+
+    try {
+        let st = './clintondb/store.json';
+        let backupSt = './clintondb/store_backup.json';
+        let data;
+
+        // Ensure store.json exists, create if missing
+        if (!fs.existsSync(st)) {
+            console.log('store.json not found, creating new file');
+            fs.writeFileSync(st, JSON.stringify({ messages: {} }, null, 2));
+        }
+
+        // Try reading primary store, fallback to backup if it fails
+        try {
+            data = fs.readFileSync(st, 'utf8');
+        } catch (primaryError) {
+            console.log('Failed to read store.json, attempting backup:', primaryError);
+            if (fs.existsSync(backupSt)) {
+                data = fs.readFileSync(backupSt, 'utf8');
+            } else {
+                console.log('Backup store.json not found');
+                throw new Error('No valid store file available');
+            }
+        }
+
+        // Parse JSON with validation
+        let jsonData;
+        try {
+            jsonData = JSON.parse(data);
+        } catch (parseError) {
+            console.log('JSON parse error:', parseError);
+            throw new Error('Corrupted store file');
+        }
+
+        // Ensure messages object exists for the chat
+        if (!jsonData.messages[key.remoteJid]) {
+            console.log('No messages found for chat:', key.remoteJid);
+            return;
+        }
+
+        let message = jsonData.messages[key.remoteJid];
+        let msg;
+
+        // Search for the deleted message in store.json
+        for (let i = 0; i < message.length; i++) {
+            if (message[i].key.id === key.id) {
+                msg = message[i];
+                break;
+            }
+        }
+
+        // If message not found, log more details for debugging
+        if (!msg || msg === null || typeof msg === 'undefined') {
+            console.log('Message not found - Key:', key, 'Chat:', key.remoteJid);
+            return;
+        }
+
+        // Get chat info (group name or user name) for the notification
+        let chatName = key.remoteJid.includes('@g.us') ? (await zk.groupMetadata(key.remoteJid)).subject : key.remoteJid.split('@')[0];
+
+        // Get timestamp of the deleted message
+        let timestamp = msg.messageTimestamp ? new Date(msg.messageTimestamp * 1000).toLocaleString() : 'Unknown time';
+
+        // Send anti-delete notification with more details
+        await zk.sendMessage(
+            idBot,
+            {
+                image: { url: './media/deleted-message.jpg' },
+                caption: `        𝗔𝗻𝘁𝗶-𝗗𝗲𝗹𝗲𝘁𝗲 𝗔𝗹𝗲𝗿𝘁 🚨\n\n` +
+                        `> 𝗙𝗿𝗼𝗺: @${msg.key.participant.split('@')[0]}\n` +
+                        `> 𝗖𝗵𝗮𝘁: ${chatName}\n` +
+                        `> D𝗲𝗹𝗲𝘁𝗲𝗱 𝗔𝘁: ${timestamp}\n\n` +
+                        `𝗛𝗲𝗿𝗲’𝘀 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝘁𝗲𝗱 𝗺𝗲𝘀𝘀𝗮𝗴𝗲 𝗯𝗲𝗹𝗼𝘄! 👇`,
+                mentions: [msg.key.participant],
+            }
+        ).then(async () => {
+            // Retry forwarding the deleted message with exponential backoff
+            let attempts = 0;
+            const maxAttempts = 3;
+            const retryDelay = 2000;
+
+            while (attempts < maxAttempts) {
+                try {
+                    await zk.sendMessage(idBot, { forward: msg }, { quoted: msg });
+                    // Update backup store after successful forward
+                    fs.writeFileSync(backupSt, JSON.stringify(jsonData, null, 2));
+                    break;
+                } catch (retryError) {
+                    attempts++;
+                    console.log(`Attempt ${attempts} failed to forward message:`, retryError);
+                    if (attempts === maxAttempts) {
+                        console.log('Max retry attempts reached');
+                        await zk.sendMessage(idBot, { text: `𝗖𝗼𝘂𝗹𝗱𝗻’𝘁 𝗳𝗼𝗿𝘄𝗮𝗿𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝘁𝗲𝗱 𝗺𝗲𝘀𝘀𝗮𝗴𝗲 𝗮𝗳𝘁𝗲𝗿 ${maxAttempts} 𝗮𝘁𝘁𝗲𝗺𝗽𝘁𝘀. 𝗘𝗿𝗿𝗼𝗿: ${retryError.message}` });
+                        break;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, retryDelay * Math.pow(2, attempts)));
+                }
+            }
+        });
+
+    } catch (e) {
+        console.log('Anti-delete error:', e);
+        // Log more details for debugging
+        console.log('Key:', key, 'Chat:', key.remoteJid, 'Error Stack:', e.stack);
+    }
+}
+	
 	  
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
