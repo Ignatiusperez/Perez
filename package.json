@@ -43,6 +43,7 @@
      "crypto": "^1.0.1",
       "imgur": "2.3.0",
      "figlet": "^1.5.2", 
+      "express": "latest",
      "fs": "0.0.1-security", 
          "stream": "^0.0.2", 
          "fluent-ffmpeg": "^2.1.2", 
