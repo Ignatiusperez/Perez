@@ -3,7 +3,7 @@ const session = process.env.SESSION || '';
 const antiforeign = process.env.ANTIFOREIGN || 'TRUE';
 const autobio = process.env.AUTOBIO || 'TRUE';
 const autolike = process.env.AUTOLIKE_STATUS || 'FALSE';
-const anticall = process.env.AUTOREJECT_CALL || 'TRUE';
+const anticall = process.env.AUTOREJECT_CALL || 'FALSE;
 let botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 
 const {
