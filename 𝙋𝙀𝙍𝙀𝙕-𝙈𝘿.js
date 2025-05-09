@@ -47,7 +47,7 @@ module.exports = Perez = async (client, m, chatUpdate, store) => {
 	  var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
 	  
    // leave the prefix string empty if you don't want the bot to use a prefix
-  const prefix = process.env.PREFIX || '';
+  const prefix = process.env.PREFIX || '!';
 const Heroku = require("heroku-client");  
  const appname = process.env.APP_NAME || '';
  const herokuapi = process.env.HEROKU_API;
@@ -90,7 +90,7 @@ const mode = process.env.MODE || 'PUBLIC';
             const qmsg = (quoted.msg || quoted);
     const author = process.env.STICKER_AUTHOR ||'𝗕𝗢𝗧';
     const packname = process.env.STICKER_PACKNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
-const dev = process.env.DEV || '254108098259';
+const dev = process.env.DEV || 255760317060';
 const menu = process.env.MENU_TYPE || 'VIDEO';
 
  const DevDreaded = dev.split(",");
@@ -113,7 +113,7 @@ const admin = process.env.ADMIN_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗿𝗲�
     const NotOwner = process.env.NOT_OWNER_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝘁𝗵𝗲 𝗼𝘄𝗻𝗲𝗿!';
 const wapresence = process.env.WA_PRESENCE || 'recording';
 const antilink = process.env.ANTILINK || 'TRUE';
-const mycode = process.env.CODE || '254';
+const mycode = process.env.CODE || '255';
 const antilinkall = process.env.ANTILINK_ALL || 'TRUE';
  
 const runtime = function (seconds) { 
