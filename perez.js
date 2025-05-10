@@ -133,40 +133,6 @@ const runtime = function (seconds) {
    const dreadedspeed = speed() - timestamp 
 
 	  //antidelete function
-const baseDir = 'message_data';
-if (!fs.existsSync(baseDir)) {
-  fs.mkdirSync(baseDir);
-}
-
-function loadChatData(remoteJid, messageId) {
-  const chatFilePath = path.join(baseDir, remoteJid, `${messageId}.json`);
-  try {
-    const data = fs.readFileSync(chatFilePath, 'utf8');
-    return JSON.parse(data) || [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveChatData(remoteJid, messageId, chatData) {
-  const chatDir = path.join(baseDir, remoteJid);
-
-  if (!fs.existsSync(chatDir)) {
-    fs.mkdirSync(chatDir, { recursive: true });
-  }
-
-  const chatFilePath = path.join(chatDir, `${messageId}.json`);
-
-  try {
-    fs.writeFileSync(chatFilePath, JSON.stringify(chatData, null, 2));
-  } catch (error) {
-    console.error('Error saving chat data:', error);
-  }
-}
-
-function handleIncomingMessage(message) {
-  const remoteJid = message.key.remoteJid;
-  const messageId = message.key.id;
 
   const chatData = loadChatData(remoteJid, messageId);
   chatData.push(message);
@@ -189,7 +155,7 @@ async function handleMessageRevocation(client, revocationMessage) {
 
 if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
 
-    let notificationText = `░ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 ░\n\n` +
+    let notificationText = `░holla » » 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿 𝑨𝑵𝑻𝑰𝑫𝑬𝑳𝑬𝑻𝑬 𝑹𝑬𝑷𝑶𝑹𝑻░\n\n` +
       ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
 
     if (originalMessage.message?.conversation) {
