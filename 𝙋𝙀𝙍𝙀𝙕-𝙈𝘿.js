@@ -1948,30 +1948,7 @@ reply(resultt.stderr)
     });
 
 break;
-		      case 'save': {
-  const textL = m.text.toLowerCase();
-  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
 
-if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
-    return m.reply("You did not tag a status media to save.");
-  }
-
-if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
-    
-    if (quotedMessage.imageMessage) {
-      let imageCaption = quotedMessage.imageMessage.caption;
-      let imageUrl = await client.downloadAndSaveMediaMessage(quotedMessage.imageMessage);
-      client.sendMessage(m.chat, { image: { url: imageUrl }, caption: imageCaption });
-    }
-
-    if (quotedMessage.videoMessage) {
-      let videoCaption = quotedMessage.videoMessage.caption;
-      let videoUrl = await client.downloadAndSaveMediaMessage(quotedMessage.videoMessage);
-      client.sendMessage(m.chat, { video: { url: videoUrl }, caption: videoCaption });
-    }
-     }
-      }
-    break;
 	      case 'gitclone': {
 		      if (!text) return m.reply(`Where is the link?`)
 if (!text.includes('github.com')) return m.reply(`Is that a GitHub repo link ?!`)
@@ -3276,48 +3253,6 @@ caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝙋𝙀𝙍𝙀𝙕
         m.reply("Download failed\n" + error.message);
     }
 }
-break;
-case 'save': {
-  const textL = m.text.toLowerCase();
-  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
-
-  // Check if user quoted a status
-  if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
-    return m.reply("❌ You must reply to a status to save it");
-  }
-
-  if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
-    try {
-      // Send to user's DM instead of group chat
-      const userDM = m.sender; // Get user's personal chat ID
-
-      if (quotedMessage.imageMessage) {
-        let imageCaption = quotedMessage.imageMessage.caption || "Saved from status";
-        let imageBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          image: imageBuffer, 
-          caption: imageCaption 
-        });
-      }
-
-      if (quotedMessage.videoMessage) {
-        let videoCaption = quotedMessage.videoMessage.caption || "Saved from status";
-        let videoBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          video: videoBuffer, 
-          caption: videoCaption 
-        });
-      }
-
-      // Confirm in original chat
-      await m.reply("delivered dm");
-
-    } catch (error) {
-      console.error("Save error:", error);
-      await m.reply("❌ Failed perez-md!.");
-    }
-  }
-}
 break;	
 case "update": case "redeploy": {
 		      const axios = require('axios');
@@ -3356,49 +3291,7 @@ case "update": case "redeploy": {
 
         redeployApp();
     }
-	break;
-	case 'save': {
-  const textL = m.text.toLowerCase();
-  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
-
-  // Check if user quoted a status
-  if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
-    return m.reply("❌ You must reply to a status to save it");
-  }
-
-  if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
-    try {
-      // Send to user's DM instead of group chat
-      const userDM = m.sender; // Get user's personal chat ID
-
-      if (quotedMessage.imageMessage) {
-        let imageCaption = quotedMessage.imageMessage.caption || "Saved from status";
-        let imageBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          image: imageBuffer, 
-          caption: imageCaption 
-        });
-      }
-
-      if (quotedMessage.videoMessage) {
-        let videoCaption = quotedMessage.videoMessage.caption || "Saved from status";
-        let videoBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          video: videoBuffer, 
-          caption: videoCaption 
-        });
-      }
-
-      // Confirm in original chat
-      await m.reply("🤭");
-
-    } catch (error) {
-      console.error("Save error:", error);
-      await m.reply("❌ Failed to save status. Please try again.");
-    }
-  }
-}
-break;	      
+	break;	      
 	      case "song": {
 		      const yts = require("yt-search");
 
@@ -3438,7 +3331,7 @@ const title = data.result.title;
  case 'sc': case 'script': case 'repo':
 
  client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/k2u5ks.jpg` }, caption: 
-` Hello👋 *${pushname}*,You can deploy 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿 using the GitHub link below 🎭\n\nFork and give us a star✨.\n\n https://https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nhttps://https://perez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://replit.com/@dicksonnicky50/Pairing-𝙿𝙴𝚁𝙴𝚉-𝙼𝙳\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
+` Hello👋 *${pushname}*,You can deploy PEREZ-MD using the GitHub link below 🎭\n\nFork and give us a star✨.\n\nhttps://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nhttps://perez-md-pairing.onrender.com\n\nPair on replit👇\n\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
 
    break;
                                                   
