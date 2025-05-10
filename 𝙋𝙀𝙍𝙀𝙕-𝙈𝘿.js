@@ -204,7 +204,7 @@ if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) retur
       await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
     }
   }
- }
+}
 	  
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
