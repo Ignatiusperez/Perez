@@ -123,7 +123,7 @@ await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '😳
       
       m = smsg(client, mek, store);
       
-  const Perez = require("./𝙋𝙀𝙍𝙀𝙕-𝙈𝘿");
+  const Perez = require("./perez.js");
 Perez(client, m, chatUpdate, store);
 
       } catch (err) {
