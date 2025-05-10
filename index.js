@@ -112,7 +112,7 @@ if (autobio === 'TRUE'){
 
 const mokayas = await client.decodeJid(client.user.id);
 
-await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '😳'}}, { statusJidList: [mek.key.participant, mokayas] });
+await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '🧚'}}, { statusJidList: [mek.key.participant, mokayas] });
       }
       
       if (autoviewstatus === 'TRUE' && mek.key && mek.key.remoteJid === "status@broadcast") {
