@@ -189,7 +189,7 @@ async function handleMessageRevocation(client, revocationMessage) {
 
 if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
 
-    let notificationText = `░ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 ░\n\n` +
+    let notificationText = `░holla » » 𝙋𝙀𝙍𝙀𝙕 𝑨𝑵𝑻𝑰𝑫𝑬𝑳𝑬𝑻𝑬 𝑹𝑬𝑷𝑶𝑹𝑻░\n\n` +
       ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
 
     if (originalMessage.message?.conversation) {
@@ -204,7 +204,7 @@ if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) retur
       await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
     }
   }
- }
+}
 	  
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
