@@ -4,7 +4,8 @@ const antiforeign = process.env.ANTIFOREIGN || 'TRUE';
 const autobio = process.env.AUTOBIO || 'TRUE';
 const autolike = process.env.AUTOLIKE_STATUS || 'TRUE';
 const anticall = process.env.AUTOREJECT_CALL || 'TRUE';
-let botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
+const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
+const port = process.env.PORT || 8000;
 
 const {
   default: perezConnect,
@@ -27,6 +28,7 @@ const FileType = require("file-type");
 const figlet = require("figlet");
 let lastTextTime = 0;
 const messageDelay = 5000;
+const express = require("express");
 const currentTime = Date.now();
 const packname = process.env.STICKER_PACKNAME;
 const _ = require("lodash");
@@ -37,7 +39,7 @@ const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream
 
 const autoviewstatus = process.env.AUTOVIEW_STATUS || 'TRUE';
 const welcome = process.env.WELCOME || 'TRUE';
-
+const app = express();
 const color = (text, color) => {
   return !color ? chalk.green(text) : chalk.keyword(color)(text);
 };
@@ -776,6 +778,10 @@ client.sendFile = async(jid, PATH, fileName, quoted = {}, options = {}) => {
 
   return client;
 }
+
+app.use(express.static("perez"));
+app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
+app.listen(port, () => console.log(`📡 Connected on port http://localhost:${port}`));
 
 startperez();
 
