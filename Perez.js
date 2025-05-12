@@ -133,30 +133,7 @@ const runtime = function (seconds) {
    const dreadedspeed = speed() - timestamp 
 
 	  //antidelete function
-    const color = (text, color) => {
-      return !color ? chalk.green(text) : chalk.keyword(color)(text);
-    };
-//========================================================================================================================//	  
-    const mime = (quoted.msg || quoted).mimetype || "";
-    const qmsg = (quoted.msg || quoted);
-    const cmd = body.startsWith(prefix);
-    const badword = bad.split(",");
-    const Owner = DevRaven.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
-    
-//========================================================================================================================//		      
-//========================================================================================================================//	      
-     const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
-     const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
-     const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
-     const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
-     const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
-     const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
-     const Dev = '254114660061'.split(",");
-     const date = new Date()  
-     const timestamp = speed(); 
-     const Rspeed = speed() - timestamp 
-//========================================================================================================================//
-//========================================================================================================================//
+	  
 const baseDir = 'message_data';
 if (!fs.existsSync(baseDir)) {
   fs.mkdirSync(baseDir);
@@ -1973,29 +1950,7 @@ reply(resultt.stderr)
 
 break;
 		      case 'save': {
-  const textL = m.text.toLowerCase();
-  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
-
-if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
-    return m.reply("You did not tag a status media to save.");
-  }
-
-if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
-    
-    if (quotedMessage.imageMessage) {
-      let imageCaption = quotedMessage.imageMessage.caption;
-      let imageUrl = await client.downloadAndSaveMediaMessage(quotedMessage.imageMessage);
-      client.sendMessage(m.chat, { image: { url: imageUrl }, caption: imageCaption });
-    }
-
-    if (quotedMessage.videoMessage) {
-      let videoCaption = quotedMessage.videoMessage.caption;
-      let videoUrl = await client.downloadAndSaveMediaMessage(quotedMessage.videoMessage);
-      client.sendMessage(m.chat, { video: { url: videoUrl }, caption: videoCaption });
-    }
-     }
-      }
-    break;
+  
 	      case 'gitclone': {
 		      if (!text) return m.reply(`Where is the link?`)
 if (!text.includes('github.com')) return m.reply(`Is that a GitHub repo link ?!`)
