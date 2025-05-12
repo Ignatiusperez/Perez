@@ -201,7 +201,7 @@ if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) retur
       // Extended text message (quoted messages)
       const messageText = originalMessage.message.extendedTextMessage.text;
       notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
+      await client.sendMessage(m.chat, { text: notificationText }, { quoted: m });
     }
   }
 }
