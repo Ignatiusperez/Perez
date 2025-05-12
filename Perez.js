@@ -133,48 +133,102 @@ const runtime = function (seconds) {
    const dreadedspeed = speed() - timestamp 
 
 	  //antidelete function
-const fs = require("fs");
-const path = require("path");
-const { getGroupSetting } = require("../Database/config");
+    const color = (text, color) => {
+      return !color ? chalk.green(text) : chalk.keyword(color)(text);
+    };
+//========================================================================================================================//	  
+    const mime = (quoted.msg || quoted).mimetype || "";
+    const qmsg = (quoted.msg || quoted);
+    const cmd = body.startsWith(prefix);
+    const badword = bad.split(",");
+    const Owner = DevRaven.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
+    
+//========================================================================================================================//		      
+//========================================================================================================================//	      
+     const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
+     const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
+     const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
+     const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
+     const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
+     const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
+     const Dev = '254114660061'.split(",");
+     const date = new Date()  
+     const timestamp = speed(); 
+     const Rspeed = speed() - timestamp 
+//========================================================================================================================//
+//========================================================================================================================//
+const baseDir = 'message_data';
+if (!fs.existsSync(baseDir)) {
+  fs.mkdirSync(baseDir);
+}
 
-module.exports = async (client, m) => {
-    if (!m.isGroup) return;
+function loadChatData(remoteJid, messageId) {
+  const chatFilePath = path.join(baseDir, remoteJid, `${messageId}.json`);
+  try {
+    const data = fs.readFileSync(chatFilePath, 'utf8');
+    return JSON.parse(data) || [];
+  } catch (error) {
+    return [];
+  }
+}
 
-    const jid = m.chat;
-    let groupSettings = await getGroupSetting(jid);
+function saveChatData(remoteJid, messageId, chatData) {
+  const chatDir = path.join(baseDir, remoteJid);
 
-    if (!groupSettings || groupSettings.antidelete !== true) return;
+  if (!fs.existsSync(chatDir)) {
+    fs.mkdirSync(chatDir, { recursive: true });
+  }
 
-    if (m.message.protocolMessage && m.message.protocolMessage.type === 0) {
-        console.log("Deleted Message Detected!");
-        let key = m.message.protocolMessage.key;
+  const chatFilePath = path.join(chatDir, `${messageId}.json`);
 
-        try {
-            const st = path.join(__dirname, "../Client/store.json");
-            const datac = fs.readFileSync(st, "utf8");
-            const jsonData = JSON.parse(datac);
+  try {
+    fs.writeFileSync(chatFilePath, JSON.stringify(chatData, null, 2));
+  } catch (error) {
+    console.error('Error saving chat data:', error);
+  }
+}
 
-            let messagez = jsonData.messages[key.remoteJid];
-            let msgb;
+function handleIncomingMessage(message) {
+  const remoteJid = message.key.remoteJid;
+  const messageId = message.key.id;
 
-            for (let i = 0; i < messagez.length; i++) {
-                if (messagez[i].key.id === key.id) {
-                    msgb = messagez[i];
-                }
-            }
+  const chatData = loadChatData(remoteJid, messageId);
+  chatData.push(message);
+  saveChatData(remoteJid, messageId, chatData);
+}
 
-            console.log(msgb);
+async function handleMessageRevocation(client, revocationMessage) {
+  const remoteJid = revocationMessage.key.remoteJid;
+  const messageId = revocationMessage.message.protocolMessage.key.id;
 
-            if (!msgb) {
-                return console.log("Deleted message detected, error retrieving...");
-            }
+  const chatData = loadChatData(remoteJid, messageId);
+  const originalMessage = chatData[0];
 
-            await client.sendMessage(client.user.id, { forward: msgb }, { quoted: msgb });
-        } catch (e) {
-            console.log(e);
-        }
+  if (originalMessage) {
+    const deletedBy = revocationMessage.participant || revocationMessage.key.participant || revocationMessage.key.remoteJid;
+    const sentBy = originalMessage.key.participant || originalMessage.key.remoteJid;
+
+    const deletedByFormatted = `@${deletedBy.split('@')[0]}`;
+    const sentByFormatted = `@${sentBy.split('@')[0]}`;
+
+if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
+
+    let notificationText = `░PEREZ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧░\n\n` +
+      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
+
+    if (originalMessage.message?.conversation) {
+      // Text message
+      const messageText = originalMessage.message.conversation;
+      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
+      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
+    } else if (originalMessage.message?.extendedTextMessage) {
+      // Extended text message (quoted messages)
+      const messageText = originalMessage.message.extendedTextMessage.text;
+      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
+      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
     }
-};
+  }
+	     }
 	  
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
