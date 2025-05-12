@@ -133,78 +133,129 @@ const runtime = function (seconds) {
    const dreadedspeed = speed() - timestamp 
 
 	  //antidelete function
-const baseDir = 'message_data';
-if (!fs.existsSync(baseDir)) {
-  fs.mkdirSync(baseDir);
+async function setupAntiDelete(zk) {
+    const antiDeleteSettings = await getAntiDeleteSettings();
+    if (antiDeleteSettings.status !== 'on') return;
+
+    zk.ev.on("messages.upsert", async (m) => {  
+        const { messages } = m;  
+        const ms = messages[0];  
+        if (!ms.message) return;  
+
+        const messageKey = ms.key;  
+        const remoteJid = messageKey.remoteJid;  
+
+        // Ignore status updates
+        if (remoteJid === "status@broadcast") return;  
+
+        // Initialize chat storage if it doesn't exist  
+        if (!store2.chats[remoteJid]) {  
+            store2.chats[remoteJid] = [];  
+        }  
+
+        // Save the received message to storage  
+        store2.chats[remoteJid].push(ms);  
+
+        // Handle deleted messages  
+        if (ms.message.protocolMessage?.type === 0) {  
+            const deletedKey = ms.message.protocolMessage.key;  
+            const chatMessages = store2.chats[remoteJid];  
+            const deletedMessage = chatMessages.find(msg => msg.key.id === deletedKey.id);  
+
+            if (!deletedMessage) return;
+
+            try {  
+                const deleterJid = ms.key.participant || ms.key.remoteJid;
+                const originalSenderJid = deletedMessage.key.participant || deletedMessage.key.remoteJid;
+                const isGroup = remoteJid.endsWith('@g.us');
+                
+                // Get group info if message was from a group
+                let groupInfo = '';
+                if (isGroup) {
+                    try {
+                        const groupMetadata = await zk.groupMetadata(remoteJid);
+                        groupInfo = `\n• Group: ${groupMetadata.subject}`;
+                    } catch (e) {
+                        console.error('Error fetching group metadata:', e);
+                    }
+                }
+
+                const notification = `👿 *Anti-Delete Alert* 👿\n` +
+                                    `• Deleted by: @${deleterJid.split("@")[0]}\n` +
+                                    `• Original sender: @${originalSenderJid.split("@")[0]}\n` +
+                                    `${groupInfo}\n` +
+                                    `• Chat type: ${isGroup ? 'Group' : 'Private'}`;
+
+                const contextInfo = getContextInfo('Deleted Message Alert', deleterJid);
+
+                // Common message options
+                const baseMessage = {
+                    mentions: [deleterJid, originalSenderJid],
+                    contextInfo: contextInfo
+                };
+
+                // Handle different message types
+                if (deletedMessage.message.conversation) {
+                    await zk.sendMessage(remoteJid, {
+                        text: `${notification}\n\n📝 *Deleted Text:*\n${deletedMessage.message.conversation}`,
+                        ...baseMessage
+                    });
+                } 
+                else if (deletedMessage.message.extendedTextMessage) {
+                    await zk.sendMessage(remoteJid, {
+                        text: `${notification}\n\n📝 *Deleted Text:*\n${deletedMessage.message.extendedTextMessage.text}`,
+                        ...baseMessage
+                    });
+                }
+                else if (deletedMessage.message.imageMessage) {
+                    const caption = deletedMessage.message.imageMessage.caption || '';
+                    const imagePath = await zk.downloadAndSaveMediaMessage(deletedMessage.message.imageMessage);
+                    await zk.sendMessage(remoteJid, {
+                        image: { url: imagePath },
+                        caption: `${notification}\n\n📷 *Image Caption:*\n${caption}`,
+                        ...baseMessage
+                    });
+                }  
+                else if (deletedMessage.message.videoMessage) {
+                    const caption = deletedMessage.message.videoMessage.caption || '';
+                    const videoPath = await zk.downloadAndSaveMediaMessage(deletedMessage.message.videoMessage);
+                    await zk.sendMessage(remoteJid, {
+                        video: { url: videoPath },
+                        caption: `${notification}\n\n🎥 *Video Caption:*\n${caption}`,
+                        ...baseMessage
+                    });
+                }  
+                else if (deletedMessage.message.audioMessage) {
+                    const audioPath = await zk.downloadAndSaveMediaMessage(deletedMessage.message.audioMessage);
+                    await zk.sendMessage(remoteJid, {
+                        audio: { url: audioPath },
+                        ptt: true,
+                        caption: `${notification}\n\n🎤 *Voice Message Deleted*`,
+                        ...baseMessage
+                    });
+                }  
+                else if (deletedMessage.message.stickerMessage) {
+                    const stickerPath = await zk.downloadAndSaveMediaMessage(deletedMessage.message.stickerMessage);
+                    await zk.sendMessage(remoteJid, {
+                        sticker: { url: stickerPath },
+                        caption: notification,
+                        ...baseMessage
+                    });
+                }
+                else {
+                    // For other message types we don't specifically handle
+                    await zk.sendMessage(remoteJid, {
+                        text: `${notification}\n\n⚠️ *Unsupported message type was deleted*`,
+                        ...baseMessage
+                    });
+                }
+            } catch (error) {  
+                console.error('Error handling deleted message:', error);  
+            }  
+        }  
+    });
 }
 
-function loadChatData(remoteJid, messageId) {
-  const chatFilePath = path.join(baseDir, remoteJid, `${messageId}.json`);
-  try {
-    const data = fs.readFileSync(chatFilePath, 'utf8');
-    return JSON.parse(data) || [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveChatData(remoteJid, messageId, chatData) {
-  const chatDir = path.join(baseDir, remoteJid);
-
-  if (!fs.existsSync(chatDir)) {
-    fs.mkdirSync(chatDir, { recursive: true });
-  }
-
-  const chatFilePath = path.join(chatDir, `${messageId}.json`);
-
-  try {
-    fs.writeFileSync(chatFilePath, JSON.stringify(chatData, null, 2));
-  } catch (error) {
-    console.error('Error saving chat data:', error);
-  }
-}
-
-function handleIncomingMessage(message) {
-  const remoteJid = message.key.remoteJid;
-  const messageId = message.key.id;
-
-  const chatData = loadChatData(remoteJid, messageId);
-  chatData.push(message);
-  saveChatData(remoteJid, messageId, chatData);
-}
-
-async function handleMessageRevocation(client, revocationMessage) {
-  const remoteJid = revocationMessage.key.remoteJid;
-  const messageId = revocationMessage.message.protocolMessage.key.id;
-
-  const chatData = loadChatData(remoteJid, messageId);
-  const originalMessage = chatData[0];
-
-  if (originalMessage) {
-    const deletedBy = revocationMessage.participant || revocationMessage.key.participant || revocationMessage.key.remoteJid;
-    const sentBy = originalMessage.key.participant || originalMessage.key.remoteJid;
-
-    const deletedByFormatted = `@${deletedBy.split('@')[0]}`;
-    const sentByFormatted = `@${sentBy.split('@')[0]}`;
-
-if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
-
-    let notificationText = `░holla » » 𝙋𝙀𝙍𝙀𝙕 𝑨𝑵𝑻𝑰𝑫𝑬𝑳𝑬𝑻𝑬 𝑹𝑬𝑷𝑶𝑹𝑻░\n\n` +
-      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
-
-    if (originalMessage.message?.conversation) {
-      // Text message
-      const messageText = originalMessage.message.conversation;
-      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
-    } else if (originalMessage.message?.extendedTextMessage) {
-      // Extended text message (quoted messages)
-      const messageText = originalMessage.message.extendedTextMessage.text;
-      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
-    }
-  }
-}
 	  
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
