@@ -189,7 +189,7 @@ async function handleMessageRevocation(client, revocationMessage) {
 
 if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
 
-    let notificationText = `░holla » » 𝙋𝙀𝙍𝙀𝙕 𝑨𝑵𝑻𝑰𝑫𝑬𝑳𝑬𝑻𝑬 𝑹𝑬𝑷𝑶𝑹𝑻░\n\n` +
+    let notificationText = `░𝗣𝗘𝗥𝗘𝗭 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧░\n\n` +
       ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
 
     if (originalMessage.message?.conversation) {
