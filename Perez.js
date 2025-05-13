@@ -187,21 +187,115 @@ async function handleMessageRevocation(client, revocationMessage) {
     const deletedByFormatted = `@${deletedBy.split('@')[0]}`;
     const sentByFormatted = `@${sentBy.split('@')[0]}`;
 
-if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
+    if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
 
-    let notificationText = `░holla » » 𝙋𝙀𝙍𝙀𝙕 𝑨𝑵𝑻𝑰𝑫𝑬𝑳𝑬𝑻𝑬 𝑹𝑬𝑷𝑶𝑹𝑻░\n\n` +
-      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
+    let notificationText = `⫸𝗣𝗘𝗥𝗘𝗭 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧⫸\n\n` +
+      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`;
 
-    if (originalMessage.message?.conversation) {
-      // Text message
-      const messageText = originalMessage.message.conversation;
-      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
-    } else if (originalMessage.message?.extendedTextMessage) {
-      // Extended text message (quoted messages)
-      const messageText = originalMessage.message.extendedTextMessage.text;
-      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
-      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
+    try {
+      if (originalMessage.message?.conversation) {
+        // Text message
+        const messageText = originalMessage.message.conversation;
+        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
+        await client.sendMessage(client.user.id, { text: notificationText });
+      } 
+      else if (originalMessage.message?.extendedTextMessage) {
+        // Extended text message (quoted messages)
+        const messageText = originalMessage.message.extendedTextMessage.text;
+        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
+        await client.sendMessage(client.user.id, { text: notificationText });
+      }
+      else if (originalMessage.message?.imageMessage) {
+        // Image message
+        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Image]`;
+        try {
+          const buffer = await client.downloadMediaMessage(originalMessage.message.imageMessage);
+          await client.sendMessage(client.user.id, { 
+            image: buffer,
+	    caption: `${notificationText}\n\nImage caption: ${originalMessage.message.imageMessage.caption}`
+          });
+        } catch (mediaError) {
+          console.error('Failed to download image:', mediaError);
+          notificationText += `\n\n⚠️ Could not recover deleted image (media expired)`;
+          await client.sendMessage(client.user.id, { text: notificationText });
+        }
+      } 
+      else if (originalMessage.message?.videoMessage) {
+        // Video message
+        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Video]`;
+        try {
+          const buffer = await client.downloadMediaMessage(originalMessage.message.videoMessage);
+          await client.sendMessage(client.user.id, { 
+            video: buffer, 
+            caption: `${notificationText}\n\nVideo caption: ${originalMessage.message.videoMessage.caption}`
+          });
+        } catch (mediaError) {
+          console.error('Failed to download video:', mediaError);
+          notificationText += `\n\n⚠️ Could not recover deleted video (media expired)`;
+          await client.sendMessage(client.user.id, { text: notificationText });
+        }
+      } else if (originalMessage.message?.stickerMessage) {
+	 notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Sticker]`;
+      // Sticker message
+      const buffer = await client.downloadMediaMessage(originalMessage.message.stickerMessage);      
+      await client.sendMessage(client.user.id, { sticker: buffer, 
+contextInfo: {
+          externalAdReply: {
+          title: notificationText,
+          body: `DELETED BY: ${deletedByFormatted}`,
+          thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
+          sourceUrl: '',
+          mediaType: 1,
+          renderLargerThumbnail: true
+          }}});
+      } else if (originalMessage.message?.documentMessage) {
+        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Document]`;
+        // Document message
+        const docMessage = originalMessage.message.documentMessage;
+        const fileName = docMessage.fileName || `document_${Date.now()}.dat`;
+        console.log('Attempting to download document...');
+        const buffer = await client.downloadMediaMessage(docMessage);
+        
+       if (!buffer) {
+            console.log('Download failed - empty buffer');
+            notificationText += ' (Download Failed)';
+            return;
+        }
+        
+        console.log('Sending document back...');
+        await client.sendMessage(client.user.id, { 
+            document: buffer, 
+            fileName: fileName,
+            mimetype: docMessage.mimetype || 'application/octet-stream',
+contextInfo: {
+          externalAdReply: {
+          title: notificationText,
+          body: `DELETED BY: ${deletedByFormatted}`,
+          thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
+          sourceUrl: '',
+          mediaType: 1,
+          renderLargerThumbnail: true
+          }}});
+      } else if (originalMessage.message?.audioMessage) {
+	      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Audio]`;
+      // Audio message
+      const buffer = await client.downloadMediaMessage(originalMessage.message.audioMessage);
+      const isPTT = originalMessage.message.audioMessage.ptt === true;
+      await client.sendMessage(client.user.id, { audio: buffer, ptt: isPTT, mimetype: 'audio/mpeg', 
+contextInfo: {
+          externalAdReply: {
+          title: notificationText,
+          body: `DELETED BY: ${deletedByFormatted}`,
+          thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
+          sourceUrl: '',
+          mediaType: 1,
+          renderLargerThumbnail: true
+          }}});
+      }	      
+    } catch (error) {
+      console.error('Error handling deleted message:', error);
+      notificationText += `\n\n⚠️ Error recovering deleted content 😓`;
+      await client.sendMessage(client.user.id, { text: notificationText });
     }
   }
 }
