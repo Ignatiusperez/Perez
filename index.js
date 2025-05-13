@@ -165,7 +165,7 @@ Perez(client, m, chatUpdate, store);
       await client.rejectCall(callId, callerId);
       if (currentTime - lastTextTime >= messageDelay) {
         await client.sendMessage(callerId, {
-          text: "Anticall is active, Only texts are allowed"
+          text: "𝗠𝘆 𝗼𝘄𝗻𝗲𝗿 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗯𝘂𝘀𝘆 𝗷𝘂𝘀𝘁 𝘁𝗲𝘅𝘁"
         });
         lastTextTime = currentTime;
       } else {
