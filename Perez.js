@@ -14,6 +14,7 @@ const uploadToCatbox = require('./lib/catbox');
 const advice = require("badadvice");
 const {c, cpp, node, python, java} = require('compile-run');
 const acrcloud = require("acrcloud");
+const BASE_URL = 'https://noobs-api.top';
 // const node = require("node-fetch-commonjs");
 const ytdl = require("ytdl-core");
  const Client = new Genius.Client("jKTbbU-6X2B9yWWl-KOm7Mh3_Z6hQsgE4mmvwV3P3Qe7oNa9-hsrLxQV5l5FiAZO"); // Scrapes if no key is provided
