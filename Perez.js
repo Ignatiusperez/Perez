@@ -15,9 +15,8 @@ const advice = require("badadvice");
 const {c, cpp, node, python, java} = require('compile-run');
 const acrcloud = require("acrcloud");
 const BASE_URL = 'https://noobs-api.top';
-// const node = require("node-fetch-commonjs");
 const ytdl = require("ytdl-core");
- const Client = new Genius.Client("jKTbbU-6X2B9yWWl-KOm7Mh3_Z6hQsgE4mmvwV3P3Qe7oNa9-hsrLxQV5l5FiAZO"); // Scrapes if no key is provided
+const Client = new Genius.Client("jKTbbU-6X2B9yWWl-KOm7Mh3_Z6hQsgE4mmvwV3P3Qe7oNa9-hsrLxQV5l5FiAZO"); // Scrapes if no key is provided
 const { fetchUrl, isUrl, processTime } = require("./lib/dreadfunc");
 const { TelegraPh, UploadFileUgu, webp2mp4File, floNime } = require('./lib/dreadupload');
 const { Configuration, OpenAI } = require("openai");
@@ -44,17 +43,16 @@ module.exports = Perez = async (client, m, chatUpdate, store) => {
         : m.mtype === "messageContextInfo"
         ? m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text
         : "";
-    var budy = typeof m.text == "string" ? m.text : "";
-	  var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
+var budy = typeof m.text == "string" ? m.text : "";
+var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
 	  
    // leave the prefix string empty if you don't want the bot to use a prefix
-  const prefix = process.env.PREFIX || '';
+const prefix = process.env.PREFIX || '';
 const Heroku = require("heroku-client");  
- const appname = process.env.APP_NAME || '';
- const herokuapi = process.env.HEROKU_API;
+const appname = process.env.APP_NAME || '';
+const herokuapi = process.env.HEROKU_API;
 const gptdm = process.env.GPT_INBOX || 'FALSE';
-    const cmd = body.startsWith(prefix);
-//const autobio = process.env.AUTOBIO || 'TRUE';
+const cmd = body.startsWith(prefix);
 const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const antibot = process.env.ANTIBOT || 'FALSE';
 const antidelete = process.env.ANTIDELETE || 'TRUE';
@@ -87,35 +85,34 @@ const mode = process.env.MODE || 'PUBLIC';
     const color = (text, color) => {
       return !color ? chalk.green(text) : chalk.keyword(color)(text);
     };
-    const mime = (quoted.msg || quoted).mimetype || "";
-            const qmsg = (quoted.msg || quoted);
-    const author = process.env.STICKER_AUTHOR ||'𝗕𝗢𝗧';
-    const packname = process.env.STICKER_PACKNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
+const mime = (quoted.msg || quoted).mimetype || "";
+const qmsg = (quoted.msg || quoted);
+const author = process.env.STICKER_AUTHOR ||'𝗕𝗢𝗧';
+const packname = process.env.STICKER_PACKNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const dev = process.env.DEV || '254108098259';
 const menu = process.env.MENU_TYPE || 'VIDEO';
-
- const DevDreaded = dev.split(",");
-    const badwordkick = process.env.BAD_WORD_KICK || 'FALSE';
-   const bad = process.env.BAD_WORD || 'fuck';
-    const autoread = process.env.AUTOREAD || 'FALSE';
-    const badword = bad.split(",");
-    const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
+const DevDreaded = dev.split(",");
+const badwordkick = process.env.BAD_WORD_KICK || 'FALSE';
+const bad = process.env.BAD_WORD || 'fuck';
+const autoread = process.env.AUTOREAD || 'FALSE';
+const badword = bad.split(",");
+const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
     // Group
    
-   const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
-const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
-    const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
+     const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
+     const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
+     const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
      const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
      const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
      const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
-const admin = process.env.ADMIN_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗿𝗲𝘀𝗲𝗿𝘃𝗲𝗱 𝗳𝗼𝗿 𝗔𝗱𝗺𝗶𝗻𝘀!';
-    const group = process.env.GROUP_ONLY_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝗚𝗿𝗼𝘂𝗽𝘀!';
-    const botAdmin = process.env.BOT_ADMIN_MSG || '𝗜 𝗻𝗲𝗲𝗱 𝗔𝗱𝗺𝗶𝗻 𝗽𝗿𝗲𝘃𝗶𝗹𝗲𝗱𝗴𝗲𝘀!'
-    const NotOwner = process.env.NOT_OWNER_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝘁𝗵𝗲 𝗼𝘄𝗻𝗲𝗿!';
-const wapresence = process.env.WA_PRESENCE || 'recording';
-const antilink = process.env.ANTILINK || 'TRUE';
-const mycode = process.env.CODE || '254';
-const antilinkall = process.env.ANTILINK_ALL || 'TRUE';
+     const admin = process.env.ADMIN_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗿𝗲𝘀𝗲𝗿𝘃𝗲𝗱 𝗳𝗼𝗿 𝗔𝗱𝗺𝗶𝗻𝘀!';
+     const group = process.env.GROUP_ONLY_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝗚𝗿𝗼𝘂𝗽𝘀!';
+     const botAdmin = process.env.BOT_ADMIN_MSG || '𝗜 𝗻𝗲𝗲𝗱 𝗔𝗱𝗺𝗶𝗻 𝗽𝗿𝗲𝘃𝗶𝗹𝗲𝗱𝗴𝗲𝘀!'
+     const NotOwner = process.env.NOT_OWNER_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝘁𝗵𝗲 𝗼𝘄𝗻𝗲𝗿!';
+     const wapresence = process.env.WA_PRESENCE || 'recording';
+     const antilink = process.env.ANTILINK || 'TRUE';
+     const mycode = process.env.CODE || '254';
+     const antilinkall = process.env.ANTILINK_ALL || 'TRUE';
  
 const runtime = function (seconds) { 
  seconds = Number(seconds); 
@@ -128,14 +125,13 @@ const runtime = function (seconds) {
  var mDisplay = m > 0 ? m + (m == 1 ? " 𝗺𝗶𝗻𝘂𝘁𝗲, " : " 𝗠𝗶𝗻𝘂𝘁𝗲𝘀, ") : ""; 
  var sDisplay = s > 0 ? s + (s == 1 ? " 𝘀𝗲𝗰𝗼𝗻𝗱" : " 𝗦𝗲𝗰𝗼𝗻𝗱𝘀") : ""; 
  return dDisplay + hDisplay + mDisplay + sDisplay; 
- } 
-  
- const timestamp = speed(); 
-   const dreadedspeed = speed() - timestamp 
+ }   
+const timestamp = speed(); 
+const dreadedspeed = speed() - timestamp 
 
-	  //antidelete function
+//antidelete function ,,,, what does that mean????
 const baseDir = 'message_data';
-if (!fs.existsSync(baseDir)) {
+    if (!fs.existsSync(baseDir)) {
   fs.mkdirSync(baseDir);
 }
 
@@ -187,14 +183,16 @@ async function handleMessageRevocation(client, revocationMessage) {
 
     const deletedByFormatted = `@${deletedBy.split('@')[0]}`;
     const sentByFormatted = `@${sentBy.split('@')[0]}`;
-
-    if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
+ 
 
     let notificationText = `⫸𝗣𝗘𝗥𝗘𝗭 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧⫸\n\n` +
       ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`;
 
-    try {
-      if (originalMessage.message?.conversation) {
+try {
+
+if (deletedBy.includes(botNumber)) return;
+	
+if (originalMessage.message?.conversation) {
         // Text message
         const messageText = originalMessage.message.conversation;
         notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
