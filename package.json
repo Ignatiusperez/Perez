@@ -1,6 +1,6 @@
 { 
    "name": "PEREZ-MD", 
-   "version": "6.7.16", 
+   "version": "2.0.0", 
    "description": "WhatsApp Multi Device Bot", 
    "main": "index.js", 
    "type": "commonjs", 
