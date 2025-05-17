@@ -77,7 +77,7 @@ async function startperez() {
 
   const client = perezConnect({
     logger: pino({ level: "silent" }),
-    printQRInTerminal: true,
+    printQRInTerminal: false,
     browser: ["PEREZ", "Safari", "5.1.7"],
     auth: state,
 syncFullHistory: true,
@@ -98,7 +98,6 @@ if (autobio === 'TRUE'){
 
 }
 
-  store.bind(client.ev);
 
   client.ev.on("messages.upsert", async (chatUpdate) => {
     //console.log(JSON.stringify(chatUpdate, undefined, 2))
