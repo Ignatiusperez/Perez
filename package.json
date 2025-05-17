@@ -1,6 +1,6 @@
 { 
    "name": "PEREZ-MD", 
-   "version": "2.0.0", 
+   "version": "3.0.0", 
    "description": "WhatsApp Multi Device Bot", 
    "main": "index.js", 
    "type": "commonjs", 
@@ -22,7 +22,7 @@
    "author": "Perez", 
    "license": "MIT", 
    "dependencies": { 
-        "@whiskeysockets/baileys": "^latest",
+        "@whiskeysockets/baileys": "^6.7.17",
      "@adiwajshing/keyed-db": "^0.2.4", 
      "@hapi/boom": "^10.0.0",
       "@google/generative-ai":"^0.1.3",
