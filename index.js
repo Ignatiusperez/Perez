@@ -12,7 +12,7 @@ const {
   useMultiFileAuthState,
   DisconnectReason,
   fetchLatestBaileysVersion,
-  makeInMemoryStore,
+  makeCacheableSignalKeyStore,
   downloadContentFromMessage,
   jidDecode,
   proto,
@@ -35,7 +35,7 @@ const _ = require("lodash");
 const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/dreadexif'); 
 const { isUrl, smsg, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/dreadfunc');
-const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
+const store = makeCacheableSignalKeyStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
 const autoviewstatus = process.env.AUTOVIEW_STATUS || 'TRUE';
 const welcome = process.env.WELCOME || 'TRUE';
