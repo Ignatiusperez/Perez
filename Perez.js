@@ -1330,6 +1330,32 @@ m.reply("*Wait a moment...*");
   }
 }
 	break;
+case 'wikipedia': case 'wiki': {
+  if (!text) return await ReplyTkm('❗ Enter what you want to search for on Wikipedia');
+
+  try {
+      // Fetch Wikipedia page content
+      const link = await axios.get(`https://en.wikipedia.org/wiki/${text}`);
+      const $ = cheerio.load(link.data);
+
+      // Extract title and summary
+      let wik = $('#firstHeading').text().trim();
+      let resulw = $('#mw-content-text > div.mw-parser-output').find('p').text().trim();
+
+      // Create a message body with the title and summary
+      let message = `▢ *Wikipedia Search Result* 🧐\n\n`;
+      message += `‣ *Title*: ${wik} 📚\n\n`;
+      message += `${resulw} 📖\n`;
+
+      // Send the response message
+      await ReplyTkm(message);
+
+  } catch (e) {
+      console.error(e);
+      await ReplyTkm('⚠️ No results found or failed to fetch data. Try again later!');
+  }
+}
+break;		      
 	      case 'dragonball': {
 	var mumaker = require("mumaker");	      
     if (!text || text == "") {
