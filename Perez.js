@@ -1331,7 +1331,7 @@ m.reply("*Wait a moment...*");
 }
 	break;
 case 'wikipedia': case 'wiki': {
-  if (!text) return await ReplyTkm('❗ Enter what you want to search for on Wikipedia');
+  if (!text) return await ReplyPerez('❗ Enter what you want to search for on Wikipedia');
 
   try {
       // Fetch Wikipedia page content
@@ -1348,11 +1348,11 @@ case 'wikipedia': case 'wiki': {
       message += `${resulw} 📖\n`;
 
       // Send the response message
-      await ReplyTkm(message);
+      await ReplyPerwz(message);
 
   } catch (e) {
       console.error(e);
-      await ReplyTkm('⚠️ No results found or failed to fetch data. Try again later!');
+      await ReplyPerez('⚠️ No results found or failed to fetch data. Try again later!');
   }
 }
 break;		      
