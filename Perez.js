@@ -1754,6 +1754,34 @@ m.reply("I am unable to analyze images at the moment\n" + e)
 }
 	      }
 		break;
+case 'request': case 'reportbug': {
+
+    if (!text) return ReplyTkm(`Example : ${prefix + command} hi dev play command is not working 🐞`);
+
+
+    const textt = `*| REQUEST/BUG |* 📝`;
+    const teks1 = `\n\n*User* : @${m.sender.split("@")[0]} 👤\n*Request/Bug* : ${text} 🛠️`;
+    const teks2 = `\n\n*Hii ${m.pushName},* Your request has been forwarded to my Owners 👑.\n*Please wait...* ⏳`;
+
+    // Send to all owners
+    for (let i of owner) {
+        Tkm.sendMessage(i + "@s.whatsapp.net", {
+            text: textt + teks1,
+            mentions: [m.sender],
+        }, {
+            quoted: m,
+        });
+    }
+
+    // Send response to the user
+    Tkm.sendMessage(m.chat, {
+        text: textt + teks2 + teks1,
+        mentions: [m.sender],
+    }, {
+        quoted: m,
+    });
+}
+break;		      
 	      case "ai3": {
 		      if (!msgDreaded || !text) {
     m.reply("𝗤𝘂𝗼𝘁𝗲 𝗮𝗻 𝗶𝗺𝗮𝗴𝗲 𝗮𝗻𝗱 𝗴𝗶𝘃𝗲 𝘀𝗼𝗺𝗲 𝗶𝗻𝘀𝘁𝗿𝘂𝗰𝘁𝗶𝗼𝗻𝘀 𝗲𝗵. 𝗜'𝗺 ℙ𝔼ℝ𝔼ℤ-𝕄𝔻 𝗔𝗶, 𝗶 𝘂𝘀𝗲 𝗕𝗮𝗿𝗱 𝘁𝗼 𝗮𝗻𝗮𝗹𝘆𝘇𝗲 𝗶𝗺𝗮𝗴𝗲𝘀.");
