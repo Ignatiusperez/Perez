@@ -47,6 +47,7 @@
     },
     "BAD_WORD": {
       "description": "List words separated witj commas that will be considered as bad and will trigger bot to kick. Example: fuck, pussy, hoe",
+      "value": "fuck,pussy,slut,bitch,cock,stupid",
       "required": false
     },
     "BAD_WORD_KICK": {
