@@ -30,6 +30,7 @@
     },
     "NOT_OWNER_MSG": {
       "description": "Put a message that the bot will send if a parameter that requires only owner user is violated. Example: Owner only",
+      "value": "youre not my owner",
       "required": true
     },
     
