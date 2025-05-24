@@ -60,7 +60,7 @@
     },
       "AUTOREAD": {
       "description": "Put here TRUE if you want bot to automatically bluetick messages in private chats",
-        "value": "false",
+        "value": "FALSE",
       "required": true
 },
  "AUTOVIEW": {
