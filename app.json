@@ -37,10 +37,12 @@
     
     "BOT_ADMIN_MSG": {
       "description": "Put a message that the bot will send if a parameter that requires bot to be admin is violated. Example: Bot is not admin!",
+      "value": "𝙱𝙾𝚃 𝙸𝚂 𝙽𝙾𝚃 𝙰𝙳𝙼𝙸𝙽",
       "required": true
     },
     "ADMIN_MSG": {
       "description": "Put a message that the bot will send if a parameter that requires only owner user is violated. Example: Only admins are allowed to use this command",
+      "value": "𝗢𝗡𝗟𝗬 𝗔𝗗𝗠𝗜𝗡𝗦 𝗔𝗥𝗘 𝗔𝗟𝗟𝗢𝗪𝗘𝗗 𝗧𝗢 𝗨𝗦𝗘 𝗧𝗛𝗜𝗦 𝗖𝗢𝗠𝗠𝗔𝗡𝗗",
       "required": true
     },
     "BAD_WORD": {
@@ -53,46 +55,57 @@
     },
     "GROUP_ONLY_MSG": {
       "description": "Put a message that the bot will send if a parameter that works in group chats only is violated. Example: This command will work in groups only",
+      "value": "𝗧𝗵𝗶𝘀 𝗰𝗼𝗺𝗺𝗮𝗻𝗱 𝘄𝗶𝗹𝗹 𝘄𝗼𝗿𝗸 𝗶𝗻 𝗴𝗿𝗼𝘂𝗽𝘀 𝗼𝗻𝗹𝘆!",
       "required": true
     },
       "AUTOREAD": {
       "description": "Put here TRUE if you want bot to automatically bluetick messages in private chats",
+        "value": "false",
       "required": true
 },
  "AUTOVIEW": {
       "description": "Input TRUE if you want bot to automatically read status update",
+   "value": "TRUE",
       "required": false
 },
  "AUTO_REJECT_CALL": {
       "description": "Input TRUE if you want bot to automatically decline incoming calls",
+   "value": "FALSE",
       "required": false
  },
  "WA_PRESENCE": {
       "description": "Input either recording or typing. This enables bot to simulate typing or recording.",
+   "value": "recording",
       "required": false
 },
  "ANTILINK": {
       "description": "Input TRUE if you want bot to kick link senders",
+   "value": "TRUE",
       "required": false
 },
  "ANTILINK_ALL": {
       "description": "Input TRUE if you want bot to kick users sending any links.",
+   "value": "TRUE",
       "required": false
 },
  "ANTIBOT": {
       "description": "Input TRUE if you want bot to kick other bots from group",
+   "value": "FALSE",
       "required": false
 },
  "WELCOME": {
       "description": "Input TRUE if you want bot to send welcome message to new members.",
+   "value": "FALSE",
       "required": false
 },
  "ANTIFOREIGN": {
       "description": "Input TRUE if you want bot to kick non-kenyan numbers joining.",
+   "value": "FALSE",
       "required": false
 },
  "AUTOBIO": {
       "description": "Input TRUE if you want bot to autoupdate its about with current time and date.",
+   "value": "TRUE",
       "required": false
 },
  "APP_NAME": {
@@ -105,18 +118,22 @@
     },
  "STICKER_AUTHOR": {
       "description": "Input sticker data for author",
+   "value": "𝗣𝗘𝗥𝗘𝗭",
       "required": false
 },
  "STICKER_PACKNAME": {
       "description": "Input sticker data for packname",
+   "value": "𝗣𝗘𝗥𝗘𝗭",
       "required": false
 },
  "GPT_INBOX": {
       "description": "Input TRUE if you want bot to autoreply inbox messages using openai API.",
+   "value": "FALSE",
       "required": false
 },
  "MENU_TYPE": {
       "description": "Input either VIDEO, LINK or IMAGE. This will allow bot to display different dynamic menu types",
+   "value": "VIDEO",
       "required": false
 
     
