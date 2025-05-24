@@ -12,7 +12,7 @@ const {
   useMultiFileAuthState,
   DisconnectReason,
   fetchLatestBaileysVersion,
-  makeCacheableSignalKeyStore,
+  makeInMemoryStore,
   downloadContentFromMessage,
   jidDecode,
   proto,
@@ -35,7 +35,7 @@ const _ = require("lodash");
 const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/dreadexif'); 
 const { isUrl, smsg, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/dreadfunc');
-const store = makeCacheableSignalKeyStore({ logger: pino().child({ level: "silent", stream: "store" }) });
+const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
 const autoviewstatus = process.env.AUTOVIEW_STATUS || 'TRUE';
 const welcome = process.env.WELCOME || 'TRUE';
@@ -83,6 +83,8 @@ async function startperez() {
 syncFullHistory: true,
   });
 
+store.bind(client.ev);
+  
 if (autobio === 'TRUE'){ 
             setInterval(() => { 
 
@@ -97,8 +99,7 @@ if (autobio === 'TRUE'){
                          }, 10 * 1000) 
 
 }
-
-
+  
   client.ev.on("messages.upsert", async (chatUpdate) => {
     //console.log(JSON.stringify(chatUpdate, undefined, 2))
     try {
