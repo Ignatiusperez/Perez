@@ -105,6 +105,11 @@
  "STICKER_AUTHOR": {
       "description": "Input sticker data for author",
       "required": false
+    "MODE": {
+      "description": "Input PRIVATE if you don't want other people to use your bot",
+      "value": "PUBLIC",
+      "required": true
+    },
 },
  "STICKER_PACKNAME": {
       "description": "Input sticker data for packname",
