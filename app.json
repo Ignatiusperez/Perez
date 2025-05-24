@@ -117,7 +117,11 @@
  "MENU_TYPE": {
       "description": "Input either VIDEO, LINK or IMAGE. This will allow bot to display different dynamic menu types",
       "required": false
-
+ "MODE": {
+      "description": "Input PRIVATE if you don't want other people to use your bot",
+      "value": "PUBLIC",
+      "required": true
+    },
     
     
     },
