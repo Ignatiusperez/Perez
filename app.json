@@ -51,6 +51,7 @@
     },
     "BAD_WORD_KICK": {
       "description": "Put here TRUE if you want the bot to automatically kick group members using words that you have listed as bad",
+      "value": "FALSE",
       "required": false
     },
     "GROUP_ONLY_MSG": {
