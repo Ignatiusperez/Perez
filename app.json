@@ -107,6 +107,11 @@
       "description": "Input TRUE if you want bot to autoupdate its about with current time and date.",
    "value": "TRUE",
       "required": false
+   "MODE": {
+      "description": "Input PRIVATE if you don't want other people to use your bot",
+      "value": "PUBLIC",
+      "required": true
+    },
 },
  "APP_NAME": {
       "description": "Input your app name that you put above, must be in small letters.",
