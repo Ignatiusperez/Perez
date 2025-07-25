@@ -12,7 +12,6 @@ const {
   useMultiFileAuthState,
   DisconnectReason,
   fetchLatestBaileysVersion,
-  makeInMemoryStore,
   downloadContentFromMessage,
   jidDecode,
   proto,
@@ -24,6 +23,7 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 const chalk = require("chalk");
+const logger = pino({ level: 'silent' });
 const FileType = require("file-type");
 const figlet = require("figlet");
 let lastTextTime = 0;
@@ -35,8 +35,9 @@ const _ = require("lodash");
 const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/dreadexif'); 
 const { isUrl, smsg, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/dreadfunc');
-const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
-
+//const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
+const makeInMemoryStore = require('./store/store.js'); 
+const store = makeInMemoryStore({ logger: logger.child({ stream: 'store' }) });
 const autoviewstatus = process.env.AUTOVIEW_STATUS || 'TRUE';
 const welcome = process.env.WELCOME || 'TRUE';
 const app = express();
