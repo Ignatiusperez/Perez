@@ -1492,7 +1492,7 @@ m.reply("*Wait a moment...*");
 		{
         if (!text) return reply(`Hello I'm PEREZ AI. How can i help u?`);
           let d = await fetchJson(
-            `https://bk9.fun/ai/llama?q=${text}`
+            `https://api.bk9.dev/ai/llama?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -1507,7 +1507,7 @@ m.reply("*Wait a moment...*");
 		{
         if (!text) return reply(`What's your question ?`);
           let d = await fetchJson(
-            `https://bk9.fun/ai/jeeves-chat?q=${text}`
+            `https://api.bk9.dev/ai/jeeves-chat?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -1911,7 +1911,7 @@ break;
            {
         if (!text) return reply(`Hello there, what's your question?`);
           let d = await fetchJson(
-            `https://bk9.fun/ai/jeeves-chat2?q=${text}`
+            `https://api.bk9.dev/ai/jeeves-chat2?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -2328,7 +2328,7 @@ const url = googleTTS.getAudioUrl(text, {
 {
         if (!text) return reply(`Hello there, what's your question?`);
           let d = await fetchJson(
-            `https://bk9.fun/ai/jeeves-chat2?q=${text}`
+            `https://api.bk9.dev/ai/jeeves-chat2?q=${text}`
           );
           if (!d.BK9) {
             return reply(
