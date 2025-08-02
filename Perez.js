@@ -53,25 +53,10 @@ const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const antibot = process.env.ANTIBOT || 'FALSE';
 const antidelete = process.env.ANTIDELETE || 'TRUE';
 const mode = process.env.MODE || 'PUBLIC';
-const {
-  wapresence,
-  autoread,
-  mode,
-  prefix,
-  antilink,
-  antilinkall,
-  antidelete,
-  gptdm,
-  badword,
-  antibot,
-  antitag	
-} = await fetchSettings(); 
-	  
-console.log(prefix);
-  
-    const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
-    const args = body.trim().split(/ +/).slice(1);
-    const pushname = m.pushName || "No Name";
+const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
+ const args = body.trim().split(/ +/).slice(1);
+
+	  const pushname = m.pushName || "No Name";
     const botNumber = await client.decodeJid(client.user.id);
     const itsMe = m.sender == botNumber ? true : false;
     let text = (q = args.join(" "));
