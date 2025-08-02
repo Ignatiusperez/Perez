@@ -2156,7 +2156,7 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
 		    }
 		      break;
 
-       case 'ignatius:{
+       case 'ignatius :{
 
 if (!text) { return m.reply("Hey there 😈, I'm ignatius, I respond to anything be it harmful, I'm a pure Evil👿, What sort of dark and delightful nonsense do you want to dive into Today😈 ?");
 	   }
