@@ -884,6 +884,16 @@ const path = require("path");
   }
 }
 	  break;
+case "anticall": {
+	if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.anticall;
+  if (!text) return reply(`🔰 Anticall is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: Anticall on/off");
+  if (text === current) return reply(`✅ Anticall is already *${text.toUpperCase()}*`);
+  await updateSetting("anticall", text);
+  reply(`✅ Anticall has been turned *${text.toUpperCase()}*`);
+}
 	      
 	      case 'metallic': {
 		      var mumaker = require("mumaker");
