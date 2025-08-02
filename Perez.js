@@ -2155,25 +2155,6 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
 
 		    }
 		      break;
-
-       case 'ignatius :{
-
-if (!text) { return m.reply("Hey there 😈, I'm ignatius, I respond to anything be it harmful, I'm a pure Evil👿, What sort of dark and delightful nonsense do you want to dive into Today😈 ?");
-	   }
-	try {
-     const data = await fetchJson(`https://api.dreaded.site/api/makgpt?text=${text}`);
-		
-    if (data && data.result) {
-	    const res = data.result;
-	    await m.reply(res);
-    } else {
-	    m.reply("Huh I'm failing to get response☠️💀.");
-    }
-	} catch (error) {
-reply('An error occured while communicating with the APIs\n' + error);
-}
-  }
-break;
 	      
 		case 'github': {
  if (!text) return m.reply('Provide a github username to stalk');
