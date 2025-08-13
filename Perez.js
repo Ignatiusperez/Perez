@@ -109,29 +109,13 @@ const bad = process.env.BAD_WORD || 'fuck';
 const badword1 = bad.split(",");
 
     // Group
-   const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => { }) : "";  
-    const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";  
-    const participants = m.isGroup && groupMetadata
-  ? groupMetadata.participants
-      .filter(p => p.pn)
-      .map(p => p.pn)
-  : [];
-    const groupAdmin = m.isGroup
-  ? groupMetadata.participants
-      .filter(p => p.admin && p.pn)
-      .map(p => p.pn)
-  : [];
-    const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
-	const groupSender = m.isGroup && groupMetadata
-  ? (() => {
-      const found = groupMetadata.participants.find(p => 
-        p.id === sender || client.decodeJid(p.id) === client.decodeJid(sender)
-      );
-      return found?.pn || sender;
-    })()
-  : sender;
-     const isAdmin = m.isGroup ? groupAdmin.includes(groupSender) : false;
-     const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(groupSender)
+     const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
+     const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
+     const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
+     const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
+     const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
+     const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
+     const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
      
      const admin = process.env.ADMIN_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗿𝗲𝘀𝗲𝗿𝘃𝗲𝗱 𝗳𝗼𝗿 𝗔𝗱𝗺𝗶𝗻𝘀!';
      const group = process.env.GROUP_ONLY_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝗚𝗿𝗼𝘂𝗽𝘀!';
@@ -1003,15 +987,15 @@ case "antitag": {
 }
 break;	 
 	
-case "welcomegoodbye": {
+case "welcome": {
 	if(!Owner) throw NotOwner;
   const settings = await getSettings();
-  const current = settings.welcomegoodbye;
-  if (!text) return reply(`🕳 Welcomegoodbye is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: welcomegoodbye on/off");
-  if (text === current) return reply(`✅ Welcomegoodbye is already *${text.toUpperCase()}*`);
-  await updateSetting("welcomegoodbye", text);
-  reply(`✅ Welcomegoodbye has been turned *${text.toUpperCase()}*`);
+  const current = settings.welcome;
+  if (!text) return reply(`🕳 Welcome is currently *${current.toUpperCase()}*`);
+  if (!["on", "off"].includes(text)) return reply("Usage: welcome on/off");
+  if (text === current) return reply(`✅ Welcome is already *${text.toUpperCase()}*`);
+  await updateSetting("welcome", text);
+  reply(`✅ Welcome has been turned *${text.toUpperCase()}*`);
 	
 }
 break;	 
