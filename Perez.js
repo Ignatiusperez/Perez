@@ -87,6 +87,7 @@ const author = process.env.STICKER_AUTHOR ||'𝗕𝗢𝗧';
 const packname = process.env.STICKER_PACKNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const dev = process.env.DEV || '254108098259';
 const menu = process.env.MENU_TYPE || 'VIDEO';
+const databaseUrl = process.env.DATABASE_URL || '';
 const DevDreaded = dev.split(",");
 const badwordkick = process.env.BAD_WORD_KICK || 'FALSE';
 const bad = process.env.BAD_WORD || 'fuck';
