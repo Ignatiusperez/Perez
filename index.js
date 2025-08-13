@@ -124,14 +124,14 @@ if (autobio === 'on'){
       if (!mek.message) return;
       mek.message = Object.keys(mek.message)[0] === "ephemeralMessage" ? mek.message.ephemeralMessage.message : mek.message;
 
-      if (autoviewstatus === 'on' && autolike === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
+      if (autoview === 'on' && autolike === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
 
 const mokayas = await client.decodeJid(client.user.id);
 
 await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '🧚'}}, { statusJidList: [mek.key.participant, mokayas] });
       }
       
-      if (autoviewstatus === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
+      if (autoview === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
 
          client.readMessages([mek.key]);
 
