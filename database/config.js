@@ -15,7 +15,7 @@ const defaultSettings = {
   anticall: 'on',
   badword: 'on',
   gptdm: 'off',
-  welcomegoodbye: 'off',
+  welcome: 'off',
   autoread: 'off',
   mode: 'public',
   prefix: '.',
