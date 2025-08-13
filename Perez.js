@@ -46,10 +46,6 @@ console.log(prefix);
     var body =
       m.mtype === "conversation"
         ? m.message.conversation
-        : m.mtype == "imageMessage"
-       ? m.message.imageMessage.caption
-        : m.mtype == "videoMessage"
-        ? m.message.videoMessage.caption
         : m.mtype == "extendedTextMessage"
         ? m.message.extendedTextMessage.text
         : m.mtype == "buttonsResponseMessage"
@@ -5017,7 +5013,7 @@ async function handleGPTMessage(text, m) {
       }
     }
   } catch (err) {
-    m.reply(util.format(err));
+    console.log(util.format(err));
   }
 };
 
