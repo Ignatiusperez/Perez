@@ -53,6 +53,7 @@
      "libsignal": "2.0.1", 
      "mumaker": "^2.0.0",
      "ruhend-scraper": "^8.0.3",
+      "pg": "^8.13.3",
     "compile-run": "^2.3.4", 
       "node-fetch-commonjs": "^3.3.2",
   "javascript-obfuscator": "^4.1.0",
