@@ -15,8 +15,6 @@ const advice = require("badadvice");
 const {c, cpp, node, python, java} = require('compile-run');
 const acrcloud = require("acrcloud");
 const BASE_URL = 'https://noobs-api.top';
-const { getSettings, updateSetting } = require('./database/config');
-const fetchSettings = require('./database/fetchSettings');
 const ytdl = require("ytdl-core");
 const Client = new Genius.Client("jKTbbU-6X2B9yWWl-KOm7Mh3_Z6hQsgE4mmvwV3P3Qe7oNa9-hsrLxQV5l5FiAZO"); // Scrapes if no key is provided
 const { fetchUrl, isUrl, processTime } = require("./lib/dreadfunc");
@@ -30,6 +28,10 @@ module.exports = Perez = async (client, m, chatUpdate, store) => {
     var body =
       m.mtype === "conversation"
         ? m.message.conversation
+        : m.mtype == "imageMessage"
+       ? m.message.imageMessage.caption
+        : m.mtype == "videoMessage"
+        ? m.message.videoMessage.caption
         : m.mtype == "extendedTextMessage"
         ? m.message.extendedTextMessage.text
         : m.mtype == "buttonsResponseMessage"
@@ -43,34 +45,22 @@ module.exports = Perez = async (client, m, chatUpdate, store) => {
         : "";
 var budy = typeof m.text == "string" ? m.text : "";
 var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
-const {
-  wapresence,
-  autoread,
-  mode,
-  prefix,
-  antilink,
-  antilinkall,
-  antidelete,
-  gptdm,
-  badword,
-  antibot,
-  antitag	
-} = await fetchSettings(); 
 	  
-console.log(prefix);
-	  	  
-const menu = process.env.MENU_TYPE || 'VIDEO';  
- // leave the prefix string empty if you don't want the bot to use a prefix
-
+   // leave the prefix string empty if you don't want the bot to use a prefix
+const prefix = process.env.PREFIX || '';
 const Heroku = require("heroku-client");  
 const appname = process.env.APP_NAME || '';
 const herokuapi = process.env.HEROKU_API;
+const gptdm = process.env.GPT_INBOX || 'FALSE';
 const cmd = body.startsWith(prefix);
 const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
-const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
- const args = body.trim().split(/ +/).slice(1);
-
-	const pushname = m.pushName || "No Name";
+const antibot = process.env.ANTIBOT || 'FALSE';
+const antidelete = process.env.ANTIDELETE || 'TRUE';
+const mode = process.env.MODE || 'PUBLIC';
+  
+    const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
+    const args = body.trim().split(/ +/).slice(1);
+    const pushname = m.pushName || "No Name";
     const botNumber = await client.decodeJid(client.user.id);
     const itsMe = m.sender == botNumber ? true : false;
     let text = (q = args.join(" "));
@@ -80,12 +70,12 @@ const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase(
     const from = m.chat;
     const reply = m.reply;
     const sender = m.sender;
-    const mek = chatUpate.messages[0];
+    const mek = chatUpdate.messages[0];
     const getGroupAdmins = (participants) => { 
        let admins = []; 
        for (let i of participants) { 
          i.admin === "superadmin" ? admins.push(i.id) : i.admin === "admin" ? admins.push(i.id) : ""; 
-       
+       } 
        return admins || []; 
      };
     const fortu = (m.quoted || m); 
@@ -100,25 +90,29 @@ const qmsg = (quoted.msg || quoted);
 const author = process.env.STICKER_AUTHOR ||'𝗕𝗢𝗧';
 const packname = process.env.STICKER_PACKNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const dev = process.env.DEV || '254108098259';
-const databaseUrl = process.env.DATABASE_URL || '';
+const menu = process.env.MENU_TYPE || 'VIDEO';
 const DevDreaded = dev.split(",");
+const badwordkick = process.env.BAD_WORD_KICK || 'FALSE';
 const bad = process.env.BAD_WORD || 'fuck';
-const badword1 = bad.split(",");
+const autoread = process.env.AUTOREAD || 'FALSE';
+const badword = bad.split(",");
+const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
     // Group
+   
      const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
      const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
      const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
      const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
      const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
      const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
-     const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
-     
      const admin = process.env.ADMIN_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗿𝗲𝘀𝗲𝗿𝘃𝗲𝗱 𝗳𝗼𝗿 𝗔𝗱𝗺𝗶𝗻𝘀!';
      const group = process.env.GROUP_ONLY_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝗚𝗿𝗼𝘂𝗽𝘀!';
      const botAdmin = process.env.BOT_ADMIN_MSG || '𝗜 𝗻𝗲𝗲𝗱 𝗔𝗱𝗺𝗶𝗻 𝗽𝗿𝗲𝘃𝗶𝗹𝗲𝗱𝗴𝗲𝘀!'
      const NotOwner = process.env.NOT_OWNER_MSG || '𝗖𝗼𝗺𝗺𝗮𝗻𝗱 𝗺𝗲𝗮𝗻𝘁 𝗳𝗼𝗿 𝘁𝗵𝗲 𝗼𝘄𝗻𝗲𝗿!';
+     const wapresence = process.env.WA_PRESENCE || 'recording';
+     const antilink = process.env.ANTILINK || 'TRUE';
      const mycode = process.env.CODE || '254';
-     
+     const antilinkall = process.env.ANTILINK_ALL || 'TRUE';
  
 const runtime = function (seconds) { 
  seconds = Number(seconds); 
@@ -318,18 +312,18 @@ if (wapresence === 'recording' && !m.isGroup) {
              client.sendPresenceUpdate('available', m.chat);
     }
     
-if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== dev) {
+if (cmd && mode === 'PRIVATE' && !itsMe && !Owner && m.sender !== dev) {
 return;
 }
 
 
-    if (autoread === 'on' && !m.isGroup) { 
+    if (autoread === 'TRUE' && !m.isGroup) { 
              client.readMessages([m.key])
     }
       if (itsMe && mek.key.id.startsWith("BAE5") && mek.key.id.length === 16 && !m.isGroup) return;
 
 
-if (antidelete === "on") {
+if (antidelete === "TRUE") {
         if (mek.message?.protocolMessage?.key) {
           await handleMessageRevocation(client, mek);
         } else {
@@ -362,7 +356,7 @@ function _0x11cc() {
         '84AXXWgJ',
         '4435424UJQIXb',
         'y\x20RAVEN\x20',
-        'on',
+        'TRUE',
         'tibot:\x0a\x0a@',
         '\x20as\x20a\x20bot.',
         '2LGBzpD',
@@ -430,7 +424,7 @@ let { key } = await client.sendMessage(m.chat, {audio: fs.readFileSync('./menu.m
 
 }
  
-    if (gptdm === 'on' && m.chat.endsWith("@s.whatsapp.net")) {
+    if (gptdm === 'TRUE' && m.chat.endsWith("@s.whatsapp.net")) {
 
   	
 
@@ -485,14 +479,14 @@ await client.sendMessage(from, {text: lod[i], edit: key });
             return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
         };
 	  const date = new Date() 
-if (badword === 'on' && isBotAdmin && !isAdmin && body && (new RegExp('\\b' + badword1.join('\\b|\\b') + '\\b')).test(body.toLowerCase())) {
+if (badwordkick === 'TRUE' && isBotAdmin && !isAdmin && body && (new RegExp('\\b' + badword.join('\\b|\\b') + '\\b')).test(body.toLowerCase())) {
             
      client.groupParticipantsUpdate(from, [sender], 'remove')
             reply("Hey niggah.\n\nMy owner hates usage of bad words in my presence!")
             
         
                                                    }
-    if (antilink === 'on' && body.includes('chat.whatsapp.com') && !Owner && isBotAdmin && !isAdmin && m.isGroup) { 
+    if (antilink === 'TRUE' && body.includes('chat.whatsapp.com') && !Owner && isBotAdmin && !isAdmin && m.isGroup) { 
   
  kid = m.sender; 
   
@@ -508,7 +502,7 @@ if (badword === 'on' && isBotAdmin && !isAdmin && body && (new RegExp('\\b' + ba
  client.sendMessage(m.chat, {text:`𝗛𝗲𝘆 @${ki.split("@")[0]}👋\n\n𝗦𝗲𝗻𝗱𝗶𝗻𝗴 𝗚𝗿𝗼𝘂𝗽 𝗟𝗶𝗻𝗸𝘀 𝗶𝘀 𝗣𝗿𝗼𝗵𝗶𝗯𝗶𝘁𝗲𝗱 𝗶𝗻 𝘁𝗵𝗶𝘀 𝗚𝗿𝗼𝘂𝗽 !`, contextInfo:{mentionedJid:[kid]}}, {quoted:m}); 
        }   
 
-if (antilinkall === 'on' && body.includes('https://') && !Owner && isBotAdmin && !isAdmin && m.isGroup) { 
+if (antilinkall === 'TRUE' && body.includes('https://') && !Owner && isBotAdmin && !isAdmin && m.isGroup) { 
   
  ki = m.sender; 
   
@@ -606,7 +600,7 @@ let cap = `HI 😁🌄, ${getGreeting()}\n\n╭═════〘 𝙋𝙀𝙍�
 ┃✫│ Ai3
 ┃✫│ 𝗗𝗲𝗳𝗶𝗻𝗲
 ┃✯│ 𝗗𝗮𝗿𝗸𝗴𝗽𝘁
-┃✫│ PEREZ
+┃✫│ 𝗥𝗮𝘃𝗲𝗻
 ┃✬│ 𝗚𝗲𝗺𝗶𝗻𝗶
 ┃✯│ 𝗚𝗼𝗴𝗴𝗹𝗲
 ┃✫│ 𝗚𝗽𝘁
@@ -789,213 +783,7 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
-case "antilink": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.antilink;
-  if (!text) return reply(`🛡️ Antilink is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antilink on/off");
-  if (text === current) return reply(`✅ Antilink is already *${text.toUpperCase()}*`);
-  await updateSetting("antilink", text);
-  reply(`✅ Antilink has been turned *${text.toUpperCase()}*`);
-}
-break;
 
-case "antilinkall": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.antilinkall;
-  if (!text) return reply(`🛡️ Antilinkall is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antilinkall on/off");
-  if (text === current) return reply(`✅ Antilinkall is already *${text.toUpperCase()}*`);
-  await updateSetting("antilinkall", text);
-  reply(`✅ Antilinkall has been turned *${text.toUpperCase()}*`);
-}
-break;		      
-
-case "antidelete": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.antidelete;
-  if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antidelete on/off");
-  if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
-  await updateSetting("antidelete", text);
-  reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
-}
-break;	
-		      
-case "gptdm": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.gptdm;
-  if (!text) return reply(`🙂‍↕️ gptdm is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: gptdm on/off");
-  if (text === current) return reply(`✅ Gptdm is already *${text.toUpperCase()}*`);
-  await updateSetting("gptdm", text);
-  reply(`✅ Gptdm has been turned *${text.toUpperCase()}*`);
-}
-break;
-		      
-case "autoread": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.autoread;
-  if (!text) return reply(`📨 Autoread is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: autoread on/off");
-  if (text === current) return reply(`✅ Autoread is already *${text.toUpperCase()}*`);
-  await updateSetting("autoread", text);
-  reply(`✅ Autoread has been set to *${text.toUpperCase()}*`);
-}
-break;
-
-case "mode": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.mode;
-  if (!text) return reply(`👥️ Mode is currently *${current.toUpperCase()}*`);
-  if (!["public", "private"].includes(text)) return reply("Usage: mode public/private");
-  if (text === current) return reply(`✅ Mode is already *${text.toUpperCase()}*`);
-  await updateSetting("mode", text);
-  reply(`✅ Mode changed to *${text.toUpperCase()}*`);
-}
-break;
-
-case "prefix": {
-if(!Owner) throw NotOwner;
-  const newPrefix = args[0];
-  const settings = await getSettings();
-
-if (newPrefix === 'none') {
-      if (!settings.prefix) {
-        return await m.reply(`✅ The bot was already prefixless.`);
-      }
-      await updateSetting('prefix', '');
-      await m.reply(`✅ The bot is now prefixless.`);
-    } else if (newPrefix) {
-      if (settings.prefix === newPrefix) {
-        return await m.reply(`✅ The prefix was already set to: ${newPrefix}`);
-      }
-      await updateSetting('prefix', newPrefix);
-      await m.reply(`✅ Prefix has been updated to: ${newPrefix}`);
-    } else {
-      await m.reply(`👤 Prefix is currently: ${settings.prefix || 'No prefix set.'}\n\nUse _${settings.prefix || '.'}prefix none to remove the prefix.`);
-    }
-  }
-break;
-
-case "autolike": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.autolike;
-  if (!text) return reply(`🫠 Autolike is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: autolike on/off");
-  if (text === current) return reply(`✅ Autolike is already *${text.toUpperCase()}*`);
-  await updateSetting("autolike", text);
-  reply(`✅ Autolike has been turned *${text.toUpperCase()}*`);
-	
-}
-break;
-
-case "autobio": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.autobio;
-  if (!text) return reply(`😇 Autobio is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: autobio on/off");
-  if (text === current) return reply(`✅ Autobio is already *${text.toUpperCase()}*`);
-  await updateSetting("autobio", text);
-  reply(`✅ Autobio has been turned *${text.toUpperCase()}*`);
-	
-}
-break;
-		      
-case "autoview": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.autoview;
-  if (!text) return reply(`👀 Auto view status is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: autoview on/off");
-  if (text === current) return reply(`✅ Auto view status is already *${text.toUpperCase()}*`);
-  await updateSetting("autoview", text);
-  reply(`✅ Auto view status updated to *${text.toUpperCase()}*`);
-	
-}
-break;
-
-case "wapresence": {
-       if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.wapresence;
-  if (!text) return reply(`👤 Presence is currently *${current}*`);
-  if (!["typing", "online", "recording"].includes(text)) return reply("Usage: wapresence typing/online/recording");
-  if (text === current) return reply(`✅ Presence is already *${text}*`);
-  await updateSetting("wapresence", text);
-  reply(`✅ Presence updated to *${text}*`);
-}
-break;
-
-case "badword": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.badword;
-  if (!text) return reply(`😈 Badword is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: badword on/off");
-  if (text === current) return reply(`✅ Badword is already *${text.toUpperCase()}*`);
-  await updateSetting("badword", text);
-  reply(`✅ Badword has been turned *${text.toUpperCase()}*`);
-}
-break;	
-		
-case "anticall": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.anticall;
-  if (!text) return reply(`🔰 Anticall is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: Anticall on/off");
-  if (text === current) return reply(`✅ Anticall is already *${text.toUpperCase()}*`);
-  await updateSetting("anticall", text);
-  reply(`✅ Anticall has been turned *${text.toUpperCase()}*`);
-}
-break;
-	
-case "antibot": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.antibot;
-  if (!text) return reply(`👾 Antibot is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antibot on/off");
-  if (text === current) return reply(`✅ Antibot is already *${text.toUpperCase()}*`);
-  await updateSetting("antibot", text);
-  reply(`✅ Antibot has been turned *${text.toUpperCase()}*`);
-}
-break;	
-	
-case "antitag": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.antitag;
-  if (!text) return reply(`🤖 Antitag is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antitag on/off");
-  if (text === current) return reply(`✅ Antitag is already *${text.toUpperCase()}*`);
-  await updateSetting("antitag", text);
-  reply(`✅ Antitag has been turned *${text.toUpperCase()}*`);
-}
-break;	 
-	
-case "welcome": {
-	if(!Owner) throw NotOwner;
-  const settings = await getSettings();
-  const current = settings.welcome;
-  if (!text) return reply(`🕳 Welcome is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: welcome on/off");
-  if (text === current) return reply(`✅ Welcome is already *${text.toUpperCase()}*`);
-  await updateSetting("welcome", text);
-  reply(`✅ Welcome has been turned *${text.toUpperCase()}*`);
-	
-}
-break;	 
-			  
 case "advice":
 reply(advice());
 console.log(advice());
@@ -1708,7 +1496,7 @@ m.reply("*Wait a moment...*");
 		{
         if (!text) return reply(`Hello I'm PEREZ AI. How can i help u?`);
           let d = await fetchJson(
-            `https://api.bk9.dev/ai/llama?q=${text}`
+            `https://bk9.fun/ai/llama?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -1723,7 +1511,7 @@ m.reply("*Wait a moment...*");
 		{
         if (!text) return reply(`What's your question ?`);
           let d = await fetchJson(
-            `https://api.bk9.dev/ai/jeeves-chat?q=${text}`
+            `https://bk9.fun/ai/jeeves-chat?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -2123,11 +1911,11 @@ break;
   }
 }
 	 break;
-	case "faith":
+	case "gpt":
            {
         if (!text) return reply(`Hello there, what's your question?`);
           let d = await fetchJson(
-            `https://api.bk9.dev/ai/jeeves-chat2?q=${text}`
+            `https://bk9.fun/ai/jeeves-chat2?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -2340,7 +2128,7 @@ case 'save': {
       }
 
       // Confirm in original chat
-      await m.reply("PEREZ MD");
+      await m.reply("🦹‍♂️");
 
     } catch (error) {
       console.error("Save error:", error);
@@ -2361,6 +2149,25 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
 
 		    }
 		      break;
+
+       case 'darkgpt':{
+
+if (!text) { return m.reply("Hey there Fuckface😈, I'm Darkgpt, I respond to anything be it harmful, I'm a pure Evil👿, What sort of dark and delightful nonsense do you want to dive into Today😈 ?");
+	   }
+	try {
+     const data = await fetchJson(`https://api.dreaded.site/api/makgpt?text=${text}`);
+		
+    if (data && data.result) {
+	    const res = data.result;
+	    await m.reply(res);
+    } else {
+	    m.reply("Huh I'm failing to get response☠️💀.");
+    }
+	} catch (error) {
+reply('An error occured while communicating with the APIs\n' + error);
+}
+  }
+break;
 	      
 		case 'github': {
  if (!text) return m.reply('Provide a github username to stalk');
@@ -2525,7 +2332,7 @@ const url = googleTTS.getAudioUrl(text, {
 {
         if (!text) return reply(`Hello there, what's your question?`);
           let d = await fetchJson(
-            `https://api.bk9.dev/ai/jeeves-chat2?q=${text}`
+            `https://bk9.fun/ai/jeeves-chat2?q=${text}`
           );
           if (!d.BK9) {
             return reply(
@@ -4979,7 +4786,7 @@ async function handleGPTMessage(text, m) {
       }
     }
   } catch (err) {
-    console.log(util.format(err));
+    m.reply(util.format(err));
   }
 };
 
