@@ -58,21 +58,19 @@ const {
 } = await fetchSettings(); 
 	  
 console.log(prefix);
-	  
-	  
+	  	  
 const menu = process.env.MENU_TYPE || 'VIDEO';  
  // leave the prefix string empty if you don't want the bot to use a prefix
 
 const Heroku = require("heroku-client");  
 const appname = process.env.APP_NAME || '';
 const herokuapi = process.env.HEROKU_API;
-
 const cmd = body.startsWith(prefix);
 const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
  const args = body.trim().split(/ +/).slice(1);
 
-	  const pushname = m.pushName || "No Name";
+	const pushname = m.pushName || "No Name";
     const botNumber = await client.decodeJid(client.user.id);
     const itsMe = m.sender == botNumber ? true : false;
     let text = (q = args.join(" "));
@@ -105,9 +103,7 @@ const dev = process.env.DEV || '254108098259';
 const databaseUrl = process.env.DATABASE_URL || '';
 const DevDreaded = dev.split(",");
 const bad = process.env.BAD_WORD || 'fuck';
-
 const badword1 = bad.split(",");
-
     // Group
      const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
      const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
