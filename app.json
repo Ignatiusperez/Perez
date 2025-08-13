@@ -146,6 +146,10 @@
       "description": "Put your heroku api key here. This will allow you to change vars and update your bot automatically without redeploying again.",
       "required": true
     }
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string, it will be automatically added by Heroku Postgres add-on, leave it blank",
+      "required": false
+        }
   },
   "buildpacks": [
     {
@@ -157,6 +161,9 @@
     {
       "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
     }
-  ]
+  ],
+    "addons": [
+    "heroku-postgresql"
+    ]
     }
 
