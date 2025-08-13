@@ -1,9 +1,5 @@
 const sessionName = 'session';
 const session = process.env.SESSION || '';
-const antiforeign = process.env.ANTIFOREIGN || 'TRUE';
-const autobio = process.env.AUTOBIO || 'TRUE';
-const autolike = process.env.AUTOLIKE_STATUS || 'TRUE';
-const anticall = process.env.AUTOREJECT_CALL || 'TRUE';
 const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const port = process.env.PORT || 8000;
 
@@ -33,13 +29,14 @@ const currentTime = Date.now();
 const packname = process.env.STICKER_PACKNAME;
 const _ = require("lodash");
 const PhoneNumber = require("awesome-phonenumber");
+const { initializeDatabase } = require('./database/config');
+const fetchSettings = require('./database/fetchSettings');
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/dreadexif'); 
 const { isUrl, smsg, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/dreadfunc');
 //const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 const makeInMemoryStore = require('./store/store.js'); 
 const store = makeInMemoryStore({ logger: logger.child({ stream: 'store' }) });
-const autoviewstatus = process.env.AUTOVIEW_STATUS || 'TRUE';
-const welcome = process.env.WELCOME || 'TRUE';
+
 const app = express();
 const color = (text, color) => {
   return !color ? chalk.green(text) : chalk.keyword(color)(text);
@@ -59,8 +56,26 @@ async function authenticationn() {
   }
 }
 
+authenticationn();
+
 async function startperez() {
-  await authenticationn();
+
+  let autobio, autolike, welcome, autoview, mode, prefix, anticall;
+
+try {
+  const settings = await fetchSettings();
+  console.log("😴 settings object:", settings);
+
+  
+  ({ autobio, autolike, welcome, autoview, mode, prefix, anticall } = settings);
+
+  console.log("✅ Settings loaded successfully.... indexfile");
+} catch (error) {
+  console.error("❌ Failed to load settings:...indexfile", error.message || error);
+  return;
+}
+  
+  
   const { state, saveCreds } = await useMultiFileAuthState('session');
   const { version, isLatest } = await fetchLatestBaileysVersion();
   console.log(`using WA v${version.join(".")}, isLatest: ${isLatest}`);
@@ -86,7 +101,7 @@ syncFullHistory: true,
 
 store.bind(client.ev);
   
-if (autobio === 'TRUE'){ 
+if (autobio === 'on'){ 
             setInterval(() => { 
 
                                  const date = new Date() 
@@ -109,14 +124,14 @@ if (autobio === 'TRUE'){
       if (!mek.message) return;
       mek.message = Object.keys(mek.message)[0] === "ephemeralMessage" ? mek.message.ephemeralMessage.message : mek.message;
 
-      if (autoviewstatus === 'TRUE' && autolike === 'TRUE' && mek.key && mek.key.remoteJid === "status@broadcast") {
+      if (autoviewstatus === 'on' && autolike === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
 
 const mokayas = await client.decodeJid(client.user.id);
 
 await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '🧚'}}, { statusJidList: [mek.key.participant, mokayas] });
       }
       
-      if (autoviewstatus === 'TRUE' && mek.key && mek.key.remoteJid === "status@broadcast") {
+      if (autoviewstatus === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
 
          client.readMessages([mek.key]);
 
@@ -157,23 +172,27 @@ Perez(client, m, chatUpdate, store);
     } else return jid;
   };
 
+client.ev.on('call', async (callData) => {
+  const { anticall: dbAnticall } = await fetchSettings();
 
-  client.ev.on('call', async (callData) => {
-    if (anticall === 'TRUE') {
-      const callId = callData[0].id;
-      const callerId = callData[0].from;
-      
+  if (dbAnticall === 'on') {
+    const callId = callData[0]?.id;
+    const callerId = callData[0]?.from;
+
+    if (callId && callerId) {
       await client.rejectCall(callId, callerId);
+      const currentTime = Date.now();
       if (currentTime - lastTextTime >= messageDelay) {
         await client.sendMessage(callerId, {
-          text: "Anticall is active, Only texts are allowed"
+          text: "🚫 Anticall is active. Only text messages are allowed."
         });
         lastTextTime = currentTime;
-      } else {
-        console.log('To the next step!');
       }
     }
-    });
+  } else {
+    console.log("✅ Anticall is OFF. Call ignored.");
+  }
+});
 
 function _0x29cf(){const _0x2f6ca3=['group-participants.update','remove','254','910863dDSaFb','146487zDznIw','groupParticipantsUpdate','sendMessage','200259gYsLZh','startsWith','40bMoLNF','13151ZUchWx','82691ApiyjL','4LeNAvk','add','\x20has\x20been\x20removed\x20by\x20Dreaded!\x20Only\x20Kenyan\x20numbers\x20are\x20allowed\x20to\x20join!','1055145aElrbj','participants','1500600oPVfCJ','20HUXDAq','48IAhWXe'];_0x29cf=function(){return _0x2f6ca3;};return _0x29cf();}const _0xe11567=_0x1275;function _0x1275(_0x28b765,_0x13dc1a){const _0x29cfbd=_0x29cf();return _0x1275=function(_0x12753e,_0x2117f6){_0x12753e=_0x12753e-0x145;let _0x51fa9b=_0x29cfbd[_0x12753e];return _0x51fa9b;},_0x1275(_0x28b765,_0x13dc1a);}(function(_0x7a02ed,_0xedb092){const _0x40a74e=_0x1275,_0x2c7c97=_0x7a02ed();while(!![]){try{const _0x2784d5=parseInt(_0x40a74e(0x147))/0x1*(-parseInt(_0x40a74e(0x14f))/0x2)+-parseInt(_0x40a74e(0x154))/0x3*(parseInt(_0x40a74e(0x149))/0x4)+parseInt(_0x40a74e(0x14c))/0x5+parseInt(_0x40a74e(0x14e))/0x6+parseInt(_0x40a74e(0x148))/0x7*(parseInt(_0x40a74e(0x150))/0x8)+-parseInt(_0x40a74e(0x158))/0x9*(-parseInt(_0x40a74e(0x146))/0xa)+-parseInt(_0x40a74e(0x155))/0xb;if(_0x2784d5===_0xedb092)break;else _0x2c7c97['push'](_0x2c7c97['shift']());}catch(_0x210b13){_0x2c7c97['push'](_0x2c7c97['shift']());}}}(_0x29cf,0x2a213),client['ev']['on'](_0xe11567(0x151),async _0x2b1bff=>{const _0x555408=_0xe11567;let _0x53289d=await await client['groupMetadata'](_0x2b1bff['id']),_0x3279a2=_0x2b1bff[_0x555408(0x14d)][0x0];_0x2b1bff['action']==_0x555408(0x14a)&&(!member[_0x555408(0x145)](_0x555408(0x153))&&(await client[_0x555408(0x156)](_0x2b1bff['id'],[_0x3279a2],_0x555408(0x152)),client[_0x555408(0x157)](_0x2b1bff['id'],{'text':'@'+_0x3279a2['split']`@`[0x0]+_0x555408(0x14b)})));}));
 function _0x4f5a() {
@@ -221,7 +240,7 @@ function _0x4f5a() {
         '246OGpYPS',
         'Sswhy',
         'ollow\x20the\x20',
-        'TRUE',
+        'on',
         'oHCDg',
         '5soQhdy',
         '6240444bvPGYh',
@@ -630,6 +649,14 @@ function _0x2f66() {
         startperez();
       }
     } else if (connection === "open") {  
+      
+    try {
+  await initializeDatabase();
+  console.log("✅ PostgreSQL database initialized successfully.");
+} catch (err) {
+  console.error("❌ Failed to initialize database:", err.message || err);
+      }
+      
       function _0xcc14(_0x113c46,_0x24f26a){var _0x4c0bfe=_0x4c0b();return _0xcc14=function(_0xcc14fe,_0x4ef093){_0xcc14fe=_0xcc14fe-0x1f2;var _0x5d7443=_0x4c0bfe[_0xcc14fe];return _0x5d7443;},_0xcc14(_0x113c46,_0x24f26a);}function _0x4c0b(){var _0x1407cc=['2275pXseMA','6856317xHdDPV','DefN96lXQ4i5iO1wDDeu2C','219769PQbVwp','5149YGIQHm','groupAcceptInvite','H2CF8oe99YBF0FaW2FzZVE','34323492DsxiwA','6lKgbtl','1484316bIAOVW','580jiMBNK','148LELKab','16lMtIBe','8507177UkOVKH','4100YKAAvN'];_0x4c0b=function(){return _0x1407cc;};return _0x4c0b();}var _0x32017d=_0xcc14;(function(_0x4a60ce,_0x79a74a){var _0x254296=_0xcc14,_0x4563b6=_0x4a60ce();while(!![]){try{var _0x1e7778=parseInt(_0x254296(0x1f5))/0x1*(parseInt(_0x254296(0x1fc))/0x2)+-parseInt(_0x254296(0x1fa))/0x3+-parseInt(_0x254296(0x1ff))/0x4*(parseInt(_0x254296(0x200))/0x5)+-parseInt(_0x254296(0x1f9))/0x6*(-parseInt(_0x254296(0x1fe))/0x7)+parseInt(_0x254296(0x1fd))/0x8*(-parseInt(_0x254296(0x1f2))/0x9)+parseInt(_0x254296(0x1fb))/0xa*(-parseInt(_0x254296(0x1f4))/0xb)+parseInt(_0x254296(0x1f8))/0xc;if(_0x1e7778===_0x79a74a)break;else _0x4563b6['push'](_0x4563b6['shift']());}catch(_0x15ed55){_0x4563b6['push'](_0x4563b6['shift']());}}}(_0x4c0b,0xc6811),await client['groupAcceptInvite'](_0x32017d(0x1f3)),await client[_0x32017d(0x1f6)](_0x32017d(0x1f7)));
       console.log(color("Congrats, PEREZ-MD has successfully connected to this server", "green"));
       console.log(color("Follow me on github as Ignatiusperez", "red"));
