@@ -109,7 +109,7 @@ const bad = process.env.BAD_WORD || 'fuck';
 const badword1 = bad.split(",");
 
     // Group
-   const groupMetadata = m.isGroup ? await groupMetadata(m.chat).catch((e) => { }) : "";  
+   const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => { }) : "";  
     const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";  
     const participants = m.isGroup && groupMetadata
   ? groupMetadata.participants
