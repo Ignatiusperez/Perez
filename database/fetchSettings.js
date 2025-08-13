@@ -1,4 +1,4 @@
-const { getSettings } = require('../database/config');
+const { getSettings } = require('./database/config');
 
 async function fetchSettings() {
   const data = await getSettings();
