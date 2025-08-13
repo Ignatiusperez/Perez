@@ -15,7 +15,7 @@ async function fetchSettings() {
     antidelete: data.antidelete,
     antitag: data.antitag,
     antibot: data.antibot,
-    welcomegoodbye: data.welcomegoodbye,
+    welcome: data.welcome,
     autobio: data.autobio,
     badword: data.badword,
     gptdm: data.gptdm, 
