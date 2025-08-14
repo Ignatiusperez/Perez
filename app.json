@@ -46,7 +46,7 @@
     "HEROKU_API": {
       "description": "Put your heroku api key here. This will allow you to change vars and update your bot automatically without redeploying again.",
       "required": false
-    }
+    },
     "DATABASE_URL": {
       "description": "PostgreSQL connection string, it will be automatically added by Heroku Postgres add-on, leave it blank",
       "required": false
