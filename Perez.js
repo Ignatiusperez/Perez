@@ -206,7 +206,7 @@ async function handleMessageRevocation(client, revocationMessage) {
     const sentByFormatted = `@${sentBy.split('@')[0]}`;
  
 
-    let notificationText = `⫸𝗣𝗘𝗥𝗘𝗭 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧⫸\n\n` +
+    let notificationText = `⫸𝗡𝗘𝗫𝗢 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧⫸\n\n` +
       ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`;
 
 try {
@@ -562,7 +562,7 @@ if (antilinkall === 'on' && body.includes('https://') && !Owner && isBotAdmin &&
         case "menu":
 		      await mp3d ()
 		      
-let cap = `HI 😁🌄, ${getGreeting()}\n\n╭═════〘 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿 〙═════╮
+let cap = `HI 😁🌄, ${getGreeting()}\n\n╭═════〘 𝗡𝗘𝗫𝗢-𝗠𝗗 〙═════╮
 ┃✫╭═───────────────═╮
 ┃✬│ 𝗨𝘀𝗲𝗿 : ${m.pushName}
 ┃✫│ 𝗣𝗿𝗲𝗳𝗶𝘅 : ${prefix}
