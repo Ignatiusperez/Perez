@@ -2499,7 +2499,7 @@ m.reply("An error occured.")
 		      case "removebg": {
 		      try {
 
-const cap = "𝗘𝗱𝗶𝘁𝗲𝗱 𝗯𝘆 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿";
+const cap = "𝗘𝗱𝗶𝘁𝗲𝗱 𝗯𝘆 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗";
 
 if (!m.quoted) return m.reply("Send the image then tag it with the command.");
 
@@ -3806,8 +3806,8 @@ const title = data.result.title;
 		      
  case 'sc': case 'script': case 'repo':
 
- client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/4f2vpo.jpg` }, caption: 
-` Hello👋 *${pushname}*,You can deploy 𝙿𝙴𝚁𝙴𝚉-𝙼𝙳 using the GitHub link below 🗯\n\nFork and give us a star✨.\n\n https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender 👇\nhttps://perez-md-pairing.onrender.com\n\nPair on this if first fails👇\nhttps://perez-tech.onrender.com\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with Perez-md !\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
+ client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/t7qghl.jpg` }, caption: 
+` Hello👋 *${pushname}*,You can deploy 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗 using the GitHub link below 🗯\n\nFork and give us a star✨.\n\n https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender 👇\nhttps://perez-md-pairing.onrender.com\n\nPair on this if first fails👇\nhttps://perez-tech.onrender.com\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with Perez-md !\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
 
    break;
                                                   
@@ -3852,7 +3852,7 @@ try {
         }
 
         const media = response.data.BK9;
-        const capp = `𝑫𝑶𝑾𝑵𝑳𝑶𝑨𝑫𝑬𝑫 𝑩𝒀 𝐁𝐋𝐀𝐂𝐊𝐌𝐀𝐂𝐇𝐀𝐍𝐓 𝐁𝐎𝐓`;
+        const capp = `𝑫𝑶𝑾𝑵𝑳𝑶𝑨𝑫𝑬𝑫 𝑩𝒀 𝗡𝗘𝗫𝗨𝗦 𝐁𝐎𝐓`;
 
 if (media.length > 0) {
             const videoUrl = media.find(item => item.url.includes('.mp4'))?.url;
