@@ -1,4 +1,4 @@
-<!-- Glowing Footer -->
+<!-- Glowing Footer --><p align="center">
 <p align="center">
   
 𝗡𝗘𝗫𝗨𝗦 𝗠𝗗
