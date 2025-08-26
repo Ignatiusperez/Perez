@@ -6,10 +6,10 @@
   </p>
   
 <p align="center">
-<img src="https://i.imgur.com/lP9oHm4.jpeg" width="400" height="400"/>
+<img src="https://files.catbox.moe/t7qghl.jpg" width="400" height="400"/>
 </p>
 <p align="center">
-  <a href="#"><img src="http://readme-typing-svg.herokuapp.com?color=d1fa02&center=true&vCenter=true&multiline=false&lines=PEREZ+WHATSAPP+BOT" alt="">
+  <a href="#"><img src="http://readme-typing-svg.herokuapp.com?color=d1fa02&center=true&vCenter=true&multiline=false&lines=Nexus+WHATSAPP+BOT" alt="">
 </p>
 <p align="center">
 <a href="#"><img title="Creator" src="https://img.shields.io/badge/Creator-ignatius perez-blue.svg?style=for-the-badge&logo=github"></a>
@@ -63,5 +63,5 @@ Linking/Pairing:
 
 [MIT License](https://github.com/perez-BOT/blob/main/LICENSE)
 
-𝐂𝐨𝐩𝐲𝐫𝐢𝐠𝐡𝐭 (𝐜) 𝟐𝟎𝟐𝟓 𝐑𝐏𝐄𝐑𝐄𝐙-𝐁𝐎𝐓
+𝐂𝐨𝐩𝐲𝐫𝐢𝐠𝐡𝐭 (𝐜) 𝟐𝟎𝟐𝟓 𝗡𝗘𝗫𝗨𝗦 𝗠𝗗
 
