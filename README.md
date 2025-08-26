@@ -1,3 +1,6 @@
+<!-- Glowing Footer -->
+<p align="center">
+  
 𝗡𝗘𝗫𝗨𝗦 𝗠𝗗
 
 
