@@ -3621,7 +3621,7 @@ case "update": case "redeploy": {
   }
 }
 break;	      
-	      case "song": {		      
+	      case "songg": {		      
  if (!text) {
       return client.sendMessage(from, { text: 'Please provide a song name.' }, { quoted: m });
     }
@@ -3669,8 +3669,8 @@ break;
 		      
  case 'sc': case 'script': case 'repo':
 
- client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/t7qghl.jpg` }, caption: 
-`╭───────────────────────────✦
+ client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/t7qghl.jpg` }, 
+caption: `╭───────────────────────────✦
 │ 🌌✨ Step into the Future — Deploy the Ultimate Bot ✨🌌
 │
 │ 💠 Unleash the power of 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗 — fast, sleek, unstoppable ⚡
@@ -3688,8 +3688,7 @@ break;
 │
 │ 🌍 Enjoy the brilliance of 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗
 │ 🪐 Beautifully crafted — Made on Earth by Humans 🪽
-╰───────────────────────────✦ `
-	},{quoted : m });
+╰───────────────────────────✦`},{quoted : m });
    break;
                                                   
 
