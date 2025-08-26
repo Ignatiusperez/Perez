@@ -3621,7 +3621,7 @@ case "update": case "redeploy": {
   }
 }
 break;	      
-	      case "songg": {		      
+	      case "song": case "music": {		      
  if (!text) {
       return client.sendMessage(from, { text: 'Please provide a song name.' }, { quoted: m });
     }
@@ -3669,26 +3669,8 @@ break;
 		      
  case 'sc': case 'script': case 'repo':
 
- client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/t7qghl.jpg` }, 
-caption: `╭───────────────────────────✦
-│ 🌌✨ Step into the Future — Deploy the Ultimate Bot ✨🌌
-│
-│ 💠 Unleash the power of 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗 — fast, sleek, unstoppable ⚡
-│ 🌟 Fork the repo • Smash that star • Rule your chats!
-│ 🔗 GitHub 👉 https://github.com/Ignatiusperez/Perez/
-│
-│ 💬 Pair your WhatsApp in seconds:
-│   ∘ 🔥 Primary Link → https://perez-md-pairing.onrender.com
-│   ∘ 🌙 Backup Link → https://perez-tech.onrender.com
-│
-│ ⚡ Deploy effortlessly with one click:
-│   🚀 https://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/
-│
-│ 💎 Upload ➝ Connect ➝ Deploy ➝ ✨ Take Control ✨
-│
-│ 🌍 Enjoy the brilliance of 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗
-│ 🪐 Beautifully crafted — Made on Earth by Humans 🪽
-╰───────────────────────────✦`},{quoted : m });
+ client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/t7qghl.jpg` }, caption:
+` Hello👋 *${pushname}*,You can deploy 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗 using the GitHub link below 🗯\n\nFork and give us a star✨.\n\n https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender 👇\nhttps://perez-md-pairing.onrender.com\n\nPair on this if first fails👇\nhttps://perez-tech.onrender.com\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with Perez-md !\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
    break;
                                                   
 
