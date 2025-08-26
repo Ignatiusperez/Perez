@@ -1899,7 +1899,7 @@ break;
     let _0x11f50e = await client.downloadAndSaveMediaMessage(_0x44b3e0);
     let _0x45392d = await uploadToCatbox(_0x11f50e);
     m.reply("𝗔 𝗺𝗼𝗺𝗲𝗻𝘁, 𝗟𝗲𝗺𝗺𝗲 𝗮𝗻𝗮𝗹𝘆𝘇𝗲 𝘁𝗵𝗲 𝗰𝗼𝗻𝘁𝗲𝗻𝘁𝘀 𝗼𝗳 𝘁𝗵𝗲 𝗶𝗺𝗮𝗴𝗲. . .");
-    let _0x4f137e = await (await fetch("https://bk9.fun/ai/geminiimg?url=" + _0x45392d + "&q=" + text)).json();
+    let _0x4f137e = await (await fetch("https://api.bk9.dev/ai/geminiimg?url=" + _0x45392d + "&q=" + text)).json();
     const _0x4bfd63 = {
       text: _0x4f137e.BK9
     };
@@ -3621,47 +3621,75 @@ case "update": case "redeploy": {
   }
 }
 break;	      
-	      case "song": {
-		      const yts = require("yt-search");
-
-    try {
-        if (!text) return m.reply("What song do you want to download?");
-
-        const { videos } = await yts(text);
-        if (!videos || videos.length === 0) return m.reply("No songs found!");
-	    
-await m.reply(`_Please wait your download is in progress_`);
-	    
-        const urlYt = videos[0].url;
-        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
-
-        if (!data || !data.result || !data.result.url) {
-            return m.reply("Failed to fetch audio from the API.");
-        }
-
-        const audioUrl = data.result.url;
-const title = data.result.title;
-
-        await client.sendMessage(
-            m.chat,
-            {
-                audio: { url: audioUrl },
-                mimetype: "audio/mpeg",
-                fileName: `${title}.mp3`,
-            },
-            { quoted: m }
-        );
-    } catch (error) {
-        m.reply("Download failed\n" + error.message);
+	      case "song": {		      
+ if (!text) {
+      return client.sendMessage(from, { text: 'Please provide a song name.' }, { quoted: m });
     }
+
+try {
+     const search = await yts(text);
+     const video = search.videos[0];
+
+        if (!video) {
+          return client.sendMessage(from, {
+            text: 'No results found for your query.'
+          }, { quoted: m });
+        }
+	
+m.reply("_Please wait your download is in progress_");
+	
+        const safeTitle = video.title.replace(/[\\/:*?"<>|]/g, '');
+        const fileName = `${safeTitle}.mp3`;
+        const apiURL = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`;
+
+        const response = await axios.get(apiURL);
+        const data = response.data;
+
+        if (!data.downloadLink) {
+          return client.sendMessage(from, {
+            text: 'Failed to retrieve the MP3 download link.'
+          }, { quoted: m });
+	} 
+	
+	
+await client.sendMessage(from, {
+          audio: { url: data.downloadLink },
+          mimetype: 'audio/mpeg',
+          fileName
+        }, { quoted: m });
+
+      } catch (err) {
+        console.error('[PLAY] Error:', err);
+        await client.sendMessage(from, {
+          text: 'An error occurred while processing your request.'
+        }, { quoted: m });
 }
-		      break;
+}
+break;
 		      
  case 'sc': case 'script': case 'repo':
 
  client.sendMessage(m.chat, { image: { url: `https://files.catbox.moe/t7qghl.jpg` }, caption: 
-` Hello👋 *${pushname}*,You can deploy 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗 using the GitHub link below 🗯\n\nFork and give us a star✨.\n\n https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender 👇\nhttps://perez-md-pairing.onrender.com\n\nPair on this if first fails👇\nhttps://perez-tech.onrender.com\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/\n\nEnjoy and have fun with Perez-md !\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
-
+`╭───────────────────────────✦
+│ 🌌✨ Step into the Future — Deploy the Ultimate Bot ✨🌌
+│
+│ 💠 Unleash the power of 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗 — fast, sleek, unstoppable ⚡
+│ 🌟 Fork the repo • Smash that star • Rule your chats!
+│ 🔗 GitHub 👉 https://github.com/Ignatiusperez/Perez/
+│
+│ 💬 Pair your WhatsApp in seconds:
+│   ∘ 🔥 Primary Link → https://perez-md-pairing.onrender.com
+│   ∘ 🌙 Backup Link → https://perez-tech.onrender.com
+│
+│ ⚡ Deploy effortlessly with one click:
+│   🚀 https://dashboard.heroku.com/new-app?template=https://github.com/Ignatiusperez/Perez/
+│
+│ 💎 Upload ➝ Connect ➝ Deploy ➝ ✨ Take Control ✨
+│
+│ 🌍 Enjoy the brilliance of 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗
+│ 🪐 Beautifully crafted — Made on Earth by Humans 🪽
+╰───────────────────────────✦ `
+	},{quoted : m });
    break;
                                                   
 
