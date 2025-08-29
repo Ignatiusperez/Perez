@@ -657,10 +657,10 @@ function _0x2f66() {
   console.error("❌ Failed to initialize database:", err.message || err);
       }
       await client.groupAcceptInvite('DefN96lXQ4i5iO1wDDeu2C');
-      console.log(color("Congrats, PEREZ-MD has successfully connected to this server", "green"));
+      console.log(color("Congrats, 𝙽𝙴𝚇𝚄𝚂-𝙼𝙳 has successfully connected to this server", "green"));
       console.log(color("Follow me on github as Ignatiusperez", "red"));
       console.log(color("Text the bot number with menu to check my command list"));
-      client.sendMessage(client.user.id, { text: `Successfully connected » To »【𝙋𝙀𝙍𝙀𝙕-𝙈𝘿】` });
+      client.sendMessage(client.user.id, { text: `Successfully connected » To »【NEXUS-MD】` });
     }
     // console.log('Connected...', update)
   });
