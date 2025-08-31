@@ -44,21 +44,15 @@ Linking/Pairing:
 <p align="centre">
 <a href="https://github.com/Ignatiusperez/Perez//fork"><img src="https://img.shields.io/badge/Fork%20Create-purple?style=for-the-badge&logo=github" alt="FORK NEXUS-MD" width="160"></a>
 <p/>
-            
-    
-
-
+          
 ###  ` Deploy to Heroku`
 <p align="center">
-     <a href="verification-kappa.vercel.app/">
-       <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
+     <a href="verification-kappa.vercel.app">
+    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
      </a>
  </p>
  
  
-
-    
-
 - Fill in the required variables into your hosting site for bot to work.
  </h2>
      
