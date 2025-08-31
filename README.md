@@ -46,11 +46,7 @@ Linking/Pairing:
 <p/>
           
 ###  ` Deploy to Heroku`
-<p align="center">
-     <a href="verification-kappa.vercel.app">
-    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
-     </a>
- </p>
+[𝗛𝗘𝗥𝗘](verification-kappa.vercel.app)
  
  
 - Fill in the required variables into your hosting site for bot to work.
