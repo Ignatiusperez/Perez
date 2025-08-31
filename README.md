@@ -47,10 +47,12 @@ Linking/Pairing:
     
 
 
-###  𝗗𝗘𝗣𝗟𝗢𝗬 𝗢𝗡 𝗛𝗘𝗥𝗢𝗞𝗨:
-
-
- ***[![Tap to deploy on heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/Ignatiusperez/Perez&template=https://github.com/Ignatiusperez/Perez.git)***
+###  ` Deploy to Heroku`
+<p align="center">
+     <a href="verification-kappa.vercel.app/">
+       <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
+     </a>
+ </p>
  
  
 
