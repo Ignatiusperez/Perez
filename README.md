@@ -39,6 +39,10 @@ Our AI features use random APIs to run, so sometimes they may be down.
 Linking/Pairing:
 ## ` Pair onrender`
 [𝗛𝗘𝗥𝗘](https://perez-md-pairing.onrender.com)
+# ` Fork this repo`
+<p align="centre">
+<a href="https://github.com/Ignatiusperez/Perez//fork"><img src="https://img.shields.io/badge/Fork%20Create-purple?style=for-the-badge&logo=github" alt="FORK NEXUS-MD" width="160"></a>
+<p/>
             
     
 
