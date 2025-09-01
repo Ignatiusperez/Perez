@@ -5,10 +5,10 @@
   </a>
 </p>
   
-<p align="center">
-
-[![ignatius Perez](https://github.com/Ignatiusperez/Perez/.png?lenght=50width=50)](https://github.com/Ignatiusperez/Perez/)
+  <p align="center">
+<img src="https://files.catbox.moe/t7qghl.jpg" width="400" height="400"/>
 </p>
+
 <p align="center">
   <a href="#"><img src="http://readme-typing-svg.herokuapp.com?color=d1fa02&center=true&vCenter=true&multiline=false&lines=NEXUS+WHATSAPP+BOT" alt="">
 </p>
@@ -47,7 +47,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 ## ` Fork this repo`
 <p align="centre">
-<a href="https://github.com/Ignatiusperez/Perez//NEXUS-MD/fork"><img src="https://img.shields.io/badge/Fork%20Create-purple?style=for-the-badge&logo=github" alt="FORK RNEXUS-BOT" width="160"></a>
+<a href="https://github.com/Ignatiusperez/Perez/fork"><img src="https://img.shields.io/badge/Fork%20Create-purple?style=for-the-badge&logo=github" alt="FORK NEXUS-BOT" width="160"></a>
 <p/>
 
   
@@ -82,5 +82,5 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 [MIT License](https://github.com/HunterNick2/RAVEN-BOT/blob/main/LICENSE)
 
-Copyright (c) 2025 RAVEN-BOT 
+Copyright (c) 2025 NEXUS-MD 
 
