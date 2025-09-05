@@ -1329,7 +1329,7 @@ m.reply("*Wait a moment...*");
 	case 'leaves': {
 		     var mumaker = require("mumaker"); 
 		      if (!text || text == "") {
-      m.reply("Example Usage : " + prefix + "Leaves 𝑵𝑬𝑿𝑼𝑺 𝑴𝑫);
+      m.reply("Example Usage : " + prefix + "Leaves Perez-md);
       return;
     }
 	try {
