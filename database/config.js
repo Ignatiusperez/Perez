@@ -18,7 +18,7 @@ const defaultSettings = {
   welcome: 'off',
   autoread: 'off',
   mode: 'private,'
-  prefix:'.,
+  prefix: '.',
   autolike: 'on',
   autoview: 'on',
   wapresence: 'online'
