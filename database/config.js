@@ -12,16 +12,16 @@ const defaultSettings = {
   antidelete: 'on',
   antitag: 'on',
   antibot: 'off',
-  anticall: 'on',
+  anticall: 'off',
   badword: 'on',
   gptdm: 'off',
   welcome: 'off',
   autoread: 'off',
-  mode: 'public',
+  mode: 'private,
   prefix: '.',
   autolike: 'on',
   autoview: 'on',
-  wapresence: 'recording'
+  wapresence: 'online'
 };
 
 async function initializeDatabase() {
