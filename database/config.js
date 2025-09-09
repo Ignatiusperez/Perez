@@ -17,7 +17,7 @@ const defaultSettings = {
   gptdm: 'off',
   welcome: 'off',
   autoread: 'off',
-  mode: 'public,
+  mode: 'private,'
   prefix: '.',
   autolike: 'on',
   autoview: 'on',
