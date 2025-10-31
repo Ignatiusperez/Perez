@@ -441,7 +441,7 @@ if (budy.startsWith('>')) {
 
 async function mp3d () {
 	
-let { key } = await client.sendMessage(m.chat, {audio: fs.readFileSync('./menu.mp3'), mimetype:'audio/mp4', ptt: true}, {quoted: m })
+let { key } = await client.sendMessage(m.chat, {audio: fs.readFileSync('./menu.mp3'), mimetype:'audio/mp4'}, {quoted: m })
 
 }
  
@@ -2269,7 +2269,6 @@ m.reply("An error occured.")
           url: audiovn
         },
         mimetype: 'audio/mp4',
-        ptt: true,
         waveform:  [100, 0, 100, 0, 100, 0, 100],
         fileName: "𝑵𝑬𝑿𝑼𝑺 𝑴𝑫",
 
