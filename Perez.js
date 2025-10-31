@@ -925,82 +925,7 @@ let options = []
 
 	  }
 		break;
-case 'play':{
-const axios = require('axios');
-const yts = require("yt-search");
-const ffmpeg = require("fluent-ffmpeg");
-const fs = require("fs");
-const path = require("path");
-
-  try {
-    if (!text) return m.reply("What song do you want to download?");
-
-    let search = await yts(text);
-    let link = search.all[0].url;
-
-    const apis = [
-      `https://xploader-api.vercel.app/ytmp3?url=${link}`,
-      `https://apis.davidcyriltech.my.id/youtube/mp3?url=${link}`,
-      `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${link}`,
-      `https://api.dreaded.site/api/ytdl/audio?url=${link}`
-       ];
-
-    for (const api of apis) {
-      try {
-        let data = await fetchJson(api);
-
-        // Checking if the API response is successful
-        if (data.status === 200 || data.success) {
-          let videoUrl = data.result?.downloadUrl || data.url;
-          let outputFileName = `${search.all[0].title.replace(/[^a-zA-Z0-9 ]/g, "")}.mp3`;
-          let outputPath = path.join(__dirname, outputFileName);
-
-          const response = await axios({
-            url: videoUrl,
-            method: "GET",
-            responseType: "stream"
-          });
-
-          if (response.status !== 200) {
-            m.reply("sorry but the API endpoint didn't respond correctly. Try again later.");
-            continue;
-          }
-		ffmpeg(response.data)
-            .toFormat("mp3")
-            .save(outputPath)
-            .on("end", async () => {
-              await client.sendMessage(
-                m.chat,
-                {
-                  document: { url: outputPath },
-                  mimetype: "audio/mp3",
-		  caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗡𝗘𝗫𝗨𝗦_𝗠𝗗",
-                  fileName: outputFileName,
-                },
-                { quoted: m }
-              );
-              fs.unlinkSync(outputPath);
-            })
-            .on("error", (err) => {
-              m.reply("Download failed\n" + err.message);
-            });
-
-          return;
-        }
-      } catch (e) {
-        // Continue to the next API if one fails
-        continue;
-      }
-   }
-
-    // If no APIs succeeded
-    m.reply("An error occurred. All APIs might be down or unable to process the request.");
-  } catch (error) {
-    m.reply("Download failed\n" + error.message);
-  }
-}
-	  break;
-	      
+      
 	      case 'metallic': {
 		      var mumaker = require("mumaker");
 		     if (!text || text == "") {
@@ -1818,7 +1743,7 @@ m.reply("*Wait a moment...*");
       return _0x14b65d;
     }
     const _0x22a6bb = {
-      model: "gemini-1.5-flash"
+      model: "gemini-2.5-flash"
     };
     const _0x42849d = _0x4e9e6a.getGenerativeModel(_0x22a6bb);
     const _0x2c743f = [await _0x309a3c(_0x3dfb7c, "image/jpeg")];
@@ -3471,6 +3396,54 @@ const fetch = require("node-fetch");
     }
 }
 break;
+	  
+	  case "play": {		      
+ if (!text) {
+      return client.sendMessage(from, { text: 'Please provide a song name.' }, { quoted: m });
+    }
+
+try {
+     const search = await yts(text);
+     const video = search.videos[0];
+
+        if (!video) {
+          return client.sendMessage(from, {
+            text: 'No results found for your query.'
+          }, { quoted: m });
+        }
+	
+m.reply("_Please wait your download is in progress_");
+	
+        const safeTitle = video.title.replace(/[\\/:*?"<>|]/g, '');
+        const fileName = `${safeTitle}.mp3`;
+        const apiURL = `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`;
+
+        const response = await axios.get(apiURL);
+        const data = response.data;
+
+        if (!data.downloadLink) {
+          return client.sendMessage(from, {
+            text: 'Failed to retrieve the MP3 download link.'
+          }, { quoted: m });
+	} 
+	
+	
+await client.sendMessage(from, {
+          document: { url: data.downloadLink },
+          mimetype: 'audio/mpeg',
+	      caption: 'ᘜᗴᑎᗴᖇᗩTᗴᗪ ᗷY ᑎᗴ᙭ᑌՏ ᗰᗪ',
+          fileName
+        }, { quoted: m });
+
+      } catch (err) {
+        console.error('[PLAY] Error:', err);
+        await client.sendMessage(from, {
+          text: 'An error occurred while processing your request.'
+        }, { quoted: m });
+}
+}
+break;
+	  
 	case 'play2': {
 		     const yts = require("yt-search");
 
