@@ -92,6 +92,7 @@ try {
   );
 
   const client = perezConnect({
+    version,
     logger: pino({ level: "silent" }),
     printQRInTerminal: false,
     browser: ["PEREZ", "Safari", "5.1.7"],
