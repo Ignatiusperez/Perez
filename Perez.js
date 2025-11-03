@@ -149,8 +149,7 @@ const runtime = function (seconds) {
  }   
 const timestamp = speed(); 
 const dreadedspeed = speed() - timestamp 
-
-//antidelete function ,,,, what does that mean????
+	  
 const baseDir = 'message_data';
 if (!fs.existsSync(baseDir)) {
   fs.mkdirSync(baseDir);
