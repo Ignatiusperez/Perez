@@ -714,16 +714,61 @@ case "antilinkall": {
 break;		      
 
 case "antidelete": {
-	if(!Owner) throw NotOwner;
+  if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.antidelete;
-  if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antidelete on/off");
-  if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
-  await updateSetting("antidelete", text);
-  reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
+  
+  if (!text) {
+    // Show current status with mode information
+    const statusText = getAntideleteStatusText();
+    const statusMessage = `🔍 *ANTIDELETE STATUS*\n\n${statusText}\n\n` +
+      `*Available Modes:*\n` +
+      `• 💬 chat - Sends notifications to the chat\n` +
+      `• 🔒 private - Sends notifications to bot owner\n` +
+      `• ❌ off - Disables antidelete\n\n` +
+      `*Usage:* ${prefix}antidelete chat/private/off`;
+    
+    return reply(statusMessage);
+  }
+  
+  // Convert input to match the new status system
+  let newStatus;
+  if (text === "chat") {
+    newStatus = "on-chat";
+  } else if (text === "private") {
+    newStatus = "on-private";
+  } else if (text === "off") {
+    newStatus = "off";
+  } else {
+    return reply("❌ Invalid mode!\n\nUsage: antidelete chat/private/off\n\n" +
+                "• chat - Sends notifications to the chat\n" +
+                "• private - Sends notifications to bot owner\n" +
+                "• off - Disables antidelete");
+  }
+  
+  // Check if already in the same mode
+  if (getAntideleteStatus() === newStatus) {
+    const currentMode = newStatus === "off" ? "off" : newStatus.replace("on-", "");
+    return reply(`✅ Antidelete is already set to *${currentMode.toUpperCase()}* mode`);
+  }
+  
+  // Update both systems
+  const success = setAntideleteStatus(newStatus);
+  await updateSetting("antidelete", newStatus);
+  
+  if (success) {
+    const modeText = newStatus === "off" ? "OFF" : 
+                    newStatus === "on-chat" ? "CHAT MODE" : "PRIVATE MODE";
+    const description = newStatus === "off" ? "Antidelete disabled" :
+                       newStatus === "on-chat" ? "Notifications will be sent to the chat" :
+                       "Notifications will be sent to bot owner privately";
+    
+    reply(`✅ *ANTIDELETE UPDATED*\n\n🔄 Mode: *${modeText}*\n📝 ${description}\n\n${getAntideleteStatusText()}`);
+  } else {
+    reply("❌ Failed to update antidelete settings");
+  }
 }
-break;	
+break;
 		      
 case "gptdm": {
 	if(!Owner) throw NotOwner;
