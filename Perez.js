@@ -729,7 +729,7 @@ case "antilinkall": {
 }
 break;		
 
-
+/*
 //  to change mode
 case "setantidelete": {
 if(!Owner) throw NotOwner;
@@ -742,20 +742,21 @@ if(!Owner) throw NotOwner;
   }
 }      
 
+*/
+			  
 
-/*
-case "": {
+case "antidelete": {
 	if(!Owner) throw NotOwner;
   const settings = await getSettings();
   const current = settings.antidelete;
   if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antidelete on/off");
+  if (!["private", "public", "off"].includes(text)) return reply("Usage: antidelete on/off");
   if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
   await updateSetting("antidelete", text);
   reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
 }
 break;	
-	*/	      
+	      
 case "gptdm": {
 	if(!Owner) throw NotOwner;
   const settings = await getSettings();
