@@ -729,7 +729,7 @@ case "antilinkall": {
 }
 break;		
 
-/*
+
 //  to change mode
 case "setantidelete": {
 if(!Owner) throw NotOwner;
@@ -741,10 +741,10 @@ if(!Owner) throw NotOwner;
     reply('Invalid mode. Use: private, public, or off');
   }
 }      
+break
 
-*/
 			  
-
+/*
 case "antidelete": {
 	if(!Owner) throw NotOwner;
   const settings = await getSettings();
@@ -756,7 +756,7 @@ case "antidelete": {
   reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
 }
 break;	
-	      
+	 */     
 case "gptdm": {
 	if(!Owner) throw NotOwner;
   const settings = await getSettings();
