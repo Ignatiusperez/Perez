@@ -1,6 +1,6 @@
 const botname = require('../set');
 const fetchSettings = require('../database/fetchSettings');
-const Events = async (client, Nick) => {
+const Events = async (client, Nexus) => {
     
     try {
       const welcomegoodbye = await fetchSettings();
@@ -29,7 +29,7 @@ const Events = async (client, Nick) => {
                         mentions: [num],
                         });
                 }
-            } else if (Nick.action === "remove") {
+            } else if (Nexus.action === "remove") {
                 let userName2 = num;
 
                 let Lefttext = `@${userName2.split("@")[0]} Has run out of data, let's pray for the poor😢.\n\nAnyway Goodbye Hustler👋.`;
