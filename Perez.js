@@ -834,6 +834,18 @@ case "wapresence": {
   reply(`✅ Presence updated to *${text}*`);
 }
 break;
+			  
+case "menutype": {
+       if(!Owner) throw NotOwner;
+  const settings = await getSettings();
+  const current = settings.menutype;
+  if (!text) return reply(`👤 menutype is currently *${current}*`);
+  if (!["video", "image", "link", "text"].includes(text)) return reply("Usage: menutype video/image/link/text");
+  if (text === current) return reply(`✅ menutype is already *${text}*`);
+  await updateSetting("menutype", text);
+  reply(`✅ menutype updated to *${text}*`);
+}
+break;
 
 case "badword": {
 	if(!Owner) throw NotOwner;
