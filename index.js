@@ -574,7 +574,11 @@ function _0x2f66() {
       if (store && store.contacts) store.contacts[id] = { id, name: contact.notify };
     }
   });
-
+  
+client.ev.on("group-participants.update", async (m) => {
+    Events(client, m);
+  });
+  
   client.getName = (jid, withoutContact = false) => {
     id = client.decodeJid(jid);
     withoutContact = client.withoutContact || withoutContact;
