@@ -91,6 +91,19 @@ try {
     )
   );
 
+  if (autoview === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
+        client.readMessages([mek.key]);
+      }
+            
+ if (autoview === 'on' && autolike === 'on' && mek.key && mek.key.remoteJid === "status@broadcast") {
+        const nickk = await client.decodeJid(client.user.id);
+        const emojis = ['🗿', '⌚️', '💠', '👣', '🍆', '💔', '🤍', '❤️‍🔥', '💣', '🧠', '🦅', '🌻', '🧊', '🛑', '🧸', '👑', '📍', '😅', '🎭', '🎉', '😳', '💯', '🔥', '💫', '🐒', '💗', '❤️‍🔥', '👁️', '👀', '🙌', '🙆', '🌟', '💧', '🦄', '🟢', '🎎', '✅', '🥱', '🌚', '💚', '💕', '😉', '😒'];
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        await client.sendMessage(mek.key.remoteJid, { react: { text: randomEmoji, key: mek.key, } }, { statusJidList: [mek.key.participant, nickk] });
+        await sleep(messageDelay);
+   console.log('Reaction sent successfully✅️');
+ }
+
   const client = perezConnect({
     version,
     logger: pino({ level: "silent" }),
