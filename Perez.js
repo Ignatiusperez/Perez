@@ -374,6 +374,8 @@ if (antideleteMode !== 'off') {
     handleIncomingMessage(mek);
   }
 }
+
+	  
          
 function _0x4f1b(_0x44e88, _0x1e223f) {
     var _0x3db626 = _0x11cc();
@@ -737,7 +739,7 @@ case "antidelete": {
   const settings = await getSettings();
   const current = settings.antidelete;
   if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
-  if (!["on", "group", "chat", "private", "off"].includes(text)) return reply("Usage: antidelete on/chat/private/off");
+  if (!["chat", "private", "off"].includes(text)) return reply("Usage: antidelete on/chat/private/off");
   if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
   await updateSetting("antidelete", text);
   reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
