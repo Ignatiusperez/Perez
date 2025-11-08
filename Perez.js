@@ -543,18 +543,6 @@ case "antilinkall": {
   reply(`✅ Antilinkall has been turned *${text.toUpperCase()}*`);
 }
 break;
-			  
-case 'botpp': { 
-    if (!Owner) throw NotOwner; 
-    if (!quoted) throw Tag an image you want to be the bot's profile picture with ${prefix + command}; 
-    if (!/image/.test(mime)) throw Tag an image you want to be the bot's profile picture with ${prefix + command}; 
-    if (/webp/.test(mime)) throw Tag an image you want to be the bot's profile picture with ${prefix + command}; 
-    let media = await client.downloadAndSaveMediaMessage(quoted);
-		
-                    await client.updateProfilePicture(botNumber, { url: media }).catch((err) => fs.unlinkSync(media)); 
-    reply Bot's profile picture has been successfully updated✅️; 
-	  }
-    break;			  
 
 case "antidelete": {
 	if(!Owner) throw NotOwner;
