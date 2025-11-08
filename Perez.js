@@ -209,8 +209,8 @@ async function handleMessageRevocation(client, revocationMessage, targetChat = n
     // Determine where to send the notification
     const sendTo = targetChat || client.user.id;
 
-    let notificationText = `⫸𝗡𝗘𝗫𝗨𝗦 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧⫸\n\n` +
-      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`;
+    let notificationText = `⫸🗑️ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 🗑️⫸\n\n` +
+      ` 🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`;
 
 try {
 
@@ -219,18 +219,18 @@ if (deletedBy.includes(botNumber)) return;
 if (originalMessage.message?.conversation) {
         // Text message
         const messageText = originalMessage.message.conversation;
-        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
+        notificationText += `🗑️ 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
         await client.sendMessage(sendTo, { text: notificationText });
       } 
       else if (originalMessage.message?.extendedTextMessage) {
         // Extended text message (quoted messages)
         const messageText = originalMessage.message.extendedTextMessage.text;
-        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
+        notificationText += ` 🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
         await client.sendMessage(sendTo, { text: notificationText });
       }
       else if (originalMessage.message?.imageMessage) {
         // Image message
-        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Image]`;
+        notificationText += `🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Image]`;
         try {
           const buffer = await client.downloadMediaMessage(originalMessage.message.imageMessage);
           await client.sendMessage(sendTo, { 
@@ -245,7 +245,7 @@ if (originalMessage.message?.conversation) {
       } 
       else if (originalMessage.message?.videoMessage) {
         // Video message
-        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Video]`;
+        notificationText += `🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Video]`;
         try {
           const buffer = await client.downloadMediaMessage(originalMessage.message.videoMessage);
           await client.sendMessage(sendTo, { 
@@ -258,21 +258,21 @@ if (originalMessage.message?.conversation) {
           await client.sendMessage(sendTo, { text: notificationText });
         }
       } else if (originalMessage.message?.stickerMessage) {
-	 notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Sticker]`;
+	 notificationText += `📷𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Sticker]`;
       // Sticker message
       const buffer = await client.downloadMediaMessage(originalMessage.message.stickerMessage);      
       await client.sendMessage(sendTo, { sticker: buffer, 
 contextInfo: {
           externalAdReply: {
           title: notificationText,
-          body: `DELETED BY: ${deletedByFormatted}`,
+          body: `🗑️ DELETED BY: ${deletedByFormatted}`,
           thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
           sourceUrl: '',
           mediaType: 1,
           renderLargerThumbnail: true
           }}});
       } else if (originalMessage.message?.documentMessage) {
-        notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Document]`;
+        notificationText += `🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Document]`;
         // Document message
         const docMessage = originalMessage.message.documentMessage;
         const fileName = docMessage.fileName || `document_${Date.now()}.dat`;
@@ -300,7 +300,7 @@ contextInfo: {
           renderLargerThumbnail: true
           }}});
       } else if (originalMessage.message?.audioMessage) {
-	      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Audio]`;
+	      notificationText += `🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝗱𝗶𝗮: [Audio]`;
       // Audio message
       const buffer = await client.downloadMediaMessage(originalMessage.message.audioMessage);
       const isPTT = originalMessage.message.audioMessage.ptt === true;
@@ -308,7 +308,7 @@ contextInfo: {
 contextInfo: {
           externalAdReply: {
           title: notificationText,
-          body: `DELETED BY: ${deletedByFormatted}`,
+          body: `🗑️ DELETED BY: ${deletedByFormatted}`,
           thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
           sourceUrl: '',
           mediaType: 1,
@@ -752,7 +752,7 @@ case "antidelete": {
   const settings = await getSettings();
   const current = settings.antidelete;
   if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
-  if (!["chat", "private", "both", "on",  "off"].includes(text)) return reply("Usage: antidelete on/chat/private/off");
+  if (!["chat", "private", "both", "on",  "off"].includes(text)) return reply("USAGE:\n\n- antidelete on - To initialize antidelete\n- Antidelete chat - To ennable on present chat\n- Antidelete private - Send notification on the bot number only\n- Antidelete off - To put off the system\n- Antidelete both - To enable on both chat and owner bot");
   if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
   await updateSetting("antidelete", text);
   reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
