@@ -266,7 +266,7 @@ contextInfo: {
           externalAdReply: {
           title: notificationText,
           body: `🗑️ DELETED BY: ${deletedByFormatted}`,
-          thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
+          thumbnailUrl: "https://files.catbox.moe/jb8g61.jpg",
           sourceUrl: '',
           mediaType: 1,
           renderLargerThumbnail: true
