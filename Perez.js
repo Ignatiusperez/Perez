@@ -209,7 +209,7 @@ async function handleMessageRevocation(client, revocationMessage, targetChat = n
     // Determine where to send the notification
     const sendTo = targetChat || client.user.id;
 
-    let notificationText = `⫸🗑️ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 🗑️⫸\n\n` +
+    let notificationText = `🗑️ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 🗑️\n\n` +
       ` 🚮 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`;
 
 try {
