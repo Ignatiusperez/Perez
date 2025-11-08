@@ -150,6 +150,217 @@ Perez(client, m, chatUpdate, store);
       console.log(err);
     }
   });
+if (
+    global.antidelete === 'private' &&
+    m.message?.protocolMessage?.type === 0 && 
+    m.message?.protocolMessage?.key
+) {
+    try {
+        let messageId = m.message.protocolMessage.key.id;
+        let chatId = m.chat;
+        let deletedBy = m.sender;
+
+        let storedMessages = loadStoredMessages();
+        let deletedMsg = storedMessages[chatId]?.[messageId];
+
+        if (!deletedMsg) {
+            console.log("⚠️ Deleted message not found in store.json.");
+            return;
+        }
+
+        let sender = deletedMsg.sender;
+        let chatName = chatId.endsWith("@g.us") ? `(Group Chat)` : "(Private Chat)";
+
+        let xtipes = moment(deletedMsg.timestamp * 1000).tz(`${timezones}`).locale('en').format('HH:mm z');
+        let xdptes = moment(deletedMsg.timestamp * 1000).tz(`${timezones}`).format("DD/MM/YYYY");
+
+        let replyText = `👨‍💻 *『 𝗗𝗘𝗟𝗘𝗧𝗘𝗗 𝗠𝗔𝗦𝗦𝗔𝗚𝗘 𝗗𝗘𝗧𝗘𝗖𝗧𝗘𝗗 』!* 🤓
+${readmore}
+𝙲𝙷𝙰𝚃: ${chatName}
+𝚂𝙴𝙽𝚃 𝙱𝚈: @${sender.split('@')[0]} 
+𝚃𝙸𝙼𝙴 𝚂𝙴𝙽𝚃: ${xtipes}
+𝙳𝙰𝚃𝙴 𝚂𝙴𝙽𝚃: ${xdptes}
+𝙳𝙴𝙻𝙴𝚃𝙴𝙳 𝙱𝚈: @${deletedBy.split('@')[0]}
+
+𝙼𝙴𝚂𝚂𝙰𝙶𝙴: ${deletedMsg.text}`;
+
+        let quotedMessage = {
+            key: {
+                remoteJid: chatId,
+                fromMe: sender === Cypher.user.id,
+                id: messageId,
+                participant: sender
+            },
+            message: {
+                conversation: deletedMsg.text 
+            }
+        };
+
+await Cypher.sendMessage(Cypher.user.id, { text: replyText, mentions: [sender, deletedBy] }, { quoted: quotedMessage });
+
+    } catch (err) {
+        console.error("❌ Error processing deleted message:", err);
+    }
+} else if (
+    global.antidelete === 'chat' &&
+    m.message?.protocolMessage?.type === 0 && 
+    m.message?.protocolMessage?.key
+) {
+    try {
+        let messageId = m.message.protocolMessage.key.id;
+        let chatId = m.chat;
+        let deletedBy = m.sender;
+
+        let storedMessages = loadStoredMessages();
+        let deletedMsg = storedMessages[chatId]?.[messageId];
+
+        if (!deletedMsg) {
+            console.log("⚠️ Deleted message not found in store.json.");
+            return;
+        }
+
+        let sender = deletedMsg.sender;
+        let chatName = chatId.endsWith("@g.us") ? `(Group Chat)` : "(Private Chat)";
+
+        let xtipes = moment(deletedMsg.timestamp * 1000).tz(`${timezones}`).locale('en').format('HH:mm z');
+        let xdptes = moment(deletedMsg.timestamp * 1000).tz(`${timezones}`).format("DD/MM/YYYY");
+
+        let replyText = `👨‍💻 *『 𝗗𝗘𝗟𝗘𝗧𝗘𝗗 𝗠𝗔𝗦𝗦𝗔𝗚𝗘 𝗗𝗘𝗧𝗘𝗖𝗧𝗘𝗗 』!* 🤓
+${readmore}
+𝙲𝙷𝙰𝚃: ${chatName}
+𝚂𝙴𝙽𝚃 𝙱𝚈: @${sender.split('@')[0]} 
+𝚃𝙸𝙼𝙴 𝚂𝙴𝙽𝚃: ${xtipes}
+𝙳𝙰𝚃𝙴 𝚂𝙴𝙽𝚃: ${xdptes}
+𝙳𝙴𝙻𝙴𝚃𝙴𝙳 𝙱𝚈: @${deletedBy.split('@')[0]}
+
+𝙼𝙴𝚂𝚂𝙰𝙶𝙴: ${deletedMsg.text}`;
+
+        let quotedMessage = {
+            key: {
+                remoteJid: chatId,
+                fromMe: sender === Cypher.user.id,
+                id: messageId,
+                participant: sender
+            },
+            message: {
+                conversation: deletedMsg.text 
+            }
+        };
+
+await Cypher.sendMessage(m.chat, { text: replyText, mentions: [sender, deletedBy] }, { quoted: quotedMessage });
+
+    } catch (err) {
+        console.error("❌ Error processing deleted message:", err);
+    }
+} 
+//<================================================>//
+if (
+    global.antiedit === 'private' &&
+    (m.message?.protocolMessage?.editedMessage?.conversation || 
+    m.message?.protocolMessage?.editedMessage?.extendedTextMessage?.text)
+) {
+    try {
+        let messageId = m.message.protocolMessage.key.id;
+        let chatId = m.chat;
+        let editedBy = m.sender;
+
+        let storedMessages = loadStoredMessages();
+        let originalMsg = storedMessages[chatId]?.[messageId];
+
+        if (!originalMsg) {
+            console.log("⚠️ Original message not found in store.json.");
+            return;
+        }
+
+        let sender = originalMsg.sender;
+        let chatName = chatId.endsWith("@g.us") ? "(Group Chat)" : "(Private Chat)";
+
+        let xtipes = moment(originalMsg.timestamp * 1000).tz(`${timezones}`).locale('en').format('HH:mm z');
+        let xdptes = moment(originalMsg.timestamp * 1000).tz(`${timezones}`).format("DD/MM/YYYY");
+
+        let replyText = `👨‍💻 *『 𝗘𝗗𝗜𝗧𝗘𝗗 𝗠𝗔𝗦𝗦𝗔𝗚𝗘 𝗗𝗘𝗧𝗘𝗖𝗧𝗘𝗗 』!* 🤓
+${readmore}
+𝙲𝙷𝙰𝚃: ${chatName}
+𝚂𝙴𝙽𝚃 𝙱𝚈: @${sender.split('@')[0]} 
+𝚂𝙴𝙽𝚃 𝙾𝙽: ${xtipes}
+𝙳𝙰𝚃𝙴 𝚂𝙴𝙽𝚃: ${xdptes}
+𝙴𝙳𝙸𝚃𝙴𝙳 𝙱𝚈: @${editedBy.split('@')[0]}
+
+𝙾𝚁𝙸𝙶𝙸𝙽𝙰𝙻 𝙼𝚂𝙶: ${originalMsg.text}
+
+𝙴𝙳𝙸𝚃𝙴𝙳 𝚃𝙾: ${m.message.protocolMessage?.editedMessage?.conversation || m.message.protocolMessage?.editedMessage?.extendedTextMessage?.text}`
+
+        let quotedMessage = {
+            key: {
+                remoteJid: chatId,
+                fromMe: sender === Cypher.user.id,
+                id: messageId,
+                participant: sender
+            },
+            message: {
+                conversation: originalMsg.text 
+            }
+        };
+
+        await Cypher.sendMessage(Cypher.user.id, { text: replyText, mentions: [sender, editedBy] }, { quoted: quotedMessage });
+
+    } catch (err) {
+        console.error("❌ Error processing edited message:", err);
+    }
+} else if (
+    global.antiedit === 'chat' &&
+    (m.message?.protocolMessage?.editedMessage?.conversation || 
+    m.message?.protocolMessage?.editedMessage?.extendedTextMessage?.text)
+) {
+    try {
+        let messageId = m.message.protocolMessage.key.id;
+        let chatId = m.chat;
+        let editedBy = m.sender;
+
+        let storedMessages = loadStoredMessages();
+        let originalMsg = storedMessages[chatId]?.[messageId];
+
+        if (!originalMsg) {
+            console.log("⚠️ Original message not found in store.json.");
+            return;
+        }
+
+        let sender = originalMsg.sender;
+        let chatName = chatId.endsWith("@g.us") ? "(Group Chat)" : "(Private Chat)";
+
+        let xtipes = moment(originalMsg.timestamp * 1000).tz(`${timezones}`).locale('en').format('HH:mm z');
+        let xdptes = moment(originalMsg.timestamp * 1000).tz(`${timezones}`).format("DD/MM/YYYY");
+
+        let replyText = `👨‍💻 *『 𝗘𝗗𝗜𝗧𝗘𝗗 𝗠𝗔𝗦𝗦𝗔𝗚𝗘 𝗗𝗘𝗧𝗘𝗖𝗧𝗘𝗗 』!* 🤓
+${readmore}
+𝙲𝙷𝙰𝚃: ${chatName}
+𝚂𝙴𝙽𝚃 𝙱𝚈: @${sender.split('@')[0]} 
+𝚂𝙴𝙽𝚃 𝙾𝙽: ${xtipes}
+𝙳𝙰𝚃𝙴 𝚂𝙴𝙽𝚃: ${xdptes}
+𝙴𝙳𝙸𝚃𝙴𝙳 𝙱𝚈: @${editedBy.split('@')[0]}
+
+𝙾𝚁𝙸𝙶𝙸𝙽𝙰𝙻 𝙼𝚂𝙶: ${originalMsg.text}
+
+𝙴𝙳𝙸𝚃𝙴𝙳 𝚃𝙾: ${m.message.protocolMessage?.editedMessage?.conversation || m.message.protocolMessage?.editedMessage?.extendedTextMessage?.text}`;
+
+        let quotedMessage = {
+            key: {
+                remoteJid: chatId,
+                fromMe: sender === Cypher.user.id,
+                id: messageId,
+                participant: sender
+            },
+            message: {
+                conversation: originalMsg.text 
+            }
+        };
+
+        await Cypher.sendMessage(m.chat, { text: replyText, mentions: [sender, editedBy] }, { quoted: quotedMessage });
+
+    } catch (err) {
+        console.error("❌ Error processing edited message:", err);
+    }
+}
 
   // Handle error
   const unhandledRejections = new Map();
