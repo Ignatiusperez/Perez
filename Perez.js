@@ -750,7 +750,7 @@ case "antidelete": {
   const settings = await getSettings();
   const current = settings.antidelete;
   if (!text) return reply(`😊 Antidelete is currently *${current.toUpperCase()}*`);
-  if (!["on", "off"].includes(text)) return reply("Usage: antidelete on/off");
+  if (!["on", "private", "chat", "off"].includes(text)) return reply("Usage: antidelete on/chat/private/off");
   if (text === current) return reply(`✅ Antidelete is already *${text.toUpperCase()}*`);
   await updateSetting("antidelete", text);
   reply(`✅ Antidelete has been turned *${text.toUpperCase()}*`);
