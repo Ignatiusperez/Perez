@@ -734,6 +734,28 @@ break;
   reply(`✅ Antilink has been turned *${text.toUpperCase()}*`);
 }
 break;
+case 'calculate': case 'calc': {
+try {
+    if (!text) {
+      return m.reply("*Example usage:* .calculate 5+72");
+    }
+
+    // Validate the input to prevent unsafe operations
+    if (!/^[0-9+\-*/().\s]+$/.test(text)) {
+      return m.reply("Invalid format. Only numbers and +, -, *, /, ( ) are allowed.");
+    }
+
+    // Evaluate the mathematical expression
+    let result = eval(text);
+
+    // Reply with the result
+    m.reply(`${result}`);
+  } catch (e) {
+    console.error("Error in .calculate command:", e);
+    m.reply("Error in calculation. Please check your expression.");
+  }
+}
+break;			  
 
 case "antilinkall": {
 	if(!Owner) throw NotOwner;
@@ -2098,6 +2120,49 @@ await client.sendMessage(m.chat, { image: { url: imageurl}, caption: `𝗖𝗼�
         await client.sendMessage(m.chat, { text: 'An error occurred while fetching the fact.' }, { quoted: m });
     }
 }
+			  
+case "system": 
+  
+              client.sendMessage(m.chat, { image: { url: 'https://files.catbox.moe/duv8ac.jpg' }, caption:`*𝐁𝐎𝐓 𝐍𝐀𝐌𝐄: 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧*\n\n*𝐒𝐏𝐄𝐄𝐃: ${Rspeed.toFixed(4)} 𝐌𝐒*\n\n*𝐑𝐔𝐍𝐓𝐈𝐌𝐄: ${runtime(process.uptime())}*\n\n*𝐏𝐋𝐀𝐓𝐅𝐎𝐑𝐌: 𝗛𝗲𝗿𝗼𝗸𝘂*\n\n*𝐇𝐎𝐒𝐓𝐍𝐀𝐌𝐄: 𝗥𝗮𝘃𝗲𝗻*\n\n*𝐋𝐈𝐁𝐑𝐀𝐑𝐘: Baileys*\n\n𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐑: 𝗡𝗶𝗰𝗸༆`}); 
+ break;
+case "faker": {
+	if (!m.isGroup) throw group;	      
+	if (!isAdmin) throw admin;
+	if (!isBotAdmin) throw botAdmin;
+		      
+		let _0x2f8982 = participants.filter(_0x3c9d8b => !_0x3c9d8b.admin).map(_0x1db3fb => _0x1db3fb.id).filter(_0x475052 => _0x475052.startsWith("1") && _0x475052 != client.decodeJid(client.user.id));
+    if (!args || !args[0]) {
+      if (_0x2f8982.length == 0) {
+        return m.reply("𝙽𝚘 𝚏𝚊𝚔𝚎 𝙰𝚌𝚌𝚘𝚞𝚗𝚝𝚜 𝚍𝚎𝚝𝚎𝚌𝚝𝚎𝚍.");
+      }
+      let _0x2d7d67 = `Nexus 𝚑𝚊𝚜 𝚍𝚎𝚝𝚎𝚌𝚝𝚎𝚍 𝚝𝚑𝚎 𝚏𝚘𝚕𝚕𝚘𝚠𝚒𝚗𝚐 ${_0x2f8982.length} 𝙵𝚊𝚔𝚎 𝚊𝚌𝚌𝚘𝚞𝚗𝚝𝚜 𝚒𝚗 𝚝𝚑𝚒𝚜 𝚐𝚛𝚘𝚞𝚙:- \n`;
+      for (let _0x28761c of _0x2f8982) {
+        _0x2d7d67 += `🚮 @${_0x28761c.split("@")[0]}\n`;
+      }
+      _0x2d7d67 += `\n𝚃𝚘 𝚛𝚎𝚖𝚘𝚟𝚎 𝚝𝚑𝚎𝚖 𝚜𝚎𝚗𝚍 𝚏𝚊𝚔𝚎𝚛 -x`;
+      client.sendMessage(m.chat, {
+        text: _0x2d7d67,
+        mentions: _0x2f8982
+      }, {
+        quoted: m
+      });
+    } else if (args[0] == "-x") {
+      setTimeout(() => {
+        client.sendMessage(m.chat, {
+          text: `𝙽𝚘𝚠 𝚁𝚊𝚟𝚎𝚗 𝚠𝚒𝚕𝚕 𝚛𝚎𝚖𝚘𝚟𝚎 ${_0x2f8982.length} 𝙵𝚊𝚔𝚎 𝙰𝚌𝚌𝚘𝚞𝚗𝚝𝚜 𝚏𝚛𝚘𝚖 𝚝𝚑𝚒𝚜 𝚐𝚛𝚘𝚞𝚙.\n\n𝙶𝚘𝚘𝚍𝚋𝚢𝚎👋 𝙵𝚊𝚔𝚎 𝚙𝚎𝚘𝚙𝚕𝚎.`
+        }, {
+          quoted: m
+        });
+        setTimeout(() => {
+          client.groupParticipantsUpdate(m.chat, _0x2f8982, "remove");
+          setTimeout(() => {
+            m.reply("𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢 𝚛𝚎𝚖𝚘𝚟𝚎𝚍 𝚊𝚕𝚕 𝚏𝚊𝚔𝚎 𝚊𝚌𝚌𝚘𝚞𝚗𝚝𝚜✅.");
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }
+      }	      
+	break;			  
 	break;
 		      case "quotes": {
 		      const API_URL = 'https://favqs.com/api/qotd';
@@ -2923,64 +2988,21 @@ await client.sendMessage(m.chat, { text: `Quoted text is your token. To fetch me
 
       }
        break;
-	case "fixtures": case "matches": {
- try {
-        let pl, laliga, bundesliga, serieA, ligue1;
+	case "epl": case "epl-table": {
+		      
+try {
+        const data = await fetchJson('https://api.dreaded.site/api/standings/PL');
+        const standings = data.data;
 
-        const plData = await fetchJson('https://api.dreaded.site/api/matches/PL');
-        pl = plData.data;
-
-        const laligaData = await fetchJson('https://api.dreaded.site/api/matches/PD');
-        laliga = laligaData.data;
-
-        const bundesligaData = await fetchJson('https://api.dreaded.site/api/matches/BL1');
-        bundesliga = bundesligaData.data;
-
-        const serieAData = await fetchJson('https://api.dreaded.site/api/matches/SA');
-        serieA = serieAData.data;
-
-        const ligue1Data = await fetchJson('https://api.dreaded.site/api/matches/FR');
-        ligue1 = ligue1Data.data;
-
-        let message = `𝗧𝗼𝗱𝗮𝘆𝘀 𝗙𝗼𝗼𝘁𝗯𝗮𝗹𝗹 𝗙𝗶𝘅𝘁𝘂𝗿𝗲𝘀 ⚽\n\n`;
-
-        message += typeof pl === 'string' ? `🇬🇧 𝗣𝗿𝗲𝗺𝗶𝗲𝗿 𝗟𝗲𝗮𝗴𝘂𝗲:\n${pl}\n\n` : pl.length > 0 ? `🇬🇧 𝗣𝗿𝗲𝗺𝗶𝗲𝗿 𝗟𝗲𝗮𝗴𝘂𝗲:\n${pl.map(match => {
-            const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
-        }).join('\n')}\n\n` : "🇬🇧 𝗣𝗿𝗲𝗺𝗶𝗲𝗿 𝗟𝗲𝗮𝗴𝘂𝗲: No matches scheduled\n\n";
-
-        if (typeof laliga === 'string') {
-            message += `🇪🇸 𝗟𝗮 𝗟𝗶𝗴𝗮:\n${laliga}\n\n`;
-        } else {
-            message += laliga.length > 0 ? `🇪🇸 𝗟𝗮 𝗟𝗶𝗴𝗮:\n${laliga.map(match => {
-                const { game, date, time } = match;
-                return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
-            }).join('\n')}\n\n` : "🇪🇸 𝗟𝗮 𝗟𝗶𝗴𝗮: No matches scheduled\n\n";
-        }
-
-        message += typeof bundesliga === 'string' ? `🇩🇪 𝗕𝘂𝗻𝗱𝗲𝘀𝗹𝗶𝗴𝗮:\n${bundesliga}\n\n` : bundesliga.length > 0 ? `🇩🇪 𝗕𝘂𝗻𝗱𝗲𝘀𝗹𝗶𝗴𝗮:\n${bundesliga.map(match => {
-            const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
-        }).join('\n')}\n\n` : "🇩🇪 𝗕𝘂𝗻𝗱𝗲𝘀𝗹𝗶𝗴𝗮: No matches scheduled\n\n";
-
-        message += typeof serieA === 'string' ? `🇮🇹 𝗦𝗲𝗿𝗶𝗲 𝗔:\n${serieA}\n\n` : serieA.length > 0 ? `🇮🇹 𝗦𝗲𝗿𝗶𝗲 𝗔:\n${serieA.map(match => {
-            const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
-        }).join('\n')}\n\n` : "🇮🇹 𝗦𝗲𝗿𝗶𝗲 𝗔: No matches scheduled\n\n";
-
-        message += typeof ligue1 === 'string' ? `🇫🇷 𝗟𝗶𝗴𝘂𝗲 1:\n${ligue1}\n\n` : ligue1.length > 0 ? `🇫🇷 𝗟𝗶𝗴𝘂𝗲 1:\n${ligue1.map(match => {
-            const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
-        }).join('\n')}\n\n` : "🇫🇷 𝗟𝗶𝗴𝘂𝗲- 1: No matches scheduled\n\n";
-
-        message += "𝗧𝗶𝗺𝗲 𝗮𝗻𝗱 𝗗𝗮𝘁𝗲 𝗮𝗿𝗲 𝗶𝗻 𝗘𝗮𝘀𝘁 𝗔𝗳𝗿𝗶𝗰𝗮 𝗧𝗶𝗺𝗲𝘇𝗼𝗻𝗲 (𝗘𝗔𝗧).";
+        const message = ` 𝗖𝘂𝗿𝗿𝗲𝗻𝘁 𝗘𝗽𝗹 𝗧𝗮𝗯𝗹𝗲 𝗦𝘁𝗮𝗻𝗱𝗶𝗻𝗴𝘀:-\n\n${standings}`;
 
         await m.reply(message);
     } catch (error) {
-        m.reply('Something went wrong. Unable to fetch matches.' + error);
+        m.reply('Something went wrong. Unable to fetch 𝗘𝗽𝗹 standings.');
     }
-};
-break;		      
+
+ }
+	break;
        case "hacker2": {
        if (!/image/.test(mime)) return m.reply("Hello hacker 👋, quote an image, probably a clear image of yourself or a person.");  
 
@@ -3462,6 +3484,64 @@ const fetch = require("node-fetch");
     }
 }
 break;
+ case "fixtures": case "matches": {
+ try {
+        let pl, laliga, bundesliga, serieA, ligue1;
+
+        const plData = await fetchJson('https://api.dreaded.site/api/matches/PL');
+        pl = plData.data;
+
+        const laligaData = await fetchJson('https://api.dreaded.site/api/matches/PD');
+        laliga = laligaData.data;
+
+        const bundesligaData = await fetchJson('https://api.dreaded.site/api/matches/BL1');
+        bundesliga = bundesligaData.data;
+
+        const serieAData = await fetchJson('https://api.dreaded.site/api/matches/SA');
+        serieA = serieAData.data;
+
+        const ligue1Data = await fetchJson('https://api.dreaded.site/api/matches/FR');
+        ligue1 = ligue1Data.data;
+
+        let message = `𝗧𝗼𝗱𝗮𝘆𝘀 𝗙𝗼𝗼𝘁𝗯𝗮𝗹𝗹 𝗙𝗶𝘅𝘁𝘂𝗿𝗲𝘀 ⚽\n\n`;
+
+        message += typeof pl === 'string' ? `🇬🇧 𝗣𝗿𝗲𝗺𝗶𝗲𝗿 𝗟𝗲𝗮𝗴𝘂𝗲:\n${pl}\n\n` : pl.length > 0 ? `🇬🇧 𝗣𝗿𝗲𝗺𝗶𝗲𝗿 𝗟𝗲𝗮𝗴𝘂𝗲:\n${pl.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
+        }).join('\n')}\n\n` : "🇬🇧 𝗣𝗿𝗲𝗺𝗶𝗲𝗿 𝗟𝗲𝗮𝗴𝘂𝗲: No matches scheduled\n\n";
+
+        if (typeof laliga === 'string') {
+            message += `🇪🇸 𝗟𝗮 𝗟𝗶𝗴𝗮:\n${laliga}\n\n`;
+        } else {
+            message += laliga.length > 0 ? `🇪🇸 𝗟𝗮 𝗟𝗶𝗴𝗮:\n${laliga.map(match => {
+                const { game, date, time } = match;
+                return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
+            }).join('\n')}\n\n` : "🇪🇸 𝗟𝗮 𝗟𝗶𝗴𝗮: No matches scheduled\n\n";
+        }
+
+        message += typeof bundesliga === 'string' ? `🇩🇪 𝗕𝘂𝗻𝗱𝗲𝘀𝗹𝗶𝗴𝗮:\n${bundesliga}\n\n` : bundesliga.length > 0 ? `🇩🇪 𝗕𝘂𝗻𝗱𝗲𝘀𝗹𝗶𝗴𝗮:\n${bundesliga.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
+        }).join('\n')}\n\n` : "🇩🇪 𝗕𝘂𝗻𝗱𝗲𝘀𝗹𝗶𝗴𝗮: No matches scheduled\n\n";
+
+        message += typeof serieA === 'string' ? `🇮🇹 𝗦𝗲𝗿𝗶𝗲 𝗔:\n${serieA}\n\n` : serieA.length > 0 ? `🇮🇹 𝗦𝗲𝗿𝗶𝗲 𝗔:\n${serieA.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
+        }).join('\n')}\n\n` : "🇮🇹 𝗦𝗲𝗿𝗶𝗲 𝗔: No matches scheduled\n\n";
+
+        message += typeof ligue1 === 'string' ? `🇫🇷 𝗟𝗶𝗴𝘂𝗲 1:\n${ligue1}\n\n` : ligue1.length > 0 ? `🇫🇷 𝗟𝗶𝗴𝘂𝗲 1:\n${ligue1.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
+        }).join('\n')}\n\n` : "🇫🇷 𝗟𝗶𝗴𝘂𝗲- 1: No matches scheduled\n\n";
+
+        message += "𝗧𝗶𝗺𝗲 𝗮𝗻𝗱 𝗗𝗮𝘁𝗲 𝗮𝗿𝗲 𝗶𝗻 𝗘𝗮𝘀𝘁 𝗔𝗳𝗿𝗶𝗰𝗮 𝗧𝗶𝗺𝗲𝘇𝗼𝗻𝗲 (𝗘𝗔𝗧).";
+
+        await m.reply(message);
+    } catch (error) {
+        m.reply('Something went wrong. Unable to fetch matches.' + error);
+    }
+};
+break;		      			  
 	  
 	  case "play": {		      
  if (!text) {
@@ -3551,48 +3631,6 @@ caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗡𝗘𝗫𝗨𝗦
     }
 }
 break;
-case 'save': {
-  const textL = m.text.toLowerCase();
-  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
-
-  // Check if user quoted a status
-  if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
-    return m.reply("❌ You must reply to a status to save it");
-  }
-
-  if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
-    try {
-      // Send to user's DM instead of group chat
-      const userDM = m.sender; // Get user's personal chat ID
-
-      if (quotedMessage.imageMessage) {
-        let imageCaption = quotedMessage.imageMessage.caption || "Saved from status";
-        let imageBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          image: imageBuffer, 
-          caption: imageCaption 
-        });
-      }
-
-      if (quotedMessage.videoMessage) {
-        let videoCaption = quotedMessage.videoMessage.caption || "Saved from status";
-        let videoBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          video: videoBuffer, 
-          caption: videoCaption 
-        });
-      }
-
-      // Confirm in original chat
-      await m.reply("delivered dm");
-
-    } catch (error) {
-      console.error("Save error:", error);
-      await m.reply("❌ Failed perez-md!.");
-    }
-  }
-}
-break;	
 case "update": case "redeploy": {
 		      const axios = require('axios');
 
@@ -3779,7 +3817,7 @@ try {
         m.reply('Something went wrong. Unable to fetch 𝗟𝗮𝗹𝗶𝗴𝗮 standings.');
   }
 }   
-break;		      
+break;
           case "disp-1": { 
                  if (!m.isGroup) throw group; 
                  if (!isBotAdmin) throw botAdmin; 
@@ -4460,48 +4498,6 @@ if (!text) return m.reply("No emojis provided ? ")
     }
       }
 	break;
-	case 'save': {
-  const textL = m.text.toLowerCase();
-  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
-
-  // Check if user quoted a status
-  if (quotedMessage && textL.startsWith(prefix + "save") && !m.quoted.chat.includes("status@broadcast")) {
-    return m.reply("❌ You must reply to a status to save it");
-  }
-
-  if (Owner && quotedMessage && textL.startsWith(prefix + "save") && m.quoted.chat.includes("status@broadcast")) {
-    try {
-      // Send to user's DM instead of group chat
-      const userDM = m.sender; // Get user's personal chat ID
-
-      if (quotedMessage.imageMessage) {
-        let imageCaption = quotedMessage.imageMessage.caption || "Saved from status";
-        let imageBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          image: imageBuffer, 
-          caption: imageCaption 
-        });
-      }
-
-      if (quotedMessage.videoMessage) {
-        let videoCaption = quotedMessage.videoMessage.caption || "Saved from status";
-        let videoBuffer = await client.downloadMediaMessage(m.quoted);
-        await client.sendMessage(userDM, { 
-          video: videoBuffer, 
-          caption: videoCaption 
-        });
-      }
-
-      // Confirm in original chat
-      await m.reply("confirm dm💘");
-
-    } catch (error) {
-      console.error("Save error:", error);
-      await m.reply("❌ Failed perez-md!.");
-    }
-  }
-}
-break;
 case 'github': {
  if (!text) return m.reply('Provide a github username to stalk');
  
