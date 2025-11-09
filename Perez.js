@@ -1171,6 +1171,39 @@ m.reply("*Wait a moment...*");
   }
 }
 	 break;
+			  
+case "gpass": case 'genpassword': {
+		      try {
+        const length = args[0] ? parseInt(args[0]) : 12; // Default length is 12 if not provided
+        if (isNaN(length) || length < 8) {
+            return reply('Please provide a valid length for the password (Minimum 08 Characters).');
+        }
+
+        const generatePassword = (len) => {
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+            let password = '';
+            for (let i = 0; i < len; i++) {
+                const randomIndex = crypto.randomInt(0, charset.length);
+                password += charset[randomIndex];
+            }
+            return password;
+        };
+
+        const password = generatePassword(length);
+        const message = `Below is your password 🔥:`;
+
+        // Send initial notification message
+        await client.sendMessage(from, { text: message }, { quoted: m });
+
+        // Send the password in a separate message
+        await client.sendMessage(from, { text: password }, { quoted: m });
+    } catch (e) {
+        console.log(e);
+        reply(`Error generating password🤕: ${e.message}`);
+    }
+}
+break;
+			  
 	      case 'neon':{
 		var mumaker = require("mumaker");
 		     if (!text || text == "") {
