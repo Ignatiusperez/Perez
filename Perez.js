@@ -1,4 +1,4 @@
-// Copy paste 🤏🏼😁😁
+// clone at your own risk
 
 
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@whiskeysockets/baileys");
@@ -265,7 +265,7 @@ if (originalMessage.message?.conversation) {
 contextInfo: {
           externalAdReply: {
           title: notificationText,
-          body: `🗑️ DELETED BY: ${deletedByFormatted}`,
+          body: `💬 DELETED BY: ${deletedByFormatted}`,
           thumbnailUrl: "https://files.catbox.moe/jb8g61.jpg",
           sourceUrl: '',
           mediaType: 1,
@@ -294,7 +294,7 @@ contextInfo: {
           externalAdReply: {
           title: notificationText,
           body: `DELETED BY: ${deletedByFormatted}`,
-          thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
+          thumbnailUrl: "https://files.catbox.moe/jb8g61.jpg",
           sourceUrl: '',
           mediaType: 1,
           renderLargerThumbnail: true
@@ -309,7 +309,7 @@ contextInfo: {
           externalAdReply: {
           title: notificationText,
           body: `🗑️ DELETED BY: ${deletedByFormatted}`,
-          thumbnailUrl: "https://files.catbox.moe/7f98vp.jpg",
+          thumbnailUrl: "https://files.catbox.moe/jb8g61.jpg",
           sourceUrl: '',
           mediaType: 1,
           renderLargerThumbnail: true
