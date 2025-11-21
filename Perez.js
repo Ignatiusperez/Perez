@@ -962,53 +962,6 @@ break;
               client.sendMessage(m.chat, { image: { url: 'https://files.catbox.moe/k2u5ks.jpg' }, caption: `We express sincere gratitude and acknowledgement to the following:\n\n -Dika Ardnt ➪ Indonesia\n - Writing the base code using case method\nhttps://github.com/DikaArdnt\n\n -Adiwajshing ➪ India\n - Writing and Coding the bot's library (baileys)\nhttps://github.com/WhiskeySockets/Baileys\n\n -WAWebSockets Discord Server community\n-Maintaining and reverse engineering the Web Sockets\nhttps://discord.gg/WeJM5FP9GG\n\n - Nick Hunter ➪ Kenya\n - Actively compiling and debugging parts of this bot script\nhttps://github.com/HunterNick2\n\n - Fortunatus Mokaya ➪ Kenya\n - Founder of the bot Base\nhttps://github.com/Fortunatusmokaya\n\n𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧`}); 
  break;
 			  
-case 'idch': case 'cekidch': {
-    if (!text) return reply("channel link?")
-    if (!text.includes("https://whatsapp.com/channel/")) return reply("Link must be valid")
-    
-    try {
-        let result = text.split('https://whatsapp.com/channel/')[1]
-        if (!result) return reply("Invalid channel link format")
-        
-        let res = await bot.newsletterMetadata("invite", result)
-        if (!res || !res.id) return reply("Failed to fetch channel metadata")
-        
-        let teks = `*ID : ${res.id}*\n*Name :* ${res.name || 'N/A'}\n*Total Followers :* ${res.subscribers || 'N/A'}\n*Status :* ${res.state || 'N/A'}\n*Verified :* ${res.verification == "VERIFIED" ? "Terverifikasi" : "NOT YET BUDDY"}`
-        
-        let msg = generateWAMessageFromContent(m.chat, {
-            viewOnceMessage: {
-                message: { 
-                    "messageContextInfo": { 
-                        "deviceListMetadata": {}, 
-                        "deviceListMetadataVersion": 2 
-                    },
-                    interactiveMessage: {
-                        body: { text: teks }, 
-                        footer: { NEXUS-MD" },
-                        nativeFlowMessage: {
-                            buttons: [
-                                {
-                                    "name": "cta_copy",
-                                    "buttonParamsJson": JSON.stringify({
-                                        "display_text": "copy ID",
-                                        "copy_code": res.id
-                                    })
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        }, { quoted: m }); 
-        
-        await bot.relayMessage(msg.key.remoteJid, msg.message, { messageId: msg.key.id });
-        
-    } catch (error) {
-        console.error("Error in channel check:", error)
-        reply("Error fetching channel information")
-    }
-}
-break
 	  case 'poll': {
 		  let [poll, opt] = text.split("|")
 
