@@ -1620,9 +1620,9 @@ m.reply("*Wait a moment...*");
 	    }
 		break;
 		      
-	      case "gpt":
+	      case "velma":
 		{
-        if (!text) return reply(`Hello I'm nexus AI. How can i help u?`);
+        if (!text) return reply(`Hello I'm velma AI. How can i help u?`);
           let d = await fetchJson(
             `https://api.bk9.dev/ai/llama?q=${text}`
           );
