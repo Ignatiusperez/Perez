@@ -52,7 +52,6 @@ Our AI features use random APIs to run, so sometimes they may be down.
             
 
 
-###  ` Deploy to Heroku`
 
 ###  ` Deploy to Heroku`
 <p align="center">
