@@ -53,7 +53,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 ###  ` Deploy to Heroku`
 <p align="center">
-     <a href="https://verification-kappa.vercel.app">
+     
        <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
      </a>
  </p>
