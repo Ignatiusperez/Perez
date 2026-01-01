@@ -1,7 +1,7 @@
 # 𝗡𝗘𝗫𝗨𝗦-𝗠𝗗
 <div align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&size=50&pause=1000&color=1BAFBAFF&center=true&width=910&height=100&lines=HOLLA+THIS+IS+NEXUS-MD;MULTI+DEVICE+WHATSAPP+BOT;MADE+TO+HELP+WHATSAPP+USERS;STAR+AND+FORK+THE+REPO" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&size=50&pause=1000&color=1BAFBAFF&center=true&width=910&height=100&lines=HOLLA+THIS+IS+ARYAN-MD;MULTI+DEVICE+WHATSAPP+BOT;MADE+TO+HELP+WHATSAPP+USERS;STAR+AND+FORK+THE+REPO" alt="Typing SVG" />
   </a>
 </p>
   
@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="http://readme-typing-svg.herokuapp.com?color=d1fa02&center=true&vCenter=true&multiline=false&lines=NEXUS+WHATSAPP+BOT" alt="">
+  <a href="#"><img src="http://readme-typing-svg.herokuapp.com?color=d1fa02&center=true&vCenter=true&multiline=false&lines=ARYAN+WHATSAPP+BOT" alt="">
 </p>
 <p align="center">
 <a href="#"><img title="Creator" src="https://img.shields.io/badge/Creator-IGNATIUS_PEREZ-blue.svg?style=for-the-badge&logo=github"></a>
@@ -41,7 +41,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 ## ` Fork this repo`
 <p align="centre">
-<a href="https://github.com/Ignatiusperez/Perez/fork"><img src="https://img.shields.io/badge/Fork%20Create-purple?style=for-the-badge&logo=github" alt="FORK NEXUS-BOT" width="160"></a>
+<a href="https://github.com/Ignatiusperez/Perez/fork"><img src="https://img.shields.io/badge/Fork%20Create-purple?style=for-the-badge&logo=github" alt="FORK ARYAN-BOT" width="160"></a>
 <p/>
 
   
@@ -66,7 +66,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
     
 
 - Fill in the required variables into your hosting site for bot to work.
- </h2>
+ </h2>ARYAN-BOT
      
 
     
@@ -78,7 +78,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 ## License
 
-[MIT License](https://github.com/HunterNick2/RAVEN-BOT/blob/main/LICENSE)
+[MIT License](https://github.com/HunterNick2/ARYAN-BOT/blob/main/LICENSE)
 
-Copyright (c) 2025 NEXUS-MD 
+Copyright (c) 2025 ARYAN-MD 
 
